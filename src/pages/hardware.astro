@@ -1,0 +1,217 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const hardwareModules = [
+  {
+    name: 'G4-Titan PCIe Card',
+    formFactor: 'HHHL (Half-Height, Half-Length) PCIe 5.0 x16',
+    power: '75W TDP (Standard Slot Powered)',
+    specs: '380 TFLOPS FP8 | 96 GB HBM3e | 3.2 TB/s Bandwidth',
+    description: 'Designed to fit into standard commercial servers without liquid cooling retrofits. Provides unprecedented tensor compute density per rack unit.',
+    highlights: ['Standard 75W slot power or optional 8-pin auxiliary', 'Passive chassis airflow cooling', 'CXL 2.0 type 3 memory expansion mode'],
+  },
+  {
+    name: 'Gaja-Blade 8X Server',
+    formFactor: '2U Standard 19-inch Rackmount Chassis',
+    power: '1,200W Redundant Platinum PSUs',
+    specs: '3.04 PFLOPS FP8 | 768 GB Unified HBM3e | 8x G4-Titan',
+    description: 'Turnkey high-density enterprise AI inference server. Ships with pre-configured Logic-OS bare metal runtime, redundant power, and hot-swap fans.',
+    highlights: ['Integrated 8-way LogicLink all-to-all crossbar', 'Dual 400 GbE QSFP-DD networking ports', 'Integrated IPMI 2.0 and Redfish out-of-band telemetry'],
+  },
+  {
+    name: 'Gaja-Edge Ruggedized Box',
+    formFactor: 'IP67 Sealed Fanless Aluminum Chassis',
+    power: '12V - 36V DC Wide Input (24W Nominal)',
+    specs: '64 TFLOPS INT8 | 32 GB LPDDR5X ECC | -40°C to +85°C',
+    description: 'Militarized compute node built to endure high vibration, thermal extremes, dust, and electrical surges in remote field deployments.',
+    highlights: ['MIL-STD-810H and DO-160G airborne qualification', 'Zero moving parts with conductive passive heat dissipation', 'Hardware secure zeroization upon enclosure breach'],
+  },
+];
+
+const siliconFeatures = [
+  {
+    title: '3nm FinFET Silicon Die',
+    desc: 'Fabricated on bleeding-edge foundry processes with custom cell libraries tuned for low leakage current and continuous 24/7 load cycles.',
+    stat: '42 Billion',
+    statLabel: 'Transistors / Die',
+  },
+  {
+    title: 'Stacked HBM3e Memory',
+    desc: '3D through-silicon via (TSV) stacks delivering 3.2 TB/s of deterministic bandwidth directly adjacent to compute cores.',
+    stat: '3.2 TB/s',
+    statLabel: 'Memory Bandwidth',
+  },
+  {
+    title: 'LogicLink Coherent Mesh',
+    desc: 'Ultra-low-latency 128 GB/s peer-to-peer interconnect enabling transparent multi-card memory pooling without host bus bottlenecks.',
+    stat: '< 80 ns',
+    statLabel: 'Cross-Card Latency',
+  },
+  {
+    title: 'FIPS 140-3 Hardware Enclave',
+    desc: 'Isolated cryptoprocessor with true physical random number generation (TRNG) and physical unclonable function (PUF) silicon keys.',
+    stat: 'Level 4',
+    statLabel: 'Physical Security',
+  },
+];
+---
+
+<Layout
+  title="Hardware | GajaLogic Custom Silicon & Accelerator Systems"
+  description="Discover GajaLogic hardware: 3nm FinFET AI accelerators, 2U rackmount server blades, and ruggedized edge appliances."
+>
+  <PageHeader
+    eyebrow="Custom Silicon & Systems"
+    title="Engineered for Raw Silicon Density"
+    subtitle="Precision-engineered tensor acceleration hardware delivering record power efficiency, low latency, and sovereign hardware isolation."
+    badge="Silicon Generation 4"
+  >
+    <div slot="actions">
+      <a
+        href="#systems"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-colors"
+      >
+        Explore Hardware Systems
+      </a>
+      <a
+        href={`${base}/compliance#fips`}
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-800 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+      >
+        Security & FIPS Certification
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Silicon Highlights Grid -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Die Architecture</h2>
+      <h3 class="text-3xl font-extrabold text-white">Silicon Innovations</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {siliconFeatures.map((s) => (
+        <div class="glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="text-3xl font-extrabold font-mono text-white mb-1">{s.stat}</div>
+            <div class="text-xs font-mono text-sky-400 uppercase tracking-wider mb-4">{s.statLabel}</div>
+            <h4 class="text-base font-bold text-white mb-2">{s.title}</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">{s.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Hardware Systems Showcase -->
+  <section id="systems" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 border-t border-white/5 space-y-12">
+    <div class="text-center max-w-2xl mx-auto mb-8">
+      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Systems & Blades</h2>
+      <h3 class="text-3xl font-extrabold text-white">Production Hardware Enclosures</h3>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {hardwareModules.map((item) => (
+        <div class="glass-panel glass-panel-hover rounded-3xl p-8 flex flex-col justify-between border border-white/10 relative">
+          <div>
+            <div class="p-3 w-fit rounded-xl bg-slate-800/80 border border-slate-700 text-sky-400 mb-6">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+              </svg>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white mb-2">{item.name}</h3>
+            <div class="text-xs font-mono text-sky-400 mb-1">{item.formFactor}</div>
+            <div class="text-xs font-mono text-slate-400 mb-4">{item.power}</div>
+
+            <p class="text-sm text-slate-300 leading-relaxed mb-6 font-light">
+              {item.description}
+            </p>
+
+            <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 text-xs font-mono text-slate-300 mb-6">
+              <span class="text-sky-400 font-semibold block mb-1">Key Metrics:</span>
+              {item.specs}
+            </div>
+
+            <ul class="space-y-2 text-xs text-slate-300 mb-6">
+              {item.highlights.map((h) => (
+                <li class="flex items-start">
+                  <svg class="w-4 h-4 text-emerald-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="pt-4 border-t border-slate-800/80">
+            <a
+              href={`${base}/company#contact`}
+              class="w-full inline-flex items-center justify-center py-2.5 px-4 rounded-xl text-xs font-semibold bg-slate-800 text-white hover:bg-slate-700 transition-colors"
+            >
+              Request Datasheet & CAD Specs
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Technical Spec & Interfaces Table -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Interface Standards</h2>
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Physical & Electrical Specifications</h3>
+    </div>
+
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 border border-white/10 overflow-x-auto">
+      <table class="w-full text-left font-mono text-xs text-slate-300">
+        <thead class="border-b border-slate-800 text-sky-400">
+          <tr>
+            <th class="py-3 px-4">Subsystem</th>
+            <th class="py-3 px-4">Standard Supported</th>
+            <th class="py-3 px-4">Throughput / Capacity</th>
+            <th class="py-3 px-4">Physical Interface</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800">
+          <tr>
+            <td class="py-3 px-4 font-bold text-white">Host Interface</td>
+            <td class="py-3 px-4">PCI Express Base 5.0 + CXL 2.0</td>
+            <td class="py-3 px-4">64 GB/s Full-Duplex</td>
+            <td class="py-3 px-4">Standard x16 Edge Finger</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-4 font-bold text-white">Card-to-Card Mesh</td>
+            <td class="py-3 px-4">LogicLink Coherent Crossbar</td>
+            <td class="py-3 px-4">128 GB/s Peer-to-Peer</td>
+            <td class="py-3 px-4">Dual High-Speed Top Bridge</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-4 font-bold text-white">External Fabric</td>
+            <td class="py-3 px-4">QSFP-DD 400G / RoCE v2</td>
+            <td class="py-3 px-4">400 Gbps Line Rate</td>
+            <td class="py-3 px-4">Dual Optical Transceiver Cages</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-4 font-bold text-white">Telemetry & BMC</td>
+            <td class="py-3 px-4">I2C, SMBus, MCTP over PCIe</td>
+            <td class="py-3 px-4">1 MHz Out-of-band monitoring</td>
+            <td class="py-3 px-4">Auxiliary 10-pin header</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Ready to Integrate GajaLogic Silicon into Your Racks?"
+    subtitle="Order engineering samples, test PCIe fitment, or request thermal CAD models for your chassis integration."
+    buttonText="Contact Hardware Engineering"
+  />
+</Layout>

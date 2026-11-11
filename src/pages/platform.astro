@@ -1,0 +1,173 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const architecturalLayers = [
+  {
+    layer: 'Layer 04 // Application & Model Gateways',
+    title: 'Adaptive Inference & Dynamic Dispatch',
+    desc: 'Intelligent routing layer supporting streaming tokens, batching policies, and adaptive precision fallback without client reconnects.',
+    tags: ['vLLM Native', 'Triton Compatible', 'HTTP/3 & gRPC', 'Streaming SSE'],
+  },
+  {
+    layer: 'Layer 03 // Distributed Orchestrator',
+    title: 'Autonomous 3D Model Sharding Engine',
+    desc: 'Analyzes neural network graphs at load time and splits tensor layers, attention heads, and KV caches across optimal PCIe topological boundaries.',
+    tags: ['Tensor Parallelism', 'Pipeline Sharding', 'Zero-Waste KV Cache', 'Dynamic Rebalance'],
+  },
+  {
+    layer: 'Layer 02 // Memory Fabric & Bus',
+    title: 'Unified LogicLink Coherent Memory',
+    desc: 'High-speed coherent fabric interconnecting all accelerators across chassis into a flat, accessible 768 GB memory pool with < 120ns access times.',
+    tags: ['RDMA Native', 'Coherent Cache', 'Zero-Copy Ring', '4.8 TB/s Fabric'],
+  },
+  {
+    layer: 'Layer 01 // Hardware & Silicon Enclave',
+    title: 'FIPS 140-3 Cryptographic Root-of-Trust',
+    desc: 'Every memory page is encrypted on-die with ephemerally generated hardware keys. Untrusted host OS kernels cannot snoop or tamper with model weights.',
+    tags: ['Memory Encryption', 'Remote Attestation', 'Tamper Resilient', 'Cold Boot Shield'],
+  },
+];
+
+const performanceBench = [
+  { metric: 'Time-to-First-Token (TTFT)', gaja: '12.4 ms', legacy: '48.2 ms', advantage: '3.8x faster' },
+  { metric: 'Concurrent KV Streams / Node', gaja: '1,024 streams', legacy: '256 streams', advantage: '4.0x capacity' },
+  { metric: 'Scheduling Jitter (Std Dev)', gaja: '0.04 ms', legacy: '8.60 ms', advantage: '99.5% reduction' },
+  { metric: 'Power Efficiency per 1M Tokens', gaja: '1.8 Watt-Hours', legacy: '6.4 Watt-Hours', advantage: '71% power savings' },
+];
+---
+
+<Layout
+  title="Platform | GajaLogic Distributed Compute Architecture"
+  description="Explore the GajaLogic distributed platform: unified memory fabrics, autonomous model partitioning, and zero-trust cryptographic enclaves."
+>
+  <PageHeader
+    eyebrow="Platform Architecture"
+    title="Sovereign Compute Fabric"
+    subtitle="A ground-up redesign of computing architecture for the modern transformer era, eliminating PCIe bottlenecks and hypervisor jitter."
+    badge="Logic-OS Architecture"
+  >
+    <div slot="actions">
+      <a
+        href="#layers"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-colors"
+      >
+        Inspect Architectural Stack
+      </a>
+      <a
+        href={`${base}/developers`}
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-800 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+      >
+        Developer Sandbox
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Visual Architecture Flow Diagram -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/10">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Topology & Dataflow</h2>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-white">End-to-End Execution Pipeline</h3>
+      </div>
+
+      <!-- Pipeline blocks -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+        <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 text-center flex flex-col items-center">
+          <div class="w-10 h-10 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-mono font-bold mb-3">01</div>
+          <h4 class="text-white font-bold text-sm mb-1">Workload Ingress</h4>
+          <p class="text-xs text-slate-400">gRPC / REST / WebSocket streams parsed at line-rate with zero-copy buffer</p>
+        </div>
+        <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 text-center flex flex-col items-center">
+          <div class="w-10 h-10 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-mono font-bold mb-3">02</div>
+          <h4 class="text-white font-bold text-sm mb-1">Dynamic Graph Shard</h4>
+          <p class="text-xs text-slate-400">Model partitioned across nodes without GPU memory fragmentation</p>
+        </div>
+        <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 text-center flex flex-col items-center">
+          <div class="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-mono font-bold mb-3">03</div>
+          <h4 class="text-white font-bold text-sm mb-1">LogicLink Coherent Mesh</h4>
+          <p class="text-xs text-slate-400">Inter-card synchronization via direct memory fabric without CPU context hops</p>
+        </div>
+        <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 text-center flex flex-col items-center">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold mb-3">04</div>
+          <h4 class="text-white font-bold text-sm mb-1">Enclave Execution</h4>
+          <p class="text-xs text-slate-400">FIPS 140-3 hardware execution ensures weights and output tokens remain secret</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Layer Breakdown -->
+  <section id="layers" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Deep Stack Analysis</h2>
+      <h3 class="text-3xl font-extrabold text-white">Architectural Layers Explained</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {architecturalLayers.map((layer) => (
+        <div class="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-mono font-semibold text-sky-400 uppercase tracking-wider block mb-2">
+              {layer.layer}
+            </span>
+            <h3 class="text-2xl font-bold text-white mb-3">
+              {layer.title}
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              {layer.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-800">
+            {layer.tags.map((tag) => (
+              <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-800/90 text-slate-300 border border-slate-700">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Performance Benchmark Table -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 border-t border-white/5">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Verified Benchmarks</h2>
+      <h3 class="text-3xl font-extrabold text-white tracking-tight">GajaLogic vs Legacy GPU Cluster</h3>
+      <p class="text-slate-400 mt-2 text-sm">Tested with 70B parameter open-weights models in FP8 precision</p>
+    </div>
+
+    <div class="overflow-x-auto glass-panel rounded-2xl border border-white/10">
+      <table class="w-full text-left text-sm text-slate-300">
+        <thead class="bg-slate-900/90 text-xs font-mono uppercase text-slate-400 border-b border-slate-800">
+          <tr>
+            <th class="px-6 py-4">Evaluation Metric</th>
+            <th class="px-6 py-4 text-sky-400 font-bold">GajaLogic Platform</th>
+            <th class="px-6 py-4 text-slate-400">Legacy GPU Cloud</th>
+            <th class="px-6 py-4 text-emerald-400">Advantage</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800 font-mono text-xs sm:text-sm">
+          {performanceBench.map((row) => (
+            <tr class="hover:bg-slate-800/40 transition-colors">
+              <td class="px-6 py-4 font-semibold text-white">{row.metric}</td>
+              <td class="px-6 py-4 text-sky-300 font-bold">{row.gaja}</td>
+              <td class="px-6 py-4 text-slate-400">{row.legacy}</td>
+              <td class="px-6 py-4 text-emerald-400 font-semibold">{row.advantage}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Ready to Benchmark Your Workloads on GajaLogic?"
+    subtitle="Our platform engineers can run your models on live clusters and provide transparent latency and throughput profiles."
+    buttonText="Request Benchmark Access"
+  />
+</Layout>

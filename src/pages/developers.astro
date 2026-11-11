@@ -1,0 +1,222 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const toolingFeatures = [
+  {
+    title: 'Python ML SDK',
+    desc: 'Seamless drop-in replacement for PyTorch and HuggingFace Transformers pipelines with automatic tensor compilation to G4 silicon.',
+    tag: 'Python 3.10+',
+  },
+  {
+    title: 'Zero-Overhead Rust Crate',
+    desc: 'Native asynchronous bindings with zero-copy buffer handoff, memory safety, and sub-microsecond event loops.',
+    tag: 'Crate: gaja-core',
+  },
+  {
+    title: 'OpenTelemetry Exporters',
+    desc: 'Native Prometheus, Grafana, and Jaeger trace instrumentation exposing hardware thermal, power, and queue depth metrics.',
+    tag: 'Observability',
+  },
+  {
+    title: 'Local Silicon Simulator',
+    desc: 'Run bit-accurate hardware emulation in lightweight Docker containers on your workstation before deploying to live silicon.',
+    tag: 'CI/CD Ready',
+  },
+];
+---
+
+<Layout
+  title="Developers | GajaLogic APIs, SDKs & Tooling"
+  description="Developer documentation, unified Python & Rust SDKs, command line utilities, and quick-start tutorials for GajaLogic platforms."
+>
+  <PageHeader
+    eyebrow="Developer Ecosystem"
+    title="Built for Systems & AI Engineers"
+    subtitle="Clean APIs, deterministic latency guarantees, zero-copy memory transfers, and full compatibility with existing open-weights models."
+    badge="v4.2 SDK Released"
+  >
+    <div slot="actions">
+      <a
+        href="#quickstart"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-colors"
+      >
+        Quick Start in 60s
+      </a>
+      <a
+        href="#code-examples"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-800 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+      >
+        View Code Samples
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Quick Start Section -->
+  <section id="quickstart" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Getting Started</h2>
+      <h3 class="text-3xl font-extrabold text-white">Three Steps to First Inference</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="glass-panel rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
+        <div>
+          <span class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+            01
+          </span>
+          <h4 class="text-lg font-bold text-white mb-2">Install gajactl Tool</h4>
+          <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+            Download and install the official GajaLogic orchestration and diagnostic CLI binary.
+          </p>
+        </div>
+        <div class="p-3 bg-slate-950 rounded-xl font-mono text-xs text-sky-300 border border-slate-800">
+          curl -fsSL https://cli.gajalogic.io | sh
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
+        <div>
+          <span class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+            02
+          </span>
+          <h4 class="text-lg font-bold text-white mb-2">Initialize Enclave</h4>
+          <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+            Verify PCIe topology, lock hardware cryptographic keys, and launch the local daemon.
+          </p>
+        </div>
+        <div class="p-3 bg-slate-950 rounded-xl font-mono text-xs text-sky-300 border border-slate-800">
+          gajactl enclave init --verify-puf
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
+        <div>
+          <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+            03
+          </span>
+          <h4 class="text-lg font-bold text-white mb-2">Serve Model</h4>
+          <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+            Deploy an open-weights LLM or vision model with line-rate token streaming enabled.
+          </p>
+        </div>
+        <div class="p-3 bg-slate-950 rounded-xl font-mono text-xs text-sky-300 border border-slate-800">
+          gajactl serve meta-llama/Llama-3-70B
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Multi-Language Code Snippets -->
+  <section id="code-examples" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5 space-y-8">
+    <div class="text-center max-w-2xl mx-auto mb-8">
+      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Native Code Snippets</h2>
+      <h3 class="text-3xl font-extrabold text-white">Effortless Integration Across Languages</h3>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Python SDK Example -->
+      <div class="glass-panel rounded-2xl overflow-hidden border border-white/10">
+        <div class="px-4 py-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
+          <span class="text-xs font-mono text-sky-400 font-semibold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+            pipeline_inference.py (Python SDK)
+          </span>
+          <span class="text-[11px] font-mono text-slate-500">Python 3.11</span>
+        </div>
+        <pre class="p-6 bg-slate-950/95 font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed"><code><span class="text-indigo-400">import</span> gajalogic as gj
+<span class="text-indigo-400">from</span> transformers <span class="text-indigo-400">import</span> AutoTokenizer
+
+<span class="text-slate-500"># Connect to local G4 PCIe accelerator ring</span>
+device = gj.Device(<span class="text-emerald-300">"logic-titan:0"</span>, enclave_mode=<span class="text-emerald-300">"strict"</span>)
+print(<span class="text-emerald-300">f"Discovered &#123;device.compute_units&#125; LogicCore units"</span>)
+
+<span class="text-slate-500"># Compile transformer model graph directly into silicon memory</span>
+model = gj.Model.from_pretrained(
+    <span class="text-emerald-300">"meta-llama/Meta-Llama-3-70B-Instruct"</span>,
+    device=device,
+    precision=gj.Precision.FP8_E4M3,
+    max_context_length=8192
+)
+
+<span class="text-slate-500"># Stream tokens with deterministic sub-millisecond inter-token latency</span>
+prompt = <span class="text-emerald-300">"Explain quantum error correction using surface codes."</span>
+<span class="text-indigo-400">for</span> token <span class="text-indigo-400">in</span> model.generate_stream(prompt, temperature=0.2):
+    print(token.text, end=<span class="text-emerald-300">""</span>, flush=<span class="text-amber-300">True</span>)
+</code></pre>
+      </div>
+
+      <!-- Rust SDK Example -->
+      <div class="glass-panel rounded-2xl overflow-hidden border border-white/10">
+        <div class="px-4 py-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
+          <span class="text-xs font-mono text-purple-400 font-semibold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+            main.rs (High-Yield Rust Crate)
+          </span>
+          <span class="text-[11px] font-mono text-slate-500">edition 2021</span>
+        </div>
+        <pre class="p-6 bg-slate-950/95 font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed"><code><span class="text-indigo-400">use</span> gaja_core::prelude::*;
+<span class="text-indigo-400">use</span> tokio_stream::StreamExt;
+
+<span class="text-amber-400">#[tokio::main]</span>
+<span class="text-indigo-400">async fn</span> main() -&gt; Result&lt;(), GajaError&gt; &#123;
+    <span class="text-slate-500">// Acquire zero-copy memory ring buffer on PCIe 5.0 slot</span>
+    <span class="text-indigo-400">let</span> cluster = Cluster::connect(<span class="text-emerald-300">"localhost:8443"</span>).<span class="text-indigo-400">await</span>?;
+    <span class="text-indigo-400">let</span> session = cluster.session(<span class="text-emerald-300">"crypto-enclave-01"</span>)?;
+
+    <span class="text-slate-500">// Dispatch batch requests across 8-card coherent fabric</span>
+    <span class="text-indigo-400">let mut</span> stream = session
+        .infer_stream(InferenceRequest::new(<span class="text-emerald-300">"input_payload.bin"</span>))
+        .<span class="text-indigo-400">await</span>?;
+
+    <span class="text-indigo-400">while let</span> Some(chunk) = stream.next().<span class="text-indigo-400">await</span> &#123;
+        println!(<span class="text-emerald-300">"Received chunk: &#123;:?&#125; in &#123;:?&#125;"</span>, chunk.id, chunk.latency);
+    &#125;
+
+    Ok(())
+&#125;
+</code></pre>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Tooling & Integration Grid -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">SDK Ecosystem</h2>
+      <h3 class="text-3xl font-extrabold text-white">Full Compatibility Tooling</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {toolingFeatures.map((f) => (
+        <div class="glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-slate-800 text-sky-400 border border-slate-700 block w-fit mb-3">
+              {f.tag}
+            </span>
+            <h4 class="text-base font-bold text-white mb-2">{f.title}</h4>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">{f.desc}</p>
+          </div>
+          <a
+            href={`${base}/company#contact`}
+            class="text-xs font-mono text-sky-400 hover:text-sky-300 inline-flex items-center pt-3 border-t border-slate-800"
+          >
+            <span>Read Docs</span>
+            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Ready to Build on GajaLogic Silicon?"
+    subtitle="Join our Developer Early Access program to receive SDK licenses, cloud sandbox access, and technical onboarding."
+    buttonText="Request Developer Access"
+  />
+</Layout>

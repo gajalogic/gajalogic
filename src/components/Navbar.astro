@@ -1,0 +1,148 @@
+---
+const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const navLinks = [
+  { name: 'Products', href: `${base}/products` },
+  { name: 'Platform', href: `${base}/platform` },
+  { name: 'Hardware', href: `${base}/hardware` },
+  { name: 'Developers', href: `${base}/developers` },
+  { name: 'Compliance', href: `${base}/compliance` },
+  { name: 'Company', href: `${base}/company` },
+];
+
+const homeUrl = `${base}/` || '/';
+
+function isActive(href: string) {
+  if (href === homeUrl || href === `${base}`) {
+    return currentPath === href || currentPath === `${href}/`;
+  }
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="sticky top-0 z-50 w-full glass-panel border-b border-white/10 bg-slate-950/80 backdrop-blur-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+      
+      <!-- Brand Logo -->
+      <a href={homeUrl} class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 via-indigo-600 to-purple-600 p-[1.5px] transition-transform duration-300 group-hover:scale-105">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+            <svg class="w-6 h-6 text-sky-400 transition-colors group-hover:text-sky-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-bold tracking-tight text-white font-mono flex items-center gap-1">
+            Gaja<span class="text-sky-400">Logic</span>
+          </span>
+          <span class="text-[10px] tracking-widest text-slate-400 uppercase font-medium">Enterprise Compute</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        {navLinks.map((link) => {
+          const active = isActive(link.href);
+          return (
+            <a
+              href={link.href}
+              class={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors duration-150 ${
+                active
+                  ? 'text-sky-400 bg-sky-500/10 border border-sky-500/20 shadow-sm'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              {link.name}
+            </a>
+          );
+        })}
+      </nav>
+
+      <!-- Desktop Action CTA -->
+      <div class="hidden md:flex items-center space-x-3">
+        <a
+          href={`${base}/developers`}
+          class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors"
+        >
+          API Docs
+        </a>
+        <a
+          href={`${base}/company#contact`}
+          class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-950 bg-gradient-to-r from-sky-400 to-indigo-400 hover:from-sky-300 hover:to-indigo-300 rounded-lg shadow-sm shadow-sky-500/20 transition-all duration-200 hover:shadow-sky-500/40 hover:-translate-y-0.5 active:translate-y-0"
+        >
+          Get Started
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex md:hidden">
+        <button
+          type="button"
+          id="mobile-menu-button"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+          class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
+        >
+          <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-b border-white/10 bg-slate-950/95 px-4 pt-3 pb-6 space-y-2">
+    {navLinks.map((link) => {
+      const active = isActive(link.href);
+      return (
+        <a
+          href={link.href}
+          class={`block px-3 py-2 rounded-lg text-base font-medium transition-colors ${
+            active
+              ? 'text-sky-400 bg-sky-500/10 border border-sky-500/20'
+              : 'text-slate-300 hover:text-white hover:bg-slate-800'
+          }`}
+        >
+          {link.name}
+        </a>
+      );
+    })}
+    <div class="pt-4 border-t border-slate-800 flex flex-col space-y-2">
+      <a
+        href={`${base}/developers`}
+        class="block px-3 py-2 text-center text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg"
+      >
+        API Docs
+      </a>
+      <a
+        href={`${base}/company#contact`}
+        class="block w-full py-2.5 text-center text-sm font-semibold text-slate-950 bg-sky-400 hover:bg-sky-300 rounded-lg shadow-sm"
+      >
+        Get Started
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  const hamburger = document.getElementById('hamburger-icon');
+  const close = document.getElementById('close-icon');
+
+  button?.addEventListener('click', () => {
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!isExpanded));
+    menu?.classList.toggle('hidden');
+    hamburger?.classList.toggle('hidden');
+    close?.classList.toggle('hidden');
+  });
+</script>

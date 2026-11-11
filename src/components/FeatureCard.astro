@@ -1,0 +1,49 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon?: string;
+  tag?: string;
+  stats?: string;
+  statsLabel?: string;
+}
+
+const { title, description, icon, tag, stats, statsLabel } = Astro.props;
+---
+
+<div class="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group">
+  <!-- Top glow accent on hover -->
+  <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sky-500/0 group-hover:via-sky-400/60 to-transparent transition-all duration-500"></div>
+
+  <div>
+    <div class="flex items-center justify-between mb-4">
+      {icon && (
+        <div class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-sky-400 group-hover:text-sky-300 group-hover:scale-110 transition-all duration-300">
+          <slot name="icon" />
+        </div>
+      )}
+      {tag && (
+        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-slate-800 text-sky-300 border border-slate-700">
+          {tag}
+        </span>
+      )}
+    </div>
+
+    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">
+      {title}
+    </h3>
+
+    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+      {description}
+    </p>
+
+    <slot />
+  </div>
+
+  {stats && (
+    <div class="pt-4 border-t border-slate-800/80 flex items-baseline justify-between mt-auto">
+      <span class="text-2xl font-bold font-mono text-white">{stats}</span>
+      {statsLabel && <span class="text-xs text-slate-400">{statsLabel}</span>}
+    </div>
+  )}
+</div>
