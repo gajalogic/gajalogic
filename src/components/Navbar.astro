@@ -2,8 +2,16 @@
 const currentPath = Astro.url.pathname;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const productSubLinks = [
+  { name: 'UPI Acquiring', href: `${base}/products/upi-acquiring`, desc: 'Sub-ms saga & O(1) VPA lookups' },
+  { name: 'UPI Issuing Switch', href: `${base}/products/upi-issuing`, desc: 'CBS in-memory offload & PQC shield' },
+  { name: 'TPAP Infrastructure', href: `${base}/products/upi-tpap`, desc: 'Decoupled PQC for fintech consumer apps' },
+  { name: 'RuPay Issuing & Acquiring', href: `${base}/products/rupay-cards`, desc: 'Modern EMV switch replacing legacy CMS' },
+  { name: 'NCMC & Transit Solutions', href: `${base}/products/ncmc-transit`, desc: '< 240ms turnstiles & offline wallets' },
+];
+
 const navLinks = [
-  { name: 'Products', href: `${base}/products` },
+  { name: 'Products', href: `${base}/products`, hasDropdown: true },
   { name: 'Platform', href: `${base}/platform` },
   { name: 'Hardware', href: `${base}/hardware` },
   { name: 'Developers', href: `${base}/developers` },
@@ -21,7 +29,7 @@ function isActive(href: string) {
 }
 ---
 
-<header class="sticky top-0 z-50 w-full glass-panel border-b border-white/10 bg-slate-950/80 backdrop-blur-md">
+<header class="sticky top-0 z-50 w-full glass-panel border-b border-white/10 bg-slate-950/85 backdrop-blur-md">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-20">
       
@@ -38,7 +46,7 @@ function isActive(href: string) {
           <span class="text-xl font-bold tracking-tight text-white font-mono flex items-center gap-1">
             Gaja<span class="text-sky-400">Logic</span>
           </span>
-          <span class="text-[10px] tracking-widest text-slate-400 uppercase font-medium">Enterprise Compute</span>
+          <span class="text-[10px] tracking-widest text-slate-400 uppercase font-medium">Sovereign Payment Rails</span>
         </div>
       </a>
 
@@ -46,6 +54,61 @@ function isActive(href: string) {
       <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
         {navLinks.map((link) => {
           const active = isActive(link.href);
+          if (link.hasDropdown) {
+            return (
+              <div class="relative group">
+                <a
+                  href={link.href}
+                  class={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors duration-150 inline-flex items-center gap-1 ${
+                    active
+                      ? 'text-sky-400 bg-sky-500/10 border border-sky-500/20 shadow-sm'
+                      : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-sky-400 transition-transform group-hover:rotate-180 duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </a>
+
+                <!-- Desktop Mega Dropdown -->
+                <div class="absolute left-0 top-full pt-2 w-80 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                  <div class="unibase-card p-3 bg-slate-950/95 border border-white/10 shadow-2xl rounded-2xl divide-y divide-slate-800/80">
+                    <div class="pb-2 px-2 pt-1">
+                      <div class="text-[11px] font-mono text-sky-400 uppercase tracking-wider font-semibold">
+                        NPCI Product Suite
+                      </div>
+                      <div class="text-[11px] text-slate-400">Post-quantum national payment switches</div>
+                    </div>
+                    <div class="py-2 space-y-1">
+                      {productSubLinks.map((sub) => (
+                        <a
+                          href={sub.href}
+                          class="block px-3 py-2 rounded-xl text-xs hover:bg-slate-800/60 transition-colors group/item"
+                        >
+                          <div class="font-bold text-white group-hover/item:text-sky-300 flex items-center justify-between">
+                            <span>{sub.name}</span>
+                            <span class="text-[10px] font-mono text-slate-500 group-hover/item:text-sky-400">&rarr;</span>
+                          </div>
+                          <div class="text-[11px] text-slate-400 mt-0.5">{sub.desc}</div>
+                        </a>
+                      ))}
+                    </div>
+                    <div class="pt-2 px-2">
+                      <a
+                        href={`${base}/products`}
+                        class="text-xs font-mono font-semibold text-sky-400 hover:text-sky-300 inline-flex items-center gap-1"
+                      >
+                        <span>View Suite Overview</span>
+                        <span>&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
           return (
             <a
               href={link.href}
@@ -73,7 +136,7 @@ function isActive(href: string) {
           href={`${base}/company#contact`}
           class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-950 bg-gradient-to-r from-sky-400 to-indigo-400 hover:from-sky-300 hover:to-indigo-300 rounded-lg shadow-sm shadow-sky-500/20 transition-all duration-200 hover:shadow-sky-500/40 hover:-translate-y-0.5 active:translate-y-0"
         >
-          Get Started
+          Schedule Audit
         </a>
       </div>
 
@@ -99,20 +162,35 @@ function isActive(href: string) {
   </div>
 
   <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-b border-white/10 bg-slate-950/95 px-4 pt-3 pb-6 space-y-2">
+  <div id="mobile-menu" class="hidden md:hidden border-b border-white/10 bg-slate-950/95 px-4 pt-3 pb-6 space-y-2 max-h-[85vh] overflow-y-auto">
+    <div class="text-[11px] font-mono text-sky-400 uppercase tracking-wider px-3 pt-1">Navigation</div>
     {navLinks.map((link) => {
       const active = isActive(link.href);
       return (
-        <a
-          href={link.href}
-          class={`block px-3 py-2 rounded-lg text-base font-medium transition-colors ${
-            active
-              ? 'text-sky-400 bg-sky-500/10 border border-sky-500/20'
-              : 'text-slate-300 hover:text-white hover:bg-slate-800'
-          }`}
-        >
-          {link.name}
-        </a>
+        <div>
+          <a
+            href={link.href}
+            class={`block px-3 py-2 rounded-lg text-base font-medium transition-colors ${
+              active
+                ? 'text-sky-400 bg-sky-500/10 border border-sky-500/20'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            {link.name}
+          </a>
+          {link.hasDropdown && (
+            <div class="pl-4 pr-1 py-1 space-y-1 mt-1 border-l-2 border-slate-800">
+              {productSubLinks.map((sub) => (
+                <a
+                  href={sub.href}
+                  class="block px-3 py-1.5 rounded text-xs text-slate-400 hover:text-white hover:bg-slate-800/50"
+                >
+                  {sub.name}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
       );
     })}
     <div class="pt-4 border-t border-slate-800 flex flex-col space-y-2">
@@ -126,7 +204,7 @@ function isActive(href: string) {
         href={`${base}/company#contact`}
         class="block w-full py-2.5 text-center text-sm font-semibold text-slate-950 bg-sky-400 hover:bg-sky-300 rounded-lg shadow-sm"
       >
-        Get Started
+        Schedule Private Briefing
       </a>
     </div>
   </div>

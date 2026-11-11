@@ -113,3 +113,4 @@ You can deploy this site to GitHub Pages using either of the following two stand
 2. Under **Build and deployment** → **Source**, select **Deploy from a branch**.
 3. Select your default branch (e.g., `main`) and set the folder to `/docs`.
 4. Click **Save**. Any push containing an updated `docs/` folder will be served directly.
+

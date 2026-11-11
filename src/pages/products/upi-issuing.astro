@@ -1,0 +1,242 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const issuingMetrics = [
+  { value: '84.6%', label: 'CBS Read Pressure Offloaded', sub: 'Balance inquiry & VPA verification in-memory' },
+  { value: '< 1.1 ms', label: 'Issuing Authorization SLA', sub: 'P99 internal debit/credit execution' },
+  { value: '99.999%', label: 'Reversal Consistency', sub: 'Zero phantom debit accounting anomalies' },
+  { value: 'FIPS 203', label: 'PQC Customer Enclave', sub: 'ML-KEM quantum-shielded metadata' },
+];
+
+const cbsProtectionLayers = [
+  {
+    step: 'Layer 01 // In-Memory Balance Virtualization',
+    title: 'Offload 80%+ of Read & Inquiry Traffic',
+    desc: 'Balance inquiries and mini-statement fetches represent over 65% of daily UPI issuing traffic. Gajalogic virtualizes account balances with distributed in-memory shadow ledgers, eliminating database read locks on core banking systems (Finacle, BaNCS, Flexcube).',
+    tech: ['In-Memory Shadow Ledgers', 'Read Replica Streaming', 'Delta Synchronization Bus'],
+  },
+  {
+    step: 'Layer 02 // Quantum-Shielded Account Metadata',
+    title: 'Store-Now-Decrypt-Later (SNDL) Defense',
+    desc: 'Customer bank accounts, Aadhaar-linked tokens, and mobile numbers are sealed inside hardware enclaves using NIST FIPS 203 (ML-KEM) lattice key encapsulation. Even if transit packets are intercepted, quantum computers cannot decrypt sensitive Indian citizen banking profiles.',
+    tech: ['NIST FIPS 203 ML-KEM', 'Hardware Key Encapsulation', 'Zero-Knowledge Metadata Mask'],
+  },
+  {
+    step: 'Layer 03 // Deterministic Two-Phase Commit',
+    title: 'Elimination of Phantom Debits & Timeouts',
+    desc: 'When remitter banks face network blips, legacy switches drop connections, causing customer accounts to be debited while merchant credit fails. Gajalogic enforces deterministic saga rollbacks with automatic credit reversals in < 400 milliseconds.',
+    tech: ['Lock-Free Saga Orchestrator', 'Instant Auto-Reversal', 'Automated UDIR API Hook'],
+  },
+  {
+    step: 'Layer 04 // CBS Write Batching & Throttling',
+    title: 'Intelligent Peak Smoothing Engine',
+    desc: 'During 10x salary-day and flash sale spikes, Gajalogic holds and batches debit commitments without violating NPCI real-time authorization latencies, preventing catastrophic CBS thread pool exhaustion.',
+    tech: ['Token Bucket Throttling', 'Adaptive Backpressure', 'Dead-Letter Queue Telemetry'],
+  },
+];
+
+const cbsComparison = [
+  {
+    dimension: 'Core Banking Impact',
+    legacy: '100% of balance checks and VPA lookups hit primary CBS databases directly, leading to CPU spikes >90% and system unresponsiveness.',
+    gajalogic: 'In-memory balance virtualization intercepts 84.6% of queries. Only financial debit commitments reach core banking.',
+  },
+  {
+    dimension: 'Cryptographic Architecture',
+    legacy: 'Standard RSA-2048 with plain SQL customer mapping tables vulnerable to internal insider leaks and future quantum decrypters.',
+    gajalogic: 'Post-quantum ML-KEM metadata encryption combined with hardware enclave isolation for complete end-to-end privacy.',
+  },
+  {
+    dimension: 'Reconciliation & Technical Decline Rate',
+    legacy: 'High Technical Decline (TD) rates (> 2.4%) during peak hours due to CBS timeout queues, leading to NPCI penal compliance notices.',
+    gajalogic: 'Technical Declines reduced to < 0.04% with sub-second deterministic fallback buffers and synthetic health probes.',
+  },
+  {
+    dimension: 'Integration & Core Compatibility',
+    legacy: 'Heavyweight enterprise service bus (ESB) integrations requiring months of vendor consulting and multimillion-dollar licensing.',
+    gajalogic: 'Plug-and-play ISO 8583, ISO 20022, and modern REST/gRPC connectors compatible with Infosys Finacle, TCS BaNCS, and Oracle Flexcube.',
+  },
+];
+---
+
+<Layout
+  title="UPI Issuing Switch | Gajalogic Sovereign Banking Stack"
+  description="In-memory balance virtualization offloading CBS databases by 84%, post-quantum metadata protection, and sub-millisecond issuing authorizations for Bank CTOs."
+>
+  <PageHeader
+    eyebrow="Core Banking Insulation // Issuing Switch"
+    title="UPI Issuing Switch"
+    subtitle="Engineered for Bank CTOs and Core Banking System (CBS) Architects. Insulate legacy banking databases from crushing UPI volume while establishing quantum-resilient protection over customer account metadata."
+    badge="Issuing Switch v4.4"
+  >
+    <div slot="actions">
+      <a
+        href="#architecture"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-all"
+      >
+        Examine CBS Offload Layer
+      </a>
+      <a
+        href="#comparison"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-900 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+      >
+        Compare Architecture Matrix
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- High-Contrast Metric Telemetry Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 border border-white/10 bg-slate-950/90 shadow-2xl">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+        {issuingMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-indigo-400 block mb-1">{m.label}</span>
+            <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">{m.value}</div>
+            <p class="text-xs text-slate-400 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Section: Protecting Core Banking Systems -->
+  <section id="architecture" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">CBS Preservation Architecture</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2">
+        In-Memory Shielding for Core Banking Systems
+      </h2>
+      <p class="text-slate-400 mt-3 text-base">
+        Core Banking Systems were architected in the 1990s for branch operations and daily batch settlements—not 50,000 requests per second. Gajalogic absorbs the shockwave before it touches your core.
+      </p>
+    </div>
+
+    <!-- 4 Protective Layers Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {cbsProtectionLayers.map((layer) => (
+        <div class="unibase-card p-8 flex flex-col justify-between border border-white/10 relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500/0 group-hover:via-indigo-400/60 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-indigo-400 uppercase tracking-wider block mb-2">
+              {layer.step}
+            </span>
+            <h3 class="text-2xl font-bold text-white mb-3">
+              {layer.title}
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+              {layer.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-800">
+            {layer.tech.map((t) => (
+              <span class="mono-tag text-[11px] bg-slate-900 text-slate-300 border-slate-800">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Deep Dive: Post-Quantum Metadata Protection -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+    <div class="unibase-card p-8 sm:p-12 border border-white/10 bg-slate-950/80">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="mono-tag font-semibold uppercase text-purple-400 border-purple-500/30 bg-purple-950/30">
+            National Sovereignty // PQC Customer Enclave
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Neutralizing the "Store Now, Decrypt Later" Threat
+          </h3>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+            Customer bank account numbers, primary mobile IDs, and VPA association graphs are long-lived financial identifiers. Unlike transient passwords, a bank account number remains valid for decades.
+          </p>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+            Gajalogic implements <strong class="text-white font-medium">NIST FIPS 203 (ML-KEM)</strong> lattice-based key encapsulation to protect customer identifiers during ingress, processing, and transit across the remitter switch fabric. Even if adversarial state signals intercept telecommunication networks today, account profiles cannot be decrypted by quantum cryptanalysis.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono text-slate-400">
+            <span class="flex items-center gap-1.5 text-indigo-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Compliant with RBI Cybersecurity Framework Mandates
+            </span>
+            <span class="flex items-center gap-1.5 text-purple-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Zero Impact on Debit Authorization Window (&lt; 1.1ms)
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-slate-900/90 rounded-2xl p-6 border border-slate-800 font-mono text-xs text-slate-300 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-slate-400">
+            <span>PQC_ENCLAVE_TELEMETRY</span>
+            <span class="text-purple-400">ENCRYPTED</span>
+          </div>
+          <div><span class="text-indigo-400">remitter_acc:</span> <span class="text-slate-100">"PQC-ENC[9f82c...4a12]"</span></div>
+          <div><span class="text-indigo-400">vpa_alias:</span> <span class="text-slate-100">"9876543210@gaja"</span></div>
+          <div><span class="text-indigo-400">cbs_routing_channel:</span> <span class="text-slate-100">"SHADOW_LEDGER_SYNC"</span></div>
+          <div><span class="text-indigo-400">encapsulation_suite:</span> <span class="text-purple-400">"ML-KEM-1024 (FIPS 203)"</span></div>
+          <div><span class="text-indigo-400">quantum_security_level:</span> <span class="text-emerald-400">"NIST Category 5"</span></div>
+          <div><span class="text-indigo-400">cbs_direct_hit:</span> <span class="text-rose-400 font-bold">FALSE (Resolved in-memory)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CBS Architecture Comparison Table -->
+  <section id="comparison" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">Architectural Audit</h2>
+      <h3 class="text-3xl font-extrabold text-white tracking-tight">
+        Legacy Issuing Switch vs. Gajalogic CBS Shield
+      </h3>
+      <p class="text-slate-400 mt-2 text-sm sm:text-base">
+        Comparison of core banking protection, technical decline management, and cryptographic resilience.
+      </p>
+    </div>
+
+    <div class="unibase-card overflow-hidden border border-white/10 shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-300">
+          <thead class="bg-slate-900/90 text-xs font-mono uppercase text-slate-400 border-b border-slate-800">
+            <tr>
+              <th class="px-6 py-4 w-1/4">Architecture Dimension</th>
+              <th class="px-6 py-4 w-3/8 text-rose-400">Legacy Issuing Architecture</th>
+              <th class="px-6 py-4 w-3/8 text-indigo-400 font-bold">Gajalogic In-Memory Issuing Switch</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-xs sm:text-sm">
+            {cbsComparison.map((row) => (
+              <tr class="hover:bg-slate-800/40 transition-colors">
+                <td class="px-6 py-4 font-mono font-semibold text-white bg-slate-950/40">
+                  {row.dimension}
+                </td>
+                <td class="px-6 py-4 text-slate-400 leading-relaxed border-r border-slate-800">
+                  {row.legacy}
+                </td>
+                <td class="px-6 py-4 text-slate-200 leading-relaxed bg-indigo-950/10">
+                  {row.gajalogic}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Executive CTA -->
+  <CtaBanner
+    title="Protect Your Core Banking Infrastructure from Spike Outages"
+    subtitle="Our banking systems engineers can model your bank's peak transaction curves and demonstrate CBS offload efficiencies in a controlled sandbox."
+    buttonText="Request CBS Offload Sizing"
+    secondaryText="Explore NPCI Product Suite"
+    secondaryHref={`${base}/products`}
+  />
+</Layout>

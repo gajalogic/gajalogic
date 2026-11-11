@@ -1,0 +1,244 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const cardMetrics = [
+  { value: '62% Lower TCO', label: 'Licensing & OPEX Savings', sub: 'Zero per-TPS or core licensing penalty' },
+  { value: '35,000 TPS', label: 'CoFT Tokenization Speed', sub: 'Sub-millisecond cryptogram generation' },
+  { value: '4.2x Faster', label: 'NPCI DMS File Processing', sub: 'Automated settlement & fee clearing' },
+  { value: '100% Native', label: 'RuPay Dual-Interface EMV', sub: 'Contact, Contactless, & qSPARC' },
+];
+
+const rupayModules = [
+  {
+    step: 'Module 01 // Native RuPay EMV Kernel & Profiles',
+    title: 'Drop-In Replacement for Legacy CMS',
+    desc: 'Legacy card management systems like OpenWay Way4 or FIS impose rigid monolithic architectures and expensive consulting fees for minor profile tweaks. Gajalogic provides pre-certified RuPay EMV, qSPARC, and Global RuPay debit/credit/prepaid card profile engines out-of-the-box.',
+    tech: ['RuPay 2.0 EMV Profiles', 'qSPARC Dual-Interface', 'Dynamic CVV & Cryptograms'],
+  },
+  {
+    step: 'Module 02 // Card-on-File Tokenization (CoFT)',
+    title: 'High-Velocity Sovereign Token Vault',
+    desc: 'Fully compliant with RBI tokenization mandates. Replaces sensitive 16-digit card numbers with secure merchant/device tokens with sub-millisecond encryption and hardware HSM key isolation.',
+    tech: ['RBI CoFT Compliant', 'Sub-Millisecond De-Tokenization', 'Cryptographic Vault HSM'],
+  },
+  {
+    step: 'Module 03 // Clearing & Settlement Automation',
+    title: 'Streamlined NPCI DMS Ingestion & Reconciliation',
+    desc: 'Automates raw Data Management System (DMS) file parsing, daily interchange fee calculations, dispute cycle triggers, and chargeback arbitration without manual spreadsheet intervention.',
+    tech: ['Automated DMS Parser', 'Interchange Calculator', 'Instant Dispute Sagas'],
+  },
+  {
+    step: 'Module 04 // Dynamic POS & E-Commerce Switch',
+    title: 'High-Volume Card Acquiring Engine',
+    desc: 'Line-rate acquiring engine supporting POS, mPOS, and Payment Gateway routing. Integrates ISO 8583, AS 2805, and ISO 20022 message formats with dynamic BIN routing and least-cost interchange pathing.',
+    tech: ['ISO 20022 Native', 'Dynamic BIN Router', 'Least-Cost Interchange Optimizer'],
+  },
+];
+
+const legacyCmsComparison = [
+  {
+    category: 'Commercial & Licensing Model',
+    way4: 'Opaque per-TPS transaction tax, exorbitant annual maintenance contracts (AMC), and expensive change-request charges for simple RuPay circulars.',
+    gajalogic: 'Transparent compute-based pricing. Zero per-TPS extortion fees and zero vendor lock-in. 62% reduction in 5-year run-rate TCO.',
+  },
+  {
+    category: 'Deployment & Upgrade Speed',
+    way4: 'Monolithic mainframe or on-premise Oracle DB setups requiring 6-12 months of high-risk manual migration and downtime windows.',
+    gajalogic: 'Cloud-native, containerized architecture deployable in private clouds, sovereign datacenters, or hybrid environments in weeks.',
+  },
+  {
+    category: 'Card-on-File Tokenization (CoFT)',
+    way4: 'Requires costly third-party add-on modules and slow REST bridges with high latency (120ms+) during e-commerce checkout peaks.',
+    gajalogic: 'In-memory native CoFT engine with line-rate token lookups in < 2ms, easily handling 35,000 peak concurrent checkouts.',
+  },
+  {
+    category: 'Clearing & NPCI DMS Processing',
+    way4: 'Batch scripts requiring 4-6 hours to parse daily clearing files, leading to frequent reconciliation lag and reporting mismatches.',
+    gajalogic: 'Distributed stream processor completes NPCI DMS clearing and dispute generation in under 45 minutes with automated audit trails.',
+  },
+];
+---
+
+<Layout
+  title="RuPay Issuing & Acquiring Switch | Gajalogic Modern CMS"
+  description="Drop-in replacement for legacy card management systems (Way4, FIS) with native RuPay EMV profiles, CoFT tokenization, and NPCI DMS automation."
+>
+  <PageHeader
+    eyebrow="Card Management Modernization // RuPay Rail"
+    title="RuPay Issuing & Acquiring"
+    subtitle="Engineered for Card Operations Heads and Banking Procurement Teams. Eradicate legacy CMS licensing bloat with a high-throughput, cloud-native RuPay EMV switch and native Card-on-File Tokenization vault."
+    badge="Card Management Switch v4.5"
+  >
+    <div slot="actions">
+      <a
+        href="#modules"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-emerald-400 text-slate-950 hover:bg-emerald-300 shadow-sm transition-all"
+      >
+        Explore Card Modules
+      </a>
+      <a
+        href="#comparison"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-900 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+      >
+        Legacy CMS TCO Audit
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- High-Contrast Metric Telemetry Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 border border-white/10 bg-slate-950/90 shadow-2xl">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+        {cardMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 block mb-1">{m.label}</span>
+            <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">{m.value}</div>
+            <p class="text-xs text-slate-400 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Architecture Modules -->
+  <section id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider text-emerald-400 border-emerald-500/30 bg-emerald-950/30 mb-2 inline-block">
+        Next-Gen Card Switch
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2">
+        Modern Modular Replacement for Way4 & Legacy CMS
+      </h2>
+      <p class="text-slate-400 mt-3 text-base">
+        Eliminate vendor lock-in. Seamlessly issue and acquire RuPay cards across credit, debit, prepaid, and transit form factors.
+      </p>
+    </div>
+
+    <!-- 4 Modules Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {rupayModules.map((mod) => (
+        <div class="unibase-card p-8 flex flex-col justify-between border border-white/10 relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500/0 group-hover:via-emerald-400/60 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider block mb-2">
+              {mod.step}
+            </span>
+            <h3 class="text-2xl font-bold text-white mb-3">
+              {mod.title}
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+              {mod.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-800">
+            {mod.tech.map((t) => (
+              <span class="mono-tag text-[11px] bg-slate-900 text-slate-300 border-slate-800">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Deep Dive: CoFT Tokenization & DMS Clearing -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+    <div class="unibase-card p-8 sm:p-12 border border-white/10 bg-slate-950/80">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="mono-tag font-semibold uppercase text-emerald-400 border-emerald-500/30 bg-emerald-950/30">
+            Regulatory Compliance // RBI CoFT Framework
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            High-Velocity RuPay Tokenization & Automated DMS
+          </h3>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+            With over 650 million RuPay cards in circulation, card operations teams are squeezed between strict RBI tokenization mandates and legacy card systems unable to handle festival checkout bursts.
+          </p>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+            Gajalogic delivers an integrated in-memory Card-on-File Tokenization (CoFT) engine that resolves tokens and cryptograms in under 2 milliseconds. Coupled with our parallelized NPCI Data Management System (DMS) ingest pipeline, end-of-day reconciliation that previously required 5 hours is completed in under 45 minutes with automated dispute resolution.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono text-slate-400">
+            <span class="flex items-center gap-1.5 text-emerald-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Zero-Downtime RuPay Scheme Certification Updates
+            </span>
+            <span class="flex items-center gap-1.5 text-sky-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Full Support for Global RuPay JCB & Discover Handshakes
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-slate-900/90 rounded-2xl p-6 border border-slate-800 font-mono text-xs text-slate-300 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-slate-400">
+            <span>RUPAY_TRANSACTION_TELEMETRY</span>
+            <span class="text-emerald-400">AUTHORIZED</span>
+          </div>
+          <div><span class="text-emerald-400">card_network:</span> <span class="text-slate-100">"RUPAY_GLOBAL_EMV"</span></div>
+          <div><span class="text-emerald-400">token_id:</span> <span class="text-slate-100">"COFT-9082-XXXX-XXXX-1142"</span></div>
+          <div><span class="text-emerald-400">cryptogram_verify_latency:</span> <span class="text-sky-300 font-bold">1.4 ms</span></div>
+          <div><span class="text-emerald-400">npci_dms_cycle:</span> <span class="text-slate-100">"AUTO_RECONCILED_CYCLE_02"</span></div>
+          <div><span class="text-emerald-400">interchange_tier:</span> <span class="text-indigo-400">"ZERO_SURCHARGE_MDR"</span></div>
+          <div><span class="text-emerald-400">legacy_licensing_cost:</span> <span class="text-emerald-400 font-bold">0.00 INR (ZERO PER-TPS)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legacy CMS vs. Gajalogic Comparison Table -->
+  <section id="comparison" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">TCO & Licensing Analysis</h2>
+      <h3 class="text-3xl font-extrabold text-white tracking-tight">
+        Monolithic Card Management Systems vs. Gajalogic
+      </h3>
+      <p class="text-slate-400 mt-2 text-sm sm:text-base">
+        A direct cost and agility audit for Card Operations Heads and Procurement Committees evaluating Way4 or FIS contract renewals.
+      </p>
+    </div>
+
+    <div class="unibase-card overflow-hidden border border-white/10 shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-300">
+          <thead class="bg-slate-900/90 text-xs font-mono uppercase text-slate-400 border-b border-slate-800">
+            <tr>
+              <th class="px-6 py-4 w-1/4">Evaluation Category</th>
+              <th class="px-6 py-4 w-3/8 text-rose-400">Legacy Card Systems (Way4 / FIS / Euronet)</th>
+              <th class="px-6 py-4 w-3/8 text-emerald-400 font-bold">Gajalogic Sovereign Card Switch</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-xs sm:text-sm">
+            {legacyCmsComparison.map((row) => (
+              <tr class="hover:bg-slate-800/40 transition-colors">
+                <td class="px-6 py-4 font-mono font-semibold text-white bg-slate-950/40">
+                  {row.category}
+                </td>
+                <td class="px-6 py-4 text-slate-400 leading-relaxed border-r border-slate-800">
+                  {row.way4}
+                </td>
+                <td class="px-6 py-4 text-slate-200 leading-relaxed bg-emerald-950/10">
+                  {row.gajalogic}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Executive CTA -->
+  <CtaBanner
+    title="Eradicate Legacy CMS Licensing Fees with Gajalogic RuPay Switch"
+    subtitle="Connect with our card infrastructure architects for an immediate TCO benchmarking assessment and zero-risk side-by-side pilot."
+    buttonText="Schedule Card CMS Sizing Briefing"
+    secondaryText="Explore NPCI Product Suite"
+    secondaryHref={`${base}/products`}
+  />
+</Layout>

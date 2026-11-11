@@ -1,0 +1,309 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const productLines = [
+  {
+    title: 'High-Throughput UPI Acquiring',
+    slug: `${base}/products/upi-acquiring`,
+    badge: 'Merchant & PA-P Rail',
+    tagline: 'Sub-Millisecond Distributed Saga Orchestration',
+    description: 'Engineered for Tier-1 Banks and Payment Aggregators (PA-Ps) handling unprecedented festival surges. Delivers in-memory O(1) VPA lookups, dynamic PSP multi-routing, and quantum-safe settlement logs.',
+    stats: [
+      { label: 'Peak Capacity', value: '75,000+ TPS' },
+      { label: 'P99 Switch Latency', value: '0.82 ms' },
+      { label: 'VPA Lookup Time', value: '< 180 µs' },
+    ],
+    highlights: [
+      'In-memory O(1) VPA routing cache eliminating database lock contention',
+      'Quantum-safe merchant settlement ledger preserving immutable non-repudiation',
+      'Automated multi-bank PSP health probe and instant sub-second failover',
+    ],
+    accent: 'sky',
+  },
+  {
+    title: 'UPI Issuing Switch',
+    slug: `${base}/products/upi-issuing`,
+    badge: 'Core Banking Insulation',
+    tagline: 'CBS Decoupling & In-Memory Balance Virtualization',
+    description: 'Purpose-built for Bank CTOs and CBS Architects. Shield legacy core banking systems (Finacle, BaNCS, Flexcube) from high-volume non-financial UPI queries while safeguarding customer metadata against quantum decryption.',
+    stats: [
+      { label: 'CBS Offload Ratio', value: '84.6%' },
+      { label: 'Reversal Success', value: '99.999%' },
+      { label: 'Cryptographic Standard', value: 'ML-KEM / FIPS 203' },
+    ],
+    highlights: [
+      'In-memory balance verification buffer offloading 80%+ read/balance queries from CBS',
+      'Store-Now-Decrypt-Later (SNDL) mitigation protecting customer financial profiles',
+      'Strict deterministic saga rollback preventing phantom debits and orphaned transactions',
+    ],
+    accent: 'indigo',
+  },
+  {
+    title: 'TPAP Infrastructure',
+    slug: `${base}/products/upi-tpap`,
+    badge: 'Fintech Scale Engine',
+    tagline: 'Decoupled PQC Key Management for Consumer Apps',
+    description: 'Scalable multi-bank API infrastructure for Third-Party Application Providers. Isolates consumer mobile app frontends from complex post-quantum key rotations and multi-PSP regulatory certifications.',
+    stats: [
+      { label: 'SDK Footprint', value: '< 180 KB' },
+      { label: 'Multi-PSP Fanout', value: 'Up to 12 Banks' },
+      { label: 'Availability SLA', value: '99.999%' },
+    ],
+    highlights: [
+      'Decoupled cryptographic sidecar abstracting HSM and PQC key management from mobile SDKs',
+      'Intelligent predictive routing balancing traffic across partner sponsor banks',
+      'NPCI circular compliance automation with instant zero-code parameter updates',
+    ],
+    accent: 'purple',
+  },
+  {
+    title: 'RuPay Issuing & Acquiring',
+    slug: `${base}/products/rupay-cards`,
+    badge: 'Legacy CMS Replacement',
+    tagline: 'Cloud-Native EMV Switch without Legacy License Taxes',
+    description: 'Modern drop-in replacement for monolithic legacy card management systems (Way4, FIS, Euronet). Native support for RuPay dual-interface EMV, Card-on-File Tokenization (CoFT), and automated NPCI DMS clearing.',
+    stats: [
+      { label: 'Licensing Cost Reduction', value: '62%' },
+      { label: 'Tokenization Throughput', value: '35,000 TPS' },
+      { label: 'DMS Clearing Speed', value: '4.2x Faster' },
+    ],
+    highlights: [
+      'Eliminates legacy per-TPS licensing and proprietary hardware lock-in',
+      'Full EMVCo & RuPay 2.0 dual-interface contact/contactless chip script support',
+      'Sub-second ISO 8583 / AS 2805 to ISO 20022 real-time protocol conversion',
+    ],
+    accent: 'emerald',
+  },
+  {
+    title: 'NCMC & Transit Solutions',
+    slug: `${base}/products/ncmc-transit`,
+    badge: 'Sub-300ms Gate Rail',
+    tagline: 'High-Velocity Offline Wallet & Turnstile Settlement',
+    description: 'Engineered for Metro Rail Authorities, smart mobility operators, and transit acquirers. Executes sub-300ms Mass Transit Transactions (MTT) with dual-mode offline wallet balance ledgers and memory-optimized PQC card profiles.',
+    stats: [
+      { label: 'Turnstile Tap SLA', value: '< 240 ms' },
+      { label: 'Offline Wallet Buffer', value: 'Zero-Leakage' },
+      { label: 'Card Memory Footprint', value: '< 48 KB EEPROM' },
+    ],
+    highlights: [
+      'Deterministic offline tap verification guaranteeing zero passenger bottlenecking at gates',
+      'PQC-ready smart card architecture tailored for extreme hardware execution limits',
+      'Automated batch host reconciliation with NPCI National Common Mobility Card rails',
+    ],
+    accent: 'amber',
+  },
+];
+
+const tcoComparison = [
+  {
+    dimension: 'Licensing & Cost Model',
+    legacy: 'Punitive per-TPS fee tiers, costly mainframe cores, and recurring vendor maintenance contracts (Way4 / Base24).',
+    gajalogic: 'Transparent compute-capacity model. Eliminates per-transaction penalty licensing, cutting run-rate TCO by 62%.',
+  },
+  {
+    dimension: 'Surge Scalability (IPL/Festivals)',
+    legacy: 'Vertical scale limits. Hardware saturation during peak spikes leads to timeout spirals, dropped TPS, and RBI penalties.',
+    gajalogic: 'Elastic distributed saga workers auto-scale horizontally to 75,000+ TPS within 4 seconds without CBS degradation.',
+  },
+  {
+    dimension: 'Post-Quantum Cryptography (PQC)',
+    legacy: 'Vulnerable RSA-2048 & ECC-256. Complete architectural overhaul required to migrate legacy HSM arrays.',
+    gajalogic: 'Native NIST FIPS 203 (ML-KEM) and FIPS 204 (ML-DSA) hybrid post-quantum cryptography baked into every switch node.',
+  },
+  {
+    dimension: 'Core Banking System (CBS) Pressure',
+    legacy: '100% of balance inquiries, VPA lookups, and transaction sagas hit core databases directly, risking CBS freeze.',
+    gajalogic: 'In-memory offload layer intercepts 84% of non-financial queries, preserving CBS database IOPS for final settlement.',
+  },
+];
+---
+
+<Layout
+  title="NPCI Product Suite | Gajalogic Sovereign Payment Infrastructure"
+  description="High-throughput, post-quantum resilient payment switches for UPI Acquiring, UPI Issuing, TPAP Infrastructure, RuPay Cards, and NCMC Transit."
+>
+  <!-- Strategic Executive Header -->
+  <PageHeader
+    eyebrow="Sovereign Payment Systems // NPCI Suite"
+    title="Next-Generation National Payment Rails"
+    subtitle="Gajalogic modernizes mission-critical payment switches for banks, payment aggregators, and fintechs. Combining microsecond-level distributed sagas with native post-quantum cryptography to replace costly legacy monoliths."
+    badge="Enterprise Payment Infrastructure"
+  >
+    <div slot="actions">
+      <a
+        href="#products"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-all"
+      >
+        Explore Product Lines
+      </a>
+      <a
+        href="#tco"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-900 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+      >
+        TCO & Architecture Comparison
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Executive Impact Summary Dashboard (BCG Style) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 border border-white/10 bg-slate-950/90 shadow-2xl">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+        <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+          <span class="text-xs font-mono uppercase tracking-wider text-sky-400 block mb-1">TCO Optimization</span>
+          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">-62%</div>
+          <p class="text-xs text-slate-400 mt-1">Reduction in cumulative infrastructure and per-TPS licensing bloat.</p>
+        </div>
+        <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+          <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 block mb-1">P99 Determinism</span>
+          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">&lt; 1.0 ms</div>
+          <p class="text-xs text-slate-400 mt-1">In-switch processing latency under peak concurrent loads.</p>
+        </div>
+        <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+          <span class="text-xs font-mono uppercase tracking-wider text-indigo-400 block mb-1">CBS Shielding</span>
+          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">84.6%</div>
+          <p class="text-xs text-slate-400 mt-1">Non-financial queries resolved in-memory without hitting core banking.</p>
+        </div>
+        <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+          <span class="text-xs font-mono uppercase tracking-wider text-purple-400 block mb-1">Quantum Defense</span>
+          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">FIPS 203</div>
+          <p class="text-xs text-slate-400 mt-1">NIST-standardized ML-KEM post-quantum cryptographic envelopes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive 5 Product Lines Grid -->
+  <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">Core Product Suite</h2>
+      <h3 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        Five Pillars of National Switch Modernization
+      </h3>
+      <p class="text-slate-400 mt-3 text-base">
+        Select a solution to explore architectural specifications, saga execution models, and benchmark telemetry.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {productLines.map((prod, idx) => (
+        <div class={`unibase-card p-8 flex flex-col justify-between group relative overflow-hidden ${idx === 0 ? 'lg:col-span-2' : ''}`}>
+          <!-- Top glowing accent -->
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sky-500/0 group-hover:via-sky-400/70 to-transparent transition-all duration-500"></div>
+
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <span class="mono-tag font-bold uppercase tracking-wider">
+                {prod.badge}
+              </span>
+              <span class="text-xs font-mono text-slate-400">
+                Product Code: GJ-{100 + idx}
+              </span>
+            </div>
+
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-2 group-hover:text-sky-300 transition-colors">
+              <a href={prod.slug} class="hover:underline focus:outline-none">
+                {prod.title}
+              </a>
+            </h3>
+
+            <p class="text-sm font-mono text-sky-400 mb-4">{prod.tagline}</p>
+
+            <p class="text-sm text-slate-300 leading-relaxed mb-6 font-light">
+              {prod.description}
+            </p>
+
+            <!-- Key Metric Strip -->
+            <div class="grid grid-cols-3 gap-3 p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 mb-6 font-mono text-center">
+              {prod.stats.map((s) => (
+                <div>
+                  <div class="text-xs text-slate-400">{s.label}</div>
+                  <div class="text-sm sm:text-base font-bold text-white mt-0.5">{s.value}</div>
+                </div>
+              ))}
+            </div>
+
+            <!-- Bullet Highlights -->
+            <ul class="space-y-2 mb-6">
+              {prod.highlights.map((h) => (
+                <li class="flex items-start text-xs sm:text-sm text-slate-300">
+                  <svg class="w-4 h-4 text-sky-400 mr-2.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="pt-5 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-xs font-mono text-slate-400">Production Ready</span>
+            <a
+              href={prod.slug}
+              class="inline-flex items-center text-sm font-semibold text-sky-400 group-hover:text-sky-300 group-hover:translate-x-1 transition-all"
+            >
+              <span>Explore Technical Architecture</span>
+              <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Strategic TCO Comparison Section (BCG Analysis) -->
+  <section id="tco" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">Strategic Analysis</h2>
+      <h3 class="text-3xl font-extrabold text-white tracking-tight">
+        Monolithic Legacy Switches vs. Gajalogic Cloud-Native Stack
+      </h3>
+      <p class="text-slate-400 mt-2 text-sm sm:text-base">
+        A financial and architectural comparison for banking procurement committees, C-suite executives, and payment heads.
+      </p>
+    </div>
+
+    <div class="unibase-card overflow-hidden border border-white/10 shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-300">
+          <thead class="bg-slate-900/90 text-xs font-mono uppercase text-slate-400 border-b border-slate-800">
+            <tr>
+              <th class="px-6 py-4 w-1/4">Evaluation Dimension</th>
+              <th class="px-6 py-4 w-3/8 text-rose-400">Legacy Architecture (Way4 / Base24 / FIS)</th>
+              <th class="px-6 py-4 w-3/8 text-sky-400 font-bold">Gajalogic Sovereign Switch Platform</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-xs sm:text-sm">
+            {tcoComparison.map((row) => (
+              <tr class="hover:bg-slate-800/40 transition-colors">
+                <td class="px-6 py-4 font-mono font-semibold text-white bg-slate-950/40">
+                  {row.dimension}
+                </td>
+                <td class="px-6 py-4 text-slate-400 leading-relaxed border-r border-slate-800">
+                  {row.legacy}
+                </td>
+                <td class="px-6 py-4 text-slate-200 leading-relaxed bg-sky-950/10">
+                  {row.gajalogic}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Executive CTA -->
+  <CtaBanner
+    title="Ready to Benchmark Gajalogic Against Your Current Switch?"
+    subtitle="Request a confidential architectural audit or schedule a live demonstration running 50,000 synthetic TPS on your test VPC."
+    buttonText="Schedule Technical Briefing"
+    secondaryText="View Developer SDK"
+  />
+</Layout>

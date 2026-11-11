@@ -14,3 +14,4 @@
   <circle cx="24" cy="30" r="1.5" fill="#a855f7"/>
   <path d="M46 28C49.3137 28 52 30.6863 52 34V44C52 45.1046 51.1046 46 50 46C48.8954 46 48 45.1046 48 44V34C48 32.8954 47.1046 32 46 32" stroke="url(#grad)" stroke-width="3" stroke-linecap="round"/>
 </svg>
+

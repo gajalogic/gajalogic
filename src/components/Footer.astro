@@ -4,30 +4,31 @@ const currentYear = new Date().getFullYear();
 
 const footerSections = [
   {
-    title: 'Products',
+    title: 'NPCI Product Suite',
     links: [
-      { name: 'Compute Accelerators', href: `${base}/products#accelerators` },
-      { name: 'Edge Inference Suite', href: `${base}/products#edge` },
-      { name: 'Enterprise Cluster OS', href: `${base}/products#os` },
-      { name: 'GajaLogic Cloud Bridge', href: `${base}/products#cloud-bridge` },
+      { name: 'UPI Acquiring Switch', href: `${base}/products/upi-acquiring` },
+      { name: 'UPI Issuing Switch', href: `${base}/products/upi-issuing` },
+      { name: 'TPAP Infrastructure', href: `${base}/products/upi-tpap` },
+      { name: 'RuPay Issuing & Acquiring', href: `${base}/products/rupay-cards` },
+      { name: 'NCMC Transit Solutions', href: `${base}/products/ncmc-transit` },
     ],
   },
   {
     title: 'Platform & Tech',
     links: [
-      { name: 'Architecture Overview', href: `${base}/platform#architecture` },
-      { name: 'Distributed Runtime', href: `${base}/platform#runtime` },
+      { name: 'Architecture Overview', href: `${base}/platform` },
+      { name: 'Distributed Saga Engine', href: `${base}/platform#runtime` },
       { name: 'Hardware Acceleration', href: `${base}/hardware` },
-      { name: 'Security & Enclaves', href: `${base}/platform#security` },
+      { name: 'Post-Quantum Security', href: `${base}/compliance#fips` },
     ],
   },
   {
     title: 'Developers',
     links: [
       { name: 'API Reference', href: `${base}/developers#api` },
-      { name: 'SDKs & Libraries', href: `${base}/developers#sdks` },
-      { name: 'CLI Documentation', href: `${base}/developers#cli` },
-      { name: 'Developer Sandbox', href: `${base}/developers#sandbox` },
+      { name: 'Python & Rust SDKs', href: `${base}/developers#sdks` },
+      { name: 'CLI Tooling (gajactl)', href: `${base}/developers#cli` },
+      { name: 'Hardware Simulator', href: `${base}/developers#sandbox` },
     ],
   },
   {
@@ -36,13 +37,13 @@ const footerSections = [
       { name: 'Compliance Certifications', href: `${base}/compliance#certifications` },
       { name: 'SOC 2 & ISO 27001', href: `${base}/compliance#soc2` },
       { name: 'FIPS 140-3 Hardware', href: `${base}/compliance#fips` },
-      { name: 'Security Advisory', href: `${base}/compliance#security` },
+      { name: 'RBI Cyber Security Framework', href: `${base}/compliance#security` },
     ],
   },
   {
     title: 'Company',
     links: [
-      { name: 'About GajaLogic', href: `${base}/company#about` },
+      { name: 'About Gajalogic', href: `${base}/company#about` },
       { name: 'Leadership & Vision', href: `${base}/company#leadership` },
       { name: 'Careers & Culture', href: `${base}/company#careers` },
       { name: 'Contact & Sales', href: `${base}/company#contact` },
@@ -67,17 +68,17 @@ const footerSections = [
           </div>
           <span class="text-lg font-bold text-white font-mono">Gaja<span class="text-sky-400">Logic</span></span>
         </a>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          High-performance distributed compute engines, edge accelerators, and verifiable sovereign hardware platforms.
+        <p class="text-xs text-slate-400 leading-relaxed font-light">
+          High-throughput national payment switches, distributed saga orchestration, and post-quantum cryptographic security.
         </p>
 
         <!-- Live Status Pill -->
-        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-950/60 text-emerald-400 border border-emerald-500/30">
+        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-950/60 text-emerald-400 border border-emerald-500/30 font-mono">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          All Systems Operational
+          All Payment Switches Operational
         </div>
       </div>
 
@@ -105,13 +106,13 @@ const footerSections = [
     </div>
 
     <!-- Bottom Bar -->
-    <div class="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-      <p>© {currentYear} GajaLogic Corporation. All rights reserved.</p>
+    <div class="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-mono">
+      <p>© {currentYear} Gajalogic Systems Inc. Sovereign payment technology.</p>
       <div class="flex items-center space-x-6">
         <a href={`${base}/compliance`} class="hover:text-slate-400 transition-colors">Privacy Policy</a>
         <a href={`${base}/compliance`} class="hover:text-slate-400 transition-colors">Terms of Service</a>
         <a href={`${base}/compliance#security`} class="hover:text-slate-400 transition-colors">Security Disclosure</a>
-        <a href={`${base}/developers`} class="hover:text-slate-400 transition-colors">GitHub Repository</a>
+        <a href={`${base}/developers`} class="hover:text-slate-400 transition-colors">API Status</a>
       </div>
     </div>
   </div>

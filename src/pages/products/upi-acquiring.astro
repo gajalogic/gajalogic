@@ -1,0 +1,242 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const acquiringMetrics = [
+  { value: '75,000+ TPS', label: 'Elastic Peak Capacity', sub: 'Tested under simulated IPL flash surge' },
+  { value: '0.78 ms', label: 'Internal Switch Transit (P99)', sub: 'Zero garbage collection pauses' },
+  { value: '140 µs', label: 'In-Memory VPA Lookup', sub: 'O(1) distributed hash ring' },
+  { value: '99.999%', label: 'Transaction Delivery SLA', sub: 'Automated multi-PSP circuit breaker' },
+];
+
+const sagaStages = [
+  {
+    step: 'Stage 01 // Ingress & In-Memory VPA Hash',
+    title: 'Zero-Lock VPA & Merchant Routing',
+    desc: 'Incoming Pay/Collect request parsed via zero-copy protocol buffers. Merchant VPA, tier limits, and merchant-acquirer agreements resolved from an in-memory replicated cache in < 140 microseconds.',
+    tech: ['O(1) In-Memory Hash Ring', 'Zero-Copy Ring Buffer', 'Anti-DDoS Token Bucket'],
+  },
+  {
+    step: 'Stage 02 // Distributed Saga Coordination',
+    title: 'Non-Blocking Dual-Phase State Machine',
+    desc: 'Transaction state partitioned across sharded saga workers. Communicates with NPCI UPI Unified Switch and Remitter PSP simultaneously with asynchronous event completion and microsecond timeout monitors.',
+    tech: ['Lock-Free Actor Model', 'Event Sourcing Checkpoints', 'Deterministic Idempotency'],
+  },
+  {
+    step: 'Stage 03 // Quantum-Safe Settlement Logging',
+    title: 'Post-Quantum Non-Repudiation Audit Log',
+    desc: 'Merchant settlement entries, fee distributions, and interchange credits are sealed with post-quantum ML-DSA signatures into an append-only verifiable cryptographic ledger without stalling line-rate TPS.',
+    tech: ['NIST FIPS 204 ML-DSA', 'Hardware Enclave Signature', 'Zero Overhead Async Pipeline'],
+  },
+  {
+    step: 'Stage 04 // Dynamic Settlement & Reversal Dispatch',
+    title: 'Instant Automated Exception Resolution',
+    desc: 'Sub-second auto-reversals and UDIR (UPI Dispute Resolution) integration ensure orphaned authorizations are cleared immediately, eliminating merchant settlement reconciliation disputes.',
+    tech: ['Auto-Reversal Watchdog', 'NPCI UDIR API v2', 'Real-Time Webhook Engine'],
+  },
+];
+
+const tcoBreakdown = [
+  {
+    category: 'Transaction Fee / Per-TPS Licensing',
+    legacy: 'Punitive per-TPS fee brackets that scale up during festive peaks. Annual enterprise license spikes up to $2.4M/yr.',
+    gajalogic: '$0 per-transaction licensing fee. Flat infrastructure resource model delivering 68% savings as volume compounds.',
+  },
+  {
+    category: 'Hardware Infrastructure Footprint',
+    legacy: 'Requires proprietary mainframe hardware or 32+ heavy bare-metal x86 appliances to handle 20,000 TPS.',
+    gajalogic: 'Compact Kubernetes-native cluster running on standard cloud/bare-metal. Handles 75,000 TPS across 6 worker nodes.',
+  },
+  {
+    category: 'Spike Handling & Failure Impact',
+    legacy: 'Memory lock starvation during flash sales causes thread thrashing, timeout cascading, and payment aggregator blackouts.',
+    gajalogic: 'In-memory lock-free sagas isolate stalled remitter banks instantly, maintaining 99.999% uptime for healthy routes.',
+  },
+  {
+    category: 'Cryptographic Upgrade Pathway',
+    legacy: 'Hardware security modules (HSMs) hardcoded to RSA-2048. Requires expensive whole-datacenter hardware replacements.',
+    gajalogic: 'Modular crypto engine with native hybrid classical/PQC support (RSA + ML-KEM) upgradeable via firmware and software sidecar.',
+  },
+];
+---
+
+<Layout
+  title="High-Throughput UPI Acquiring Switch | Gajalogic"
+  description="Sub-millisecond distributed saga architecture, in-memory O(1) VPA lookups, and quantum-safe merchant settlement logs for Payment Aggregators and Tier-1 Banks."
+>
+  <PageHeader
+    eyebrow="Merchant & Payment Aggregator Systems"
+    title="High-Throughput UPI Acquiring"
+    subtitle="Designed for Payment Aggregators (PA-Ps) and Tier-1 Acquirer Banks processing billions in monthly gross merchandise value. Handle peak festival surges with deterministic sub-millisecond switch latency and zero dropped transactions."
+    badge="Acquiring Switch v4.6"
+  >
+    <div slot="actions">
+      <a
+        href="#architecture"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-all"
+      >
+        Inspect Saga Architecture
+      </a>
+      <a
+        href="#tco"
+        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-900 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+      >
+        TCO Analysis vs Legacy
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- High-Contrast Metric Telemetry Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 border border-white/10 bg-slate-950/90 shadow-2xl">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+        {acquiringMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-sky-400 block mb-1">{m.label}</span>
+            <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">{m.value}</div>
+            <p class="text-xs text-slate-400 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Architectural Deep-Dive: Distributed Saga Engine -->
+  <section id="architecture" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Architecture Blueprint</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2">
+        Sub-Millisecond Distributed Saga Execution
+      </h2>
+      <p class="text-slate-400 mt-3 text-base">
+        Traditional database-backed locks collapse during high-concurrency flash sales. Gajalogic replaces ACID database bottlenecks with in-memory non-blocking saga actors.
+      </p>
+    </div>
+
+    <!-- Saga Stages Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {sagaStages.map((stage) => (
+        <div class="unibase-card p-8 flex flex-col justify-between border border-white/10 relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sky-500/0 group-hover:via-sky-400/60 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-sky-400 uppercase tracking-wider block mb-2">
+              {stage.step}
+            </span>
+            <h3 class="text-2xl font-bold text-white mb-3">
+              {stage.title}
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+              {stage.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-800">
+            {stage.tech.map((t) => (
+              <span class="mono-tag text-[11px] bg-slate-900 text-slate-300 border-slate-800">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Quantum-Safe Settlement & Non-Repudiation Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+    <div class="unibase-card p-8 sm:p-12 border border-white/10 bg-slate-950/80">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="mono-tag font-semibold uppercase text-emerald-400 border-emerald-500/30 bg-emerald-950/30">
+            Post-Quantum Compliance // FIPS 204
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Cryptographically Immutable Merchant Settlement
+          </h3>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+            Hostile state actors and syndicates are harvesting encrypted financial records today to decrypt them when cryptanalytically relevant quantum computers (CRQCs) emerge. 
+          </p>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+            Gajalogic implements <strong class="text-white font-medium">NIST FIPS 204 (ML-DSA)</strong> lattice-based digital signatures on all merchant settlement journals at line rate. Settlement integrity, fee-split receipts, and chargeback audits remain mathematically secure into the 2040s and beyond, without delaying instantaneous T+0 merchant payouts.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono text-slate-400">
+            <span class="flex items-center gap-1.5 text-sky-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Zero Impact on 15ms Real-Time Settlement SLA
+            </span>
+            <span class="flex items-center gap-1.5 text-emerald-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Hardware HSM & Cloud Sidecar Deployable
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-slate-900/90 rounded-2xl p-6 border border-slate-800 font-mono text-xs text-slate-300 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-slate-400">
+            <span>SETTLEMENT_RECORD_AUDIT</span>
+            <span class="text-emerald-400">VERIFIED</span>
+          </div>
+          <div><span class="text-sky-400">batch_id:</span> <span class="text-slate-100">"STMT-20261112-98432"</span></div>
+          <div><span class="text-sky-400">merchant_vpa:</span> <span class="text-slate-100">"bharat-retail@hdfcbank"</span></div>
+          <div><span class="text-sky-400">gross_inflow:</span> <span class="text-slate-100">INR 14,892,400.00</span></div>
+          <div><span class="text-sky-400">pqc_signature_alg:</span> <span class="text-emerald-400">"ML-DSA-65 (NIST FIPS 204)"</span></div>
+          <div><span class="text-sky-400">signature_hex:</span> <span class="text-slate-500 break-all">4a9b...7f21e09c8b3d4f1</span></div>
+          <div><span class="text-sky-400">tamper_seal:</span> <span class="text-indigo-400">"HARDWARE_ENCLAVE_SIGNED"</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TCO Comparison: Legacy vs. Gajalogic Cloud-Native Stack -->
+  <section id="tco" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">Cost & Performance Matrix</h2>
+      <h3 class="text-3xl font-extrabold text-white tracking-tight">
+        Monolithic Acquiring Switches vs. Gajalogic
+      </h3>
+      <p class="text-slate-400 mt-2 text-sm sm:text-base">
+        A strategic comparison detailing how Gajalogic eliminates legacy transaction-tier penalties and reduces infrastructure TCO by up to 68%.
+      </p>
+    </div>
+
+    <div class="unibase-card overflow-hidden border border-white/10 shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-300">
+          <thead class="bg-slate-900/90 text-xs font-mono uppercase text-slate-400 border-b border-slate-800">
+            <tr>
+              <th class="px-6 py-4 w-1/4">Evaluation Category</th>
+              <th class="px-6 py-4 w-3/8 text-rose-400">Legacy Switch (Base24 / Way4 Acquiring)</th>
+              <th class="px-6 py-4 w-3/8 text-sky-400 font-bold">Gajalogic Elastic Acquiring Stack</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-xs sm:text-sm">
+            {tcoBreakdown.map((row) => (
+              <tr class="hover:bg-slate-800/40 transition-colors">
+                <td class="px-6 py-4 font-mono font-semibold text-white bg-slate-950/40">
+                  {row.category}
+                </td>
+                <td class="px-6 py-4 text-slate-400 leading-relaxed border-r border-slate-800">
+                  {row.legacy}
+                </td>
+                <td class="px-6 py-4 text-slate-200 leading-relaxed bg-sky-950/10">
+                  {row.gajalogic}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Executive CTA -->
+  <CtaBanner
+    title="Scale Your Acquiring Rail for India's Next Billion Transactions"
+    subtitle="Connect with our payment systems architects for a sizing assessment, benchmark stress tests, or migration roadmap."
+    buttonText="Schedule Acquiring Briefing"
+    secondaryText="Explore NPCI Product Suite"
+    secondaryHref={`${base}/products`}
+  />
+</Layout>
