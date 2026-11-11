@@ -100,4 +100,21 @@ All significant prompt intents and file modifications in this workspace are reco
   - Purged all purple-to-blue gradients, fuzzy drop shadows, and pill badges in favor of a strict monochromatic `#030303` systems engineering aesthetic with Space Grotesk and JetBrains Mono typography.
   - Rebuilt the homepage with left-aligned technical metadata headers, razor-sharp 1px bordered frames (`.doc-panel`), a data-dense TCO engineering audit table (`.dense-table`), and precise rectangular interactive button states.
 
+---
+
+## [2026-11-12 / Step 7: Unibase Visual Design Alignment]
+- **Prompt Intent:** Recreate the exact visual design from the user-uploaded screenshot of Unibase.com (clean white `#ffffff` canvas, panoramic sci-fi vector banner, centered hero with vibrant `#3e61ff` royal blue typography accents, 4 modular white cards with colorful icons, 2 wide stack cards with isometric art, 3 alternating zig-zag visual feature blocks including the iconic blue cybernetic orb, soft periwinkle `#e7e9ff` gradient Use Cases section, blog cards with royal blue header banners, milestone onboarding rows, and clean accordion FAQ).
+- **Files Modified:**
+  - `src/styles/global.css` (modified)
+  - `src/layouts/Layout.astro` (modified)
+  - `src/components/Navbar.astro` (modified)
+  - `src/components/Footer.astro` (modified)
+  - `src/pages/index.astro` (modified)
+  - `docs/` (rebuilt static assets)
+  - `PROMPT_LOG.md` (appended)
+- **Changes Made:**
+  - Adopted the exact Unibase light mode design tokens (`--home-bg: #fff`, `--home-primary: #3e61ff`, `--home-border: #dadcdf`, and periwinkle Use Cases gradient).
+  - Implemented the complete 10-section visual structure from the uploaded screenshot, including the panoramic landscape hero header, alternating zig-zag product feature cards with custom cybernetic vector artwork, and royal blue blog card headers.
+
+
 

@@ -2,20 +2,24 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
-    --bg-main: #030303;
-    --border-subtle: rgba(255, 255, 255, 0.1);
-    --border-strong: rgba(255, 255, 255, 0.2);
-    --text-primary: #ffffff;
-    --text-muted: #888888;
-    --text-dim: #555555;
+    --home-bg: #ffffff;
+    --home-card: #ffffff;
+    --home-surface: #f8f8f8;
+    --home-text: #0f1419;
+    --home-text-muted: #6b7280;
+    --home-border: #dadcdf;
+    --home-primary: #3e61ff;
+    --home-primary-hover: #3151e6;
+    --home-accent: #4954f1;
+    --home-usecase-bg: linear-gradient(180deg, #e7e9ff 0%, #f1f0ff 45%, #ffffff 100%);
+    --home-cta-bg: linear-gradient(120deg, #3e61ff 0%, #5b78ff 100%);
   }
 
   html {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     scroll-behavior: smooth;
-    background-color: #030303;
-    color: #e5e5e5;
+    background-color: var(--home-bg);
+    color: var(--home-text);
   }
 
   body {
@@ -23,142 +27,98 @@
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    background-color: #030303;
-    color: #e5e5e5;
-    background-image: none !important;
+    background-color: var(--home-bg);
+    color: var(--home-text);
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-    letter-spacing: -0.03em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: -0.025em;
   }
 
-  code, pre, .font-mono, [data-mono] {
+  code, pre, .font-mono {
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   }
 }
 
-/* Industrial Engineering Layout Elements */
-.doc-panel {
-  background-color: #080808;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0px;
-}
-
-.doc-panel-interactive {
-  background-color: #080808;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0px;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
-}
-
-.doc-panel-interactive:hover {
-  border-color: rgba(255, 255, 255, 0.35);
-  background-color: #0d0d0d;
-}
-
-/* Sharp Technical Tag */
-.tech-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6875rem;
-  line-height: 1rem;
-  padding: 0.125rem 0.375rem;
-  background-color: #111111;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #a3a3a3;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.tech-tag-active {
+/* Unibase Clean 1px Bordered Card */
+.unibase-card {
   background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #ffffff;
+  border: 1px solid #dadcdf;
+  border-radius: 1rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.unibase-card:hover {
+  border-color: #b5b9c2;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.unibase-card-static {
+  background-color: #ffffff;
+  border: 1px solid #dadcdf;
+  border-radius: 1rem;
+}
+
+/* Primary Unibase Blue Button */
+.btn-unibase-primary {
+  background-color: #3e61ff;
+  color: #ffffff;
   font-weight: 600;
+  border-radius: 0.625rem;
+  padding: 0.625rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 2px 8px rgba(62, 97, 255, 0.25);
 }
 
-/* Data-Dense Systems Engineering Table */
-.dense-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+.btn-unibase-primary:hover {
+  background-color: #3151e6;
+  box-shadow: 0 4px 12px rgba(62, 97, 255, 0.35);
+  transform: translateY(-1px);
 }
 
-.dense-table th {
-  text-align: left;
-  padding: 0.625rem 1rem;
-  background-color: #0d0d0d;
-  color: #888888;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 500;
-}
-
-.dense-table td {
-  padding: 0.625rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  color: #d4d4d4;
-}
-
-.dense-table tr:hover td {
-  background-color: rgba(255, 255, 255, 0.02);
-  color: #ffffff;
-}
-
-/* Precision Button States */
-.btn-engineering {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  padding: 0.625rem 1.25rem;
+/* Outline / Secondary Button */
+.btn-unibase-secondary {
   background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #ffffff;
+  color: #0f1419;
+  font-weight: 600;
+  border: 1px solid #dadcdf;
+  border-radius: 0.625rem;
+  padding: 0.625rem 1.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: all 0.12s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }
 
-.btn-engineering:hover {
-  background-color: #e5e5e5;
-  border-color: #e5e5e5;
+.btn-unibase-secondary:hover {
+  border-color: #0f1419;
+  background-color: #f8f9fa;
 }
 
-.btn-engineering-ghost {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  padding: 0.625rem 1.25rem;
-  background-color: transparent;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.12s ease-in-out;
+/* Unibase Blue Text Highlight */
+.text-unibase-blue {
+  color: #3e61ff;
 }
 
-.btn-engineering-ghost:hover {
-  border-color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Clean Minimal Scrollbar */
+/* Clean Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #030303;
+  background: #f1f2f4;
 }
 ::-webkit-scrollbar-thumb {
-  background: #222222;
+  background: #c2c5cb;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #444444;
+  background: #9fa3ac;
 }

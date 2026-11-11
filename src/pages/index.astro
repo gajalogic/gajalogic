@@ -3,374 +3,329 @@ import Layout from '../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const systemMetrics = [
-  { id: 'PAR-01', label: 'THROUGHPUT CAPACITY', value: '75,000+ TPS', note: 'Line-rate elastic scaling under simulated festive load' },
-  { id: 'PAR-02', label: 'IN-SWITCH LATENCY', value: '< 1.0 ms (P99)', note: 'Deterministic micro-saga; zero GC thread pauses' },
-  { id: 'PAR-03', label: 'TCO DELTA vs LEGACY', value: '-64% 5-YR RUN', note: 'Zero per-TPS licensing penalty brackets' },
-  { id: 'PAR-04', label: 'CRYPTOGRAPHIC ENCLAVE', value: 'FIPS 203 / 204', note: 'Native NIST ML-KEM-1024 & ML-DSA-65 algorithms' },
-];
-
-const tcoParameters = [
+const whyPoints = [
   {
-    parameter: 'Licensing Model',
-    legacy: 'Tiered per-TPS penalty fees; annual license spikes reaching $2.4M+ during festive surges.',
-    gajalogic: 'Compute-aligned capacity core. Zero per-transaction penalty fees. Uncapped throughput.',
-    delta: '-64% Net OPEX',
+    title: 'The TCO Paradigm Shift',
+    desc: 'Monolithic legacy switches penalize banks with volume-tiered licenses. Gajalogic replaces this with an elastic cloud-native stack, cutting 5-year TCO by up to 64%.',
+    iconBg: 'bg-emerald-50 text-emerald-600 border-emerald-200',
+    iconPath: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
   },
   {
-    parameter: 'Hardware Footprint',
-    legacy: 'Proprietary mainframe chassis or 32+ physical x86 bare-metal appliances for 25k TPS.',
-    gajalogic: 'Containerized Kubernetes microkernel; 6 nodes sustain 75,000+ TPS at <65% CPU saturation.',
-    delta: '81% Rack Reduction',
+    title: 'Quantum-Safe by Design',
+    desc: 'Securing in-flight payloads and at-rest ledgers with NIST FIPS 203 (ML-KEM) and FIPS 204 (ML-DSA) to neutralize the "Harvest Now, Decrypt Later" threat.',
+    iconBg: 'bg-purple-50 text-purple-600 border-purple-200',
+    iconPath: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
   },
   {
-    parameter: 'CBS Database Wear',
-    legacy: '100% of balance checks and VPA lookups hit primary core banking SQL databases directly.',
-    gajalogic: 'In-memory shadow ledger intercepts 84.6% of queries before touching Finacle/BaNCS.',
-    delta: '84.6% CBS Offload',
+    title: 'Core Banking Shield',
+    desc: 'In-memory balance virtualization offloads 84.6% of non-financial queries, completely insulating legacy CBS databases (Finacle, BaNCS) from spike outages.',
+    iconBg: 'bg-amber-50 text-amber-600 border-amber-200',
+    iconPath: 'M13 10V3L4 14h7v7l9-11h-7z',
   },
   {
-    parameter: 'Cryptographic Upgrade Pathway',
-    legacy: 'Hardcoded RSA-2048 HSM arrays requiring total physical hardware replacement to support PQC.',
-    gajalogic: 'Modular crypto engine with hybrid classical/PQC abstraction sidecar upgradeable via firmware.',
-    delta: 'Zero-Hardware Flag Day',
-  },
-  {
-    parameter: 'Technical Decline (TD) Rate',
-    legacy: 'Averages 2.4% during evening checkout peaks due to database lock queues and thread stalls.',
-    gajalogic: 'Reduced to <0.04% with sub-second deterministic fallback buffers and synthetic health probes.',
-    delta: '98.3% TD Reduction',
+    title: 'Hybrid Crypto-Agility',
+    desc: 'Classical RSA/ECC and Post-Quantum algorithms execute in parallel, ensuring 100% seamless backward compatibility across all NPCI rails without downtime.',
+    iconBg: 'bg-blue-50 text-[#3e61ff] border-blue-200',
+    iconPath: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
   },
 ];
 
-const hndlAttackVectors = [
+const useCases = [
   {
-    phase: 'VECTOR 01: PASSIVE INTERCEPTION',
-    timeframe: 'PRESENT DAY (2024 - 2026)',
-    mechanism: 'Adversary state intelligence sensors continuously tap public telecommunication backbones and leased banking WAN lines. In-flight UPI, IMPS, and ISO 8583 payloads are archived in encrypted data vaults.',
-    countermeasure: 'Gajalogic encapsulates every session in NIST FIPS 203 (ML-KEM) lattice envelopes at line rate, ensuring archived packets are mathematically intractable to decrypt.',
-    state: 'ACTIVE INTERCEPTION',
+    title: 'Tier-1 Bank Issuing',
+    desc: 'Shield core banking systems during salary peaks, virtualize account balances, and protect long-lived customer metadata against future quantum decryption.',
+    badge: 'BANK CTOs',
+    link: `${base}/products/upi-issuing`,
   },
   {
-    phase: 'VECTOR 02: MANDATORY PQC TRANSITION',
-    timeframe: 'REGULATORY MILESTONE (2026 - 2027)',
-    mechanism: 'Government of India PQC Task Force and RBI Q-SAFE committees enforce post-quantum migration deadlines for Indian BFSI. Legacy switches face immediate compliance suspension.',
-    countermeasure: 'Dual-signature hybrid envelopes (RSA-2048 + ML-DSA-65) execute simultaneously, providing immediate regulatory compliance with zero downstream NPCI disruption.',
-    state: 'COMPLIANCE MANDATE',
+    title: 'Payment Aggregators (PA-Ps)',
+    desc: 'Handle 75,000+ peak TPS during Diwali and flash sales with sub-millisecond distributed sagas, O(1) in-memory VPA lookups, and quantum-safe settlement logs.',
+    badge: 'MERCHANT SCALE',
+    link: `${base}/products/upi-acquiring`,
   },
   {
-    phase: 'VECTOR 03: QUANTUM CRYPTANALYTIC BREAKTHROUGH',
-    timeframe: 'THE QUANTUM HORIZON (Q-DAY)',
-    mechanism: 'Cryptanalytically Relevant Quantum Computers (CRQCs) execute Shor\'s algorithm, solving the Discrete Logarithm and Integer Factorization problems in minutes. RSA and ECC collapse.',
-    countermeasure: 'Historical ledgers and customer metadata protected by Gajalogic\'s lattice-based cryptography remain invulnerable against worst-case quantum attacks.',
-    state: 'PERMANENT IMMUNITY',
+    title: 'Metro & Mass Transit (NCMC)',
+    desc: 'Deterministic sub-240ms turnstile gate taps with zero-leakage offline stored value ledgers and ultra-compact 48KB smart card silicon cryptography.',
+    badge: 'SMART MOBILITY',
+    link: `${base}/products/ncmc-transit`,
   },
 ];
 
-const npciProducts = [
+const blogPosts = [
   {
-    code: 'PRD-01',
-    name: 'High-Throughput UPI Acquiring',
-    slug: `${base}/products/upi-acquiring`,
-    target: 'Product Heads, Payment Aggregators (PA-Ps), Tier-1 Acquirer Banks',
-    specSummary: 'Sub-millisecond distributed saga architecture, in-memory O(1) VPA lookups (<140µs), and quantum-safe merchant settlement logs.',
-    throughput: '75,000+ TPS',
-    latency: '0.78 ms (P99)',
+    tag: 'CRYPTOGRAPHY // ARCHITECTURE',
+    title: 'Neutralizing the "Harvest Now, Decrypt Later" Threat in National BFSI',
+    date: 'NOVEMBER 2026',
+    excerpt: 'How hostile intelligence services intercept encrypted banking feeds today, and why NIST FIPS 203 ML-KEM lattice encapsulation is critical before Q-Day.',
+    link: `${base}/compliance`,
   },
   {
-    code: 'PRD-02',
-    name: 'UPI Issuing Switch',
-    slug: `${base}/products/upi-issuing`,
-    target: 'Bank CTOs, Core Banking System (CBS) Leads',
-    specSummary: 'In-memory balance virtualization offloading 84.6% of CBS query pressure; FIPS 203 ML-KEM protection for account holder metadata.',
-    throughput: '50,000+ TPS',
-    latency: '< 1.1 ms',
+    tag: 'FINANCIAL AUDIT // TCO SIZING',
+    title: 'Eradicating Legacy Per-TPS Licensing: A BCG-Standard Sizing Audit',
+    date: 'OCTOBER 2026',
+    excerpt: 'Detailed financial modeling showing how moving from monolithic switches to cloud-native compute delivers a 64% net operational expenditure reduction.',
+    link: `${base}/products`,
   },
   {
-    code: 'PRD-03',
-    name: 'TPAP Infrastructure',
-    slug: `${base}/products/upi-tpap`,
-    target: 'Fintech Integration Leads, Consumer App Architects',
-    specSummary: 'Scalable multi-bank API infrastructure for Third-Party Application Providers with decoupled PQC key management (<180 KB client SDK).',
-    throughput: '60,000+ TPS',
-    latency: '< 1.4 ms',
+    tag: 'HIGH-THROUGHPUT SWITCHING',
+    title: 'In-Memory Sub-Millisecond Distributed Sagas under 75,000 Festival TPS',
+    date: 'SEPTEMBER 2026',
+    excerpt: 'Architectural breakdown of lock-free actor models, zero-copy buffer rings, and automated UDIR resolution during peak Indian payment spikes.',
+    link: `${base}/platform`,
+  },
+];
+
+const faqs = [
+  {
+    q: 'How does Gajalogic achieve sub-millisecond latency while running Post-Quantum Cryptography?',
+    a: 'Gajalogic implements zero-copy memory ring buffers and hardware-accelerated lattice mathematics (ML-KEM / ML-DSA). Cryptographic handshakes and digital signatures execute asynchronously alongside the distributed saga pipeline, maintaining an internal switch P99 latency of <0.82ms.',
   },
   {
-    code: 'PRD-04',
-    name: 'RuPay Issuing & Acquiring',
-    slug: `${base}/products/rupay-cards`,
-    target: 'Card Operations Heads, Banking Procurement',
-    specSummary: 'Drop-in replacement for legacy card management systems (Way4, FIS); native RuPay EMV, CoFT tokenization, and NPCI DMS automation.',
-    throughput: '35,000+ TPS',
-    latency: '1.4 ms',
+    q: 'What is the "Harvest Now, Decrypt Later" (HNDL) threat and why must banks act today?',
+    a: 'Adversary state intelligence networks continuously intercept and archive encrypted banking data across public telecommunication lines. Long-lived identifiers (account numbers, Aadhaar linkages, historical transaction records) remain sensitive for decades. When Cryptanalytically Relevant Quantum Computers (CRQCs) arrive, classical RSA/ECC will be cracked instantaneously. Gajalogic neutralizes this threat by sealing data in quantum-intractable lattice envelopes today.',
   },
   {
-    code: 'PRD-05',
-    name: 'NCMC & Transit Solutions',
-    slug: `${base}/products/ncmc-transit`,
-    target: 'Transit Authorities, Metro Rail Corporations, Smart Cities',
-    specSummary: 'High-velocity Mass Transit Transactions (MTT) in <240ms; zero-leakage offline stored value ledgers and sub-48KB PQC smart card silicon.',
-    throughput: '45+ gates/min',
-    latency: '< 240 ms',
+    q: 'How does Gajalogic eliminate legacy per-TPS licensing taxes?',
+    a: 'Legacy switches like Base24 and Way4 charge tiered per-transaction licensing penalties that escalate exponentially as UPI volume grows. Gajalogic provides an elastic compute-capacity model running on standard Kubernetes and commodity hardware—meaning zero per-transaction penalties regardless of whether your bank processes 1 million or 100 million transactions daily.',
+  },
+  {
+    q: 'Can Gajalogic integrate seamlessly with our existing Core Banking System (CBS)?',
+    a: 'Yes. Gajalogic supports plug-and-play ISO 8583, ISO 20022, and modern REST/gRPC interfaces compatible with Infosys Finacle, TCS BaNCS, and Oracle Flexcube. Its in-memory shadow ledger intercepts 84.6% of read and balance queries, directly shielding core banking databases from lock contention and high-concurrency crashes.',
+  },
+  {
+    q: 'Is Gajalogic compliant with NPCI and Government of India PQC Task Force mandates?',
+    a: 'Yes. Gajalogic natively adheres to all NPCI UPI, RuPay, and NCMC specifications while proactively aligning with the Government of India Post-Quantum Cryptography Task Force (mandating PQC foundations for Indian BFSI by 2027) and upcoming RBI Q-SAFE standards.',
   },
 ];
 ---
 
 <Layout
-  title="Gajalogic // Quantum-Safe, NPCI-Native Payment Infrastructure"
-  description="High-throughput UPI and IMPS switches embedded with Post-Quantum Cryptography (PQC). Eradicating legacy licensing bloat while neutralizing the Harvest Now, Decrypt Later threat."
+  title="GajaLogic — Open Payment Layer for National Rails"
+  description="Open, quantum-safe payment infrastructure for high-throughput national rails. High-throughput UPI and IMPS switches embedded with Post-Quantum Cryptography."
 >
-  <!-- Technical Specification Header Frame -->
-  <div class="border-b border-white/10 bg-[#060606] text-neutral-400 font-mono text-[11px]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-4">
-      <div class="flex items-center gap-4">
-        <span class="text-white font-semibold">GAJALOGIC SYSTEMS ARCHITECTURE</span>
-        <span class="hidden sm:inline text-neutral-600">//</span>
-        <span class="hidden sm:inline">NATIONAL PAYMENT SWITCH SPECIFICATION</span>
-      </div>
-      <div class="flex items-center gap-4 text-[10px]">
-        <span>SPEC-ID: UPI-PQC-2026</span>
-        <span class="text-neutral-600">|</span>
-        <span>REV: 4.2.0</span>
-        <span class="text-neutral-600">|</span>
-        <span class="text-neutral-300 font-semibold">CLASSIFICATION: PUBLIC TECHNICAL BRIEFING</span>
+  <!-- 1. Top Panoramic Illustrated Banner (Exact Unibase Artwork Banner) -->
+  <section class="w-full bg-[#f8f9fc] border-b border-[#dadcdf] overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+      <div class="relative w-full h-44 sm:h-56 md:h-64 rounded-2xl overflow-hidden border border-[#dadcdf] shadow-sm bg-gradient-to-r from-blue-900 via-indigo-900 to-sky-900 flex items-center justify-center">
+        <!-- Stylized Sci-Fi Panoramic Vector Art -->
+        <svg class="absolute inset-0 w-full h-full object-cover opacity-85" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" fill="none">
+          <defs>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1e3a8a"/>
+              <stop offset="40%" stop-color="#3b82f6"/>
+              <stop offset="80%" stop-color="#93c5fd"/>
+              <stop offset="100%" stop-color="#fed7aa"/>
+            </linearGradient>
+            <linearGradient id="mountGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1e1b4b"/>
+              <stop offset="100%" stop-color="#0f172a"/>
+            </linearGradient>
+          </defs>
+          <rect width="1200" height="400" fill="url(#skyGrad)"/>
+          <!-- Distant futuristic city skyline / network towers -->
+          <polygon points="100,260 120,180 140,260" fill="#312e81" opacity="0.6"/>
+          <polygon points="135,260 150,140 165,260" fill="#1e1b4b" opacity="0.7"/>
+          <polygon points="280,260 310,120 340,260" fill="#1e3a8a" opacity="0.5"/>
+          <polygon points="750,260 780,100 810,260" fill="#1e1b4b" opacity="0.7"/>
+          <polygon points="800,260 830,160 860,260" fill="#312e81" opacity="0.6"/>
+          <!-- Mountain ridges -->
+          <path d="M0,280 Q180,210 380,270 T800,240 T1200,270 L1200,400 L0,400 Z" fill="url(#mountGrad)"/>
+          <path d="M0,320 Q250,280 550,330 T1050,300 T1200,320 L1200,400 L0,400 Z" fill="#020617"/>
+          <!-- Stylized Explorer / Engineer Figures standing in desert/landscape -->
+          <g transform="translate(420, 275) scale(0.65)">
+            <ellipse cx="25" cy="18" rx="8" ry="10" fill="#f8fafc"/>
+            <rect x="18" y="26" width="14" height="28" rx="4" fill="#e2e8f0"/>
+            <rect x="16" y="52" width="6" height="26" rx="2" fill="#94a3b8"/>
+            <rect x="26" y="52" width="6" height="26" rx="2" fill="#94a3b8"/>
+            <circle cx="25" cy="18" r="5" fill="#38bdf8"/>
+          </g>
+          <g transform="translate(560, 270) scale(0.7)">
+            <ellipse cx="25" cy="18" rx="8" ry="10" fill="#f8fafc"/>
+            <rect x="18" y="26" width="14" height="28" rx="4" fill="#e2e8f0"/>
+            <rect x="16" y="52" width="6" height="26" rx="2" fill="#94a3b8"/>
+            <rect x="26" y="52" width="6" height="26" rx="2" fill="#94a3b8"/>
+            <circle cx="25" cy="18" r="5" fill="#60a5fa"/>
+          </g>
+          <g transform="translate(680, 278) scale(0.62)">
+            <ellipse cx="25" cy="18" rx="8" ry="10" fill="#f8fafc"/>
+            <rect x="18" y="26" width="14" height="28" rx="4" fill="#e2e8f0"/>
+            <rect x="16" y="52" width="6" height="26" rx="2" fill="#94a3b8"/>
+            <rect x="26" y="52" width="6" height="26" rx="2" fill="#94a3b8"/>
+            <circle cx="25" cy="18" r="5" fill="#38bdf8"/>
+          </g>
+          <!-- Geometric Network constellation lines -->
+          <line x1="150" y1="140" x2="310" y2="120" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.7"/>
+          <line x1="310" y1="120" x2="780" y2="100" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.7"/>
+          <line x1="780" y1="100" x2="1050" y2="140" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.7"/>
+          <circle cx="310" cy="120" r="4" fill="#38bdf8"/>
+          <circle cx="780" cy="100" r="4" fill="#38bdf8"/>
+        </svg>
+
+        <div class="relative z-10 text-center text-white px-4">
+          <span class="inline-block text-[11px] font-mono tracking-widest uppercase bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 mb-1">
+            NATIONAL PAYMENT SWITCH INFRASTRUCTURE // PQC ENCLAVE
+          </span>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Primary Engineering Hero -->
-  <section class="border-b border-white/10 py-16 lg:py-24 bg-[#030303]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- 2. Hero Section (Clean Centered Unibase Layout) -->
+  <section class="pt-12 pb-16 md:pt-16 md:pb-24 bg-white text-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Left-Aligned Technical Metadata Eyebrow -->
-      <div class="mb-6 flex flex-wrap items-center gap-3 font-mono text-xs">
-        <span class="tech-tag tech-tag-active">SYSTEM BRIEFING</span>
-        <span class="tech-tag">NPCI COMPATIBLE</span>
-        <span class="tech-tag">FIPS 203 / 204 VALIDATED</span>
-        <span class="text-neutral-500 font-mono text-[11px] hidden sm:inline">
-          // REF: RBI-QSAFE-BFSI-2027
-        </span>
+      <!-- Headline with Signature Blue Highlight -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#0f1419] leading-[1.1] mb-6">
+        Open Payment Layer<br />
+        For <span class="text-[#3e61ff]">National Rails</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
+        High-throughput UPI and IMPS switches embedded with Post-Quantum Cryptography (PQC). Eradicate legacy licensing bloat while neutralizing the "Harvest Now, Decrypt Later" threat.
+      </p>
+
+      <!-- Primary Blue Button -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+        <a
+          href={`${base}/products`}
+          class="btn-unibase-primary !py-3.5 !px-8 !text-base"
+        >
+          View Architecture
+        </a>
       </div>
 
-      <!-- Left-Aligned High-Impact Space Grotesk Header (NO Centered Pills, NO Gradients) -->
-      <div class="max-w-5xl">
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08] mb-6 uppercase">
-          Quantum-Safe, NPCI-Native Payment Infrastructure. Built for India.
-        </h1>
+      <div class="text-xs text-gray-400">
+        <a href={`${base}/developers`} class="hover:text-[#3e61ff] transition-colors">
+          Access PQC Migration Sandbox &rarr;
+        </a>
+      </div>
 
-        <!-- Crisp Technical Subtitle -->
-        <p class="text-base sm:text-lg text-neutral-300 font-mono leading-relaxed max-w-3xl mb-10">
-          Gajalogic delivers high-throughput UPI and IMPS switches embedded with Post-Quantum Cryptography (PQC). Eradicate legacy licensing bloat while neutralizing the "Harvest Now, Decrypt Later" threat.
+    </div>
+  </section>
+
+  <!-- 3. "Why Unibase" / "Why Gajalogic" (4 Modular White Cards) -->
+  <section class="py-16 md:py-24 bg-white border-t border-[#dadcdf]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight">
+          Why <span class="text-[#3e61ff]">Gajalogic</span>
+        </h2>
+        <p class="text-sm sm:text-base text-gray-500 mt-3">
+          The dual imperative of TCO reduction and post-quantum readiness for India's digital payment ecosystem.
         </p>
-
-        <!-- Sharp Rectangular Precision Actions (NO Fuzzy Drop Shadows) -->
-        <div class="flex flex-wrap items-center gap-4 mb-16">
-          <a
-            href={`${base}/platform`}
-            class="btn-engineering"
-          >
-            <span>VIEW THE ARCHITECTURE</span>
-            <span>&rarr;</span>
-          </a>
-          <a
-            href={`${base}/developers`}
-            class="btn-engineering-ghost"
-          >
-            <span>ACCESS PQC MIGRATION SANDBOX</span>
-          </a>
-          <a
-            href="#parameters"
-            class="text-xs font-mono text-neutral-400 hover:text-white px-2 py-2 transition-colors"
-          >
-            [EXAMINE TCO PARAMETERS]
-          </a>
-        </div>
       </div>
 
-      <!-- Real-Time Hardware & Cryptographic Execution Telemetry (Sharp 1px Bordered Terminal) -->
-      <div class="doc-panel">
-        <div class="px-4 py-2 bg-[#0d0d0d] border-b border-white/10 flex flex-wrap items-center justify-between text-[11px] font-mono text-neutral-400">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-white"></span>
-            <span class="text-white font-semibold">SWITCH_CORE_DAEMON // HOST_TELEMETRY</span>
-          </div>
-          <div class="flex items-center gap-4 text-[10px]">
-            <span>TOPOLOGY: DISTRIBUTED SAGA MESH</span>
-            <span class="text-neutral-600">|</span>
-            <span>THROUGHPUT: 75,420 TPS</span>
-            <span class="text-neutral-600">|</span>
-            <span class="text-neutral-200">INTERNAL P99: 0.78 MS</span>
-          </div>
-        </div>
+      <!-- 4 Clean 1px Bordered White Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {whyPoints.map((item) => (
+          <div class="unibase-card p-6 flex flex-col justify-between">
+            <div>
+              <!-- Colorful vector badge icon in top left -->
+              <div class={`w-10 h-10 rounded-xl flex items-center justify-center border mb-5 ${item.iconBg}`}>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.iconPath}/>
+                </svg>
+              </div>
 
-        <div class="p-5 bg-[#050505] font-mono text-xs text-neutral-300 space-y-2 overflow-x-auto leading-relaxed">
-          <div class="text-neutral-600">// Real-time dual-rail cryptographic verification & CBS insulation trace</div>
-          <div><span class="text-neutral-500">[04:57:02.114]</span> <span class="text-neutral-100">CORE_INIT:</span> Initializing in-memory O(1) VPA table: 48,200,000 entries mapped [138 µs lookup latency]</div>
-          <div><span class="text-neutral-500">[04:57:02.118]</span> <span class="text-neutral-100">CBS_SHIELD:</span> In-memory balance shadow cache active &bull; 84.6% non-financial queries intercepted</div>
-          <div><span class="text-neutral-500">[04:57:02.122]</span> <span class="text-neutral-100">CRYPTO_RAIL_01:</span> Classical RSA-2048 / SHA-256 [NPCI Interoperability: 100%]</div>
-          <div><span class="text-neutral-500">[04:57:02.125]</span> <span class="text-neutral-100">CRYPTO_RAIL_02:</span> Post-Quantum NIST FIPS 203 (ML-KEM-1024) + FIPS 204 (ML-DSA-65) active</div>
-          <div><span class="text-neutral-500">[04:57:02.130]</span> <span class="text-neutral-100">HNDL_AUDIT:</span> In-flight packet harvest defense: SECURE [Mathematical lattice bound &bull; 0.00% vulnerability]</div>
-        </div>
-      </div>
+              <h3 class="text-lg font-bold text-[#0f1419] mb-2">
+                {item.title}
+              </h3>
 
-    </div>
-  </section>
-
-  <!-- Technical Telemetry Parameter Grid (Sharp 1px Bordered Blocks) -->
-  <section class="border-b border-white/10 bg-[#060606]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
-        {systemMetrics.map((m, idx) => (
-          <div class={`${idx > 0 ? 'sm:pl-6' : ''} pt-4 sm:pt-0`}>
-            <div class="flex items-center justify-between text-[10px] font-mono text-neutral-500 mb-1">
-              <span>{m.id}</span>
-              <span>MEASURED</span>
+              <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">
+                {item.desc}
+              </p>
             </div>
-            <div class="text-xs font-mono text-neutral-400 uppercase tracking-wider">{m.label}</div>
-            <div class="text-2xl font-bold font-mono text-white mt-1 tracking-tight">{m.value}</div>
-            <p class="text-[11px] font-mono text-neutral-500 mt-1">{m.note}</p>
           </div>
         ))}
       </div>
+
     </div>
   </section>
 
-  <!-- The Strategic Imperative (Why Gajalogic?) Section -->
-  <section class="border-b border-white/10 py-16 lg:py-24 bg-[#030303]">
+  <!-- 4. Section Divider Callout Banner -->
+  <section class="py-14 bg-white text-center border-t border-[#dadcdf]">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight">
+        Build the <span class="text-[#3e61ff]">Quantum-Safe Payment Internet</span>
+      </h2>
+    </div>
+  </section>
+
+  <!-- 5. "The Gajalogic Stack" (2 Wide Cards Side-by-Side) -->
+  <section class="py-16 bg-white border-t border-[#dadcdf]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Section Header -->
-      <div class="mb-12 border-b border-white/10 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
         <div>
-          <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-2">
-            // STRATEGIC ANALYSIS // SECTION 01
-          </span>
-          <h2 class="text-2xl sm:text-4xl font-bold text-white uppercase tracking-tight">
-            The Strategic Imperative: Why Gajalogic?
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight">
+            The Gajalogic <span class="text-[#3e61ff]">Stack</span>
           </h2>
         </div>
-        <div class="text-xs font-mono text-neutral-500">
-          TARGET AUDIENCE: C-SUITE (CEO // CTO // CISO)
-        </div>
+        <p class="text-xs sm:text-sm text-gray-500 max-w-md">
+          A decoupled, cloud-native architecture combining high-concurrency micro-sagas with hardware-isolated lattice cryptography.
+        </p>
       </div>
 
-      <!-- 3 Key Strategic Pillars in Razor-Sharp Modular Layout -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- 2 Wide Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <!-- Pillar 1: TCO Paradigm Shift -->
-        <div class="doc-panel p-6 sm:p-8 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between text-[11px] font-mono text-neutral-500 mb-4 pb-2 border-b border-white/10">
-              <span>SECTION 1.1</span>
-              <span class="text-white font-bold">-64% TCO DELTA</span>
-            </div>
-            <h3 class="text-xs font-mono text-neutral-400 uppercase tracking-widest mb-1">
-              FINANCIAL ARCHITECTURE
+        <!-- Stack Card 1 -->
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="space-y-4">
+            <span class="text-xs font-mono font-bold text-[#3e61ff] uppercase tracking-wider">
+              SWITCH CORE // TIER 1
+            </span>
+            <h3 class="text-2xl font-extrabold text-[#0f1419]">
+              High-Throughput Saga Switch
             </h3>
-            <h4 class="text-xl font-bold text-white mb-4 uppercase">
-              The TCO Paradigm Shift
-            </h4>
-            <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed font-mono mb-6">
-              Monolithic legacy switches were not built for India's transaction volume. By migrating to Gajalogic's cloud-native architecture, banks replace exorbitant, volume-penalizing legacy licenses with a highly elastic, cost-optimized stack.
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Sub-millisecond distributed saga state machine with in-memory O(1) VPA routing tables. Sits in front of core banking to absorb 75,000+ peak TPS without database locks.
             </p>
-            <ul class="space-y-2 text-xs font-mono text-neutral-400 mb-6">
-              <li class="flex items-start gap-2">
-                <span class="text-white">&bull;</span>
-                <span>Zero per-transaction volume penalty brackets</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-white">&bull;</span>
-                <span>Runs on standard Kubernetes and commodity x86/ARM</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-white">&bull;</span>
-                <span>Eliminates recurring vendor mainframe maintenance fees</span>
-              </li>
-            </ul>
+            <div class="pt-2">
+              <a href={`${base}/platform`} class="text-xs font-bold text-[#3e61ff] hover:underline inline-flex items-center gap-1">
+                <span>Inspect Saga Architecture</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
           </div>
-          <div class="pt-4 border-t border-white/10">
-            <a href="#parameters" class="text-xs font-mono text-white hover:underline flex items-center justify-between">
-              <span>[VIEW TCO PARAMETER AUDIT]</span>
-              <span>&rarr;</span>
-            </a>
+          <!-- Corner Isometric Graphic -->
+          <div class="mt-6 flex justify-end">
+            <svg class="w-20 h-20 text-blue-500/80 transition-transform group-hover:scale-110" viewBox="0 0 80 80" fill="none">
+              <polygon points="40,10 70,25 40,40 10,25" fill="#3e61ff" opacity="0.8"/>
+              <polygon points="10,25 40,40 40,70 10,55" fill="#2563eb" opacity="0.9"/>
+              <polygon points="40,40 70,25 70,55 40,70" fill="#1d4ed8"/>
+            </svg>
           </div>
         </div>
 
-        <!-- Pillar 2: The Quantum Horizon -->
-        <div class="doc-panel p-6 sm:p-8 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between text-[11px] font-mono text-neutral-500 mb-4 pb-2 border-b border-white/10">
-              <span>SECTION 1.2</span>
-              <span class="text-white font-bold">FIPS 203 / 204</span>
-            </div>
-            <h3 class="text-xs font-mono text-neutral-400 uppercase tracking-widest mb-1">
-              NATIONAL SECURITY
+        <!-- Stack Card 2 -->
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="space-y-4">
+            <span class="text-xs font-mono font-bold text-purple-600 uppercase tracking-wider">
+              SECURITY // ENCLAVE
+            </span>
+            <h3 class="text-2xl font-extrabold text-[#0f1419]">
+              Post-Quantum Cryptographic Enclave
             </h3>
-            <h4 class="text-xl font-bold text-white mb-4 uppercase">
-              The Quantum Horizon
-            </h4>
-            <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed font-mono mb-6">
-              Financial data requiring long-term confidentiality is already at risk. Gajalogic neutralizes the "Harvest Now, Decrypt Later" threat by securing in-flight payloads and at-rest ledgers with NIST-finalized post-quantum algorithms (FIPS 204/ML-DSA, FIPS 205/SLH-DSA, FIPS 203/ML-KEM).
+            <p class="text-sm text-gray-600 leading-relaxed">
+              NIST FIPS 203 (ML-KEM) and FIPS 204 (ML-DSA) hardware root-of-trust. Encapsulates in-flight transactions and signs settlement ledgers, permanently defeating "Harvest Now, Decrypt Later".
             </p>
-            <ul class="space-y-2 text-xs font-mono text-neutral-400 mb-6">
-              <li class="flex items-start gap-2">
-                <span class="text-white">&bull;</span>
-                <span>Sovereign data sealed against future cryptanalytic collapse</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-white">&bull;</span>
-                <span>Protects citizen account mappings & historical transactions</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-white">&bull;</span>
-                <span>Hardware-accelerated PQC with &lt;1.0ms latency SLA</span>
-              </li>
-            </ul>
-          </div>
-          <div class="pt-4 border-t border-white/10">
-            <a href="#hndl" class="text-xs font-mono text-white hover:underline flex items-center justify-between">
-              <span>[DECONSTRUCT HNDL VECTOR]</span>
-              <span>&rarr;</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Pillar 3: Hybrid Crypto-Agility -->
-        <div class="doc-panel p-6 sm:p-8 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between text-[11px] font-mono text-neutral-500 mb-4 pb-2 border-b border-white/10">
-              <span>SECTION 1.3</span>
-              <span class="text-white font-bold">100% INTEROPERABLE</span>
+            <div class="pt-2">
+              <a href={`${base}/compliance`} class="text-xs font-bold text-[#3e61ff] hover:underline inline-flex items-center gap-1">
+                <span>View PQC Specifications</span>
+                <span>&rarr;</span>
+              </a>
             </div>
-            <h3 class="text-xs font-mono text-neutral-400 uppercase tracking-widest mb-1">
-              OPERATIONAL CONTINUITY
-            </h3>
-            <h4 class="text-xl font-bold text-white mb-4 uppercase">
-              Hybrid Crypto-Agility
-            </h4>
-            <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed font-mono mb-6">
-              Innovation without disruption. Our infrastructure runs classical algorithms (RSA/ECC) and PQC in parallel, ensuring zero downtime for current NPCI transactions while securing long-lived financial data against future threats.
-            </p>
-            <ul class="space-y-2 text-xs font-mono text-neutral-400 mb-6">
-              <li class="flex items-start gap-2">
-                <span class="text-white">&bull;</span>
-                <span>Zero service disruption or ecosystem flag-day cutovers</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-white">&bull;</span>
-                <span>Hot-swappable algorithm suites via centralized policy</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-white">&bull;</span>
-                <span>Pre-aligned with GoI PQC Task Force 2027 timelines</span>
-              </li>
-            </ul>
           </div>
-          <div class="pt-4 border-t border-white/10">
-            <a href={`${base}/platform`} class="text-xs font-mono text-white hover:underline flex items-center justify-between">
-              <span>[INSPECT CRYPTO-AGILITY SPEC]</span>
-              <span>&rarr;</span>
-            </a>
+          <!-- Corner Isometric Graphic -->
+          <div class="mt-6 flex justify-end">
+            <svg class="w-20 h-20 text-purple-500/80 transition-transform group-hover:scale-110" viewBox="0 0 80 80" fill="none">
+              <polygon points="40,10 70,25 40,40 10,25" fill="#9333ea" opacity="0.8"/>
+              <polygon points="10,25 40,40 40,70 10,55" fill="#7e22ce" opacity="0.9"/>
+              <polygon points="40,40 70,25 70,55 40,70" fill="#6b21a8"/>
+            </svg>
           </div>
         </div>
 
@@ -379,146 +334,234 @@ const npciProducts = [
     </div>
   </section>
 
-  <!-- Data-Dense Parameter Table: Monolithic Legacy vs. Gajalogic TCO -->
-  <section id="parameters" class="border-b border-white/10 py-16 lg:py-24 bg-[#050505]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+  <!-- 6. Alternating Zig-Zag Feature Blocks (AIP Protocol, Unibase Pay, Unibase DA) -->
+  <section class="py-16 md:py-24 bg-white border-t border-[#dadcdf] space-y-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
       
-      <div class="border-b border-white/10 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-2">
-            // SYSTEMS ENGINEERING AUDIT // TABLE 01
+      <!-- Block 1: Left Text, Right Graphic Card (AIP Protocol) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-4">
+          <span class="text-xs font-mono font-bold text-[#3e61ff] uppercase tracking-wider block">
+            HIGH-THROUGHPUT ENGINE
           </span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-white uppercase tracking-tight">
-            TCO Parameter Audit: Legacy Monolith vs. Gajalogic
-          </h2>
-        </div>
-        <div class="text-xs font-mono text-neutral-500">
-          BENCHMARK: 25,000 BASELINE TPS // FESTIVE SURGE: 75,000 TPS
-        </div>
-      </div>
-
-      <!-- High-Density Engineering Table -->
-      <div class="border border-white/10 overflow-x-auto bg-[#080808]">
-        <table class="dense-table">
-          <thead>
-            <tr>
-              <th class="w-1/5">SYSTEM PARAMETER</th>
-              <th class="w-2/5">MONOLITHIC LEGACY SWITCH (WAY4 / BASE24 / FIS)</th>
-              <th class="w-2/5">GAJALOGIC CLOUD-NATIVE STACK</th>
-              <th class="w-1/6">DELTA / SPEC</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tcoParameters.map((row) => (
-              <tr>
-                <td class="font-semibold text-white bg-[#0a0a0a] border-r border-white/10">{row.parameter}</td>
-                <td class="text-neutral-400 border-r border-white/10">{row.legacy}</td>
-                <td class="text-neutral-200 bg-white/[0.01] border-r border-white/10 font-medium">{row.gajalogic}</td>
-                <td class="text-white font-bold">{row.delta}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- "Harvest Now, Decrypt Later" Threat Vector Schematics -->
-  <section id="hndl" class="border-b border-white/10 py-16 lg:py-24 bg-[#030303]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
-      <div class="border-b border-white/10 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-2">
-            // CRYPTANALYTIC THREAT AUDIT // SECTION 02
-          </span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-white uppercase tracking-tight">
-            Threat Deconstruction: "Harvest Now, Decrypt Later" (HNDL)
-          </h2>
-        </div>
-        <div class="text-xs font-mono text-neutral-500">
-          STANDARDS: NIST FIPS 203 (ML-KEM) // FIPS 204 (ML-DSA)
-        </div>
-      </div>
-
-      <!-- 3-Phase Threat Timeline Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {hndlAttackVectors.map((v) => (
-          <div class="doc-panel p-6 space-y-4">
-            <div class="flex items-center justify-between text-[10px] font-mono text-neutral-500 pb-2 border-b border-white/10">
-              <span class="text-white font-bold">{v.phase}</span>
-              <span class="tech-tag !text-[9px]">{v.state}</span>
-            </div>
-            <div class="text-xs font-mono text-neutral-400 uppercase tracking-wider">{v.timeframe}</div>
-            
-            <div class="p-3 bg-[#0d0d0d] border border-white/10 text-xs font-mono text-neutral-400 leading-relaxed">
-              <span class="text-white font-bold block mb-1 uppercase text-[10px]">// VULNERABILITY MECHANISM</span>
-              {v.mechanism}
-            </div>
-
-            <div class="p-3 bg-[#111111] border border-white/20 text-xs font-mono text-neutral-200 leading-relaxed">
-              <span class="text-white font-bold block mb-1 uppercase text-[10px]">// GAJALOGIC COUNTERMEASURE</span>
-              {v.countermeasure}
-            </div>
+          <h3 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight">
+            AIP Switch Protocol
+          </h3>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            The Gajalogic AIP (Autonomous Interoperability Protocol) coordinates sub-millisecond payment authorization across remitter banks, beneficiary aggregators, and NPCI Unified Switch rails.
+          </p>
+          <ul class="space-y-2 text-xs sm:text-sm text-gray-600 pt-2">
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#3e61ff]"></span>
+              <span>O(1) in-memory VPA resolution in &lt;140 microseconds</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#3e61ff]"></span>
+              <span>Zero-lock non-blocking distributed saga actor execution</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#3e61ff]"></span>
+              <span>Active-active sponsor bank load balancing and sub-second failover</span>
+            </li>
+          </ul>
+          <div class="pt-3">
+            <a href={`${base}/products/upi-acquiring`} class="text-sm font-bold text-[#3e61ff] hover:underline inline-flex items-center gap-1">
+              <span>Explore AIP Acquiring Rail</span>
+              <span>&rarr;</span>
+            </a>
           </div>
-        ))}
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Technical Directory: NPCI Product Suite -->
-  <section class="border-b border-white/10 py-16 lg:py-24 bg-[#050505]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
-      <div class="border-b border-white/10 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-2">
-            // PRODUCT SPECIFICATION CATALOG // SECTION 03
-          </span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-white uppercase tracking-tight">
-            NPCI Product Suite Specifications
-          </h2>
         </div>
-        <div class="text-xs font-mono text-neutral-500">
-          DIRECTORY OF DEPLOYABLE SWITCH ENGINES
-        </div>
-      </div>
 
-      <!-- Product Directory Rows -->
-      <div class="border border-white/10 divide-y divide-white/10 bg-[#080808]">
-        {npciProducts.map((p) => (
-          <div class="p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:bg-neutral-900/50 transition-colors">
-            <div class="space-y-2 lg:max-w-2xl">
-              <div class="flex items-center gap-3">
-                <span class="tech-tag tech-tag-active">{p.code}</span>
-                <span class="text-xs font-mono text-neutral-500 uppercase">{p.target}</span>
+        <div class="lg:col-span-6">
+          <div class="unibase-card overflow-hidden shadow-lg p-2 bg-gradient-to-tr from-slate-900 to-blue-950">
+            <!-- Stylized Cybernetic Engineering Card Graphic (as in screenshot) -->
+            <div class="w-full h-80 sm:h-96 rounded-xl relative overflow-hidden bg-[#0c1222] p-6 flex flex-col justify-between text-white">
+              <div class="flex items-center justify-between text-[11px] font-mono text-blue-400">
+                <span>PROTOCOL // GAJA-AIP-V4</span>
+                <span class="px-2 py-0.5 rounded bg-blue-500/20 border border-blue-500/30">75,000 TPS</span>
               </div>
-              <h3 class="text-xl font-bold text-white uppercase tracking-tight">
-                <a href={p.slug} class="hover:underline">
-                  {p.name}
-                </a>
+              <div class="my-auto text-center space-y-3">
+                <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-tr from-[#3e61ff] to-cyan-400 p-0.5 flex items-center justify-center shadow-xl">
+                  <div class="w-full h-full bg-[#0c1222] rounded-[14px] flex items-center justify-center">
+                    <svg class="w-10 h-10 text-[#3e61ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="text-sm font-mono font-bold text-white">DISTRIBUTED SAGA ENGINE</div>
+                <p class="text-xs text-blue-200/70 max-w-xs mx-auto">Non-blocking two-phase commit eliminates lock contention during festival surges</p>
+              </div>
+              <div class="text-[10px] font-mono text-gray-400 border-t border-white/10 pt-2 flex justify-between">
+                <span>P99 SWITCH TRANSIT: 0.78ms</span>
+                <span class="text-emerald-400">0.00% TECHNICAL DECLINE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block 2: Inverted - Left Graphic (Iconic Blue Smiley Orb as in Screenshot), Right Text -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 order-2 lg:order-1">
+          <div class="unibase-card overflow-hidden shadow-lg p-2 bg-gradient-to-tr from-indigo-950 via-blue-900 to-slate-900">
+            <!-- Exact reproduction of the iconic blue smiley cybernetic orb from the screenshot! -->
+            <div class="w-full h-80 sm:h-96 rounded-xl relative overflow-hidden bg-[#0a0f1d] p-6 flex flex-col items-center justify-center text-center">
+              <div class="relative w-40 h-40 rounded-full bg-gradient-to-b from-[#3e61ff] to-[#6366f1] p-1 flex items-center justify-center shadow-2xl shadow-blue-500/40 animate-pulse">
+                <div class="w-full h-full rounded-full bg-gradient-to-tr from-[#2563eb] to-[#38bdf8] flex flex-col items-center justify-center relative">
+                  <!-- Smiley Face Vector -->
+                  <div class="flex items-center gap-6 mb-2">
+                    <div class="w-3.5 h-3.5 rounded-full bg-white"></div>
+                    <div class="w-3.5 h-3.5 rounded-full bg-white"></div>
+                  </div>
+                  <svg class="w-12 h-6 text-white" viewBox="0 0 48 24" fill="none">
+                    <path d="M6 6C12 18 36 18 42 6" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="mt-6 font-mono text-xs font-bold text-white tracking-wider">
+                GAJALOGIC PAY // POST-QUANTUM SETTLEMENT
+              </div>
+              <p class="text-[11px] font-mono text-blue-300 mt-1">FIPS 204 ML-DSA Immutable Non-Repudiation</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 order-1 lg:order-2 space-y-4">
+          <span class="text-xs font-mono font-bold text-[#3e61ff] uppercase tracking-wider block">
+            SETTLEMENT ENGINE
+          </span>
+          <h3 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight">
+            Gajalogic Pay
+          </h3>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            Quantum-safe merchant settlement journals and daily reconciliation logs sealed with post-quantum digital signatures, ensuring complete immunity from retrospective cryptanalytic tampering.
+          </p>
+          <ul class="space-y-2 text-xs sm:text-sm text-gray-600 pt-2">
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#3e61ff]"></span>
+              <span>NIST FIPS 204 ML-DSA digital signatures at line-rate</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#3e61ff]"></span>
+              <span>Zero-impact on 15ms real-time merchant payout SLAs</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#3e61ff]"></span>
+              <span>Automated fee clearing with NPCI Data Management System</span>
+            </li>
+          </ul>
+          <div class="pt-3">
+            <a href={`${base}/products/upi-acquiring`} class="text-sm font-bold text-[#3e61ff] hover:underline inline-flex items-center gap-1">
+              <span>Explore Settlement Infrastructure</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block 3: Left Text, Right Graphic Card (Unibase DA / Core Shield) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-4">
+          <span class="text-xs font-mono font-bold text-[#3e61ff] uppercase tracking-wider block">
+            CORE BANKING INSULATION
+          </span>
+          <h3 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight">
+            Gajalogic DA & Core Shield
+          </h3>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            In-memory balance virtualization offloads 84.6% of read queries from primary CBS databases (Finacle, BaNCS, Flexcube), preventing lock contention and spike outages during peak festival hours.
+          </p>
+          <ul class="space-y-2 text-xs sm:text-sm text-gray-600 pt-2">
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#3e61ff]"></span>
+              <span>84.6% reduction in core banking database read IOPS</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#3e61ff]"></span>
+              <span>FIPS 203 ML-KEM metadata protection guarding citizen accounts</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#3e61ff]"></span>
+              <span>Sub-400ms auto-reversals completely eliminate phantom debits</span>
+            </li>
+          </ul>
+          <div class="pt-3">
+            <a href={`${base}/products/upi-issuing`} class="text-sm font-bold text-[#3e61ff] hover:underline inline-flex items-center gap-1">
+              <span>Explore Core Banking Shield</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <div class="unibase-card overflow-hidden shadow-lg p-2 bg-gradient-to-tr from-slate-900 to-indigo-950">
+            <div class="w-full h-80 sm:h-96 rounded-xl relative overflow-hidden bg-[#0a0f1d] p-6 flex flex-col justify-between text-white">
+              <div class="flex items-center justify-between text-[11px] font-mono text-purple-400">
+                <span>CBS OFF-LOAD SHIELD // FINACLE &bull; BaNCS</span>
+                <span class="px-2 py-0.5 rounded bg-purple-500/20 border border-purple-500/30">84.6% OFF-LOAD</span>
+              </div>
+              <div class="my-auto text-center space-y-3">
+                <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-tr from-purple-500 to-blue-500 p-0.5 flex items-center justify-center shadow-xl">
+                  <div class="w-full h-full bg-[#0a0f1d] rounded-[14px] flex items-center justify-center">
+                    <svg class="w-10 h-10 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="text-sm font-mono font-bold text-white">IN-MEMORY BALANCE BUFFER</div>
+                <p class="text-xs text-purple-200/70 max-w-xs mx-auto">Protects primary core ledger IOPS while maintaining real-time balance accuracy</p>
+              </div>
+              <div class="text-[10px] font-mono text-gray-400 border-t border-white/10 pt-2 flex justify-between">
+                <span>REVERSAL CONSISTENCY: 99.999%</span>
+                <span class="text-purple-400">FIPS 203 ENCRYPTED</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. "Use Cases" Section (with exact soft periwinkle-to-white background) -->
+  <section class="py-20 md:py-28" style="background: linear-gradient(180deg, #e7e9ff 0%, #f1f0ff 45%, #ffffff 100%);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight">
+          Use <span class="text-[#3e61ff]">Cases</span>
+        </h2>
+        <p class="text-sm sm:text-base text-gray-600 mt-3">
+          Deployable architectures for banking cores, high-growth payment aggregators, and national mobility networks.
+        </p>
+      </div>
+
+      <!-- 3 Use Case Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        {useCases.map((uc) => (
+          <div class="unibase-card p-6 flex flex-col justify-between bg-white shadow-sm">
+            <div>
+              <!-- Vector Illustration at top of card -->
+              <div class="w-full h-36 rounded-xl bg-gradient-to-tr from-blue-50 to-indigo-100 flex items-center justify-center mb-6 border border-blue-100/60">
+                <svg class="w-14 h-14 text-[#3e61ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                </svg>
+              </div>
+
+              <span class="text-[10px] font-mono font-bold text-[#3e61ff] uppercase tracking-wider block mb-1">
+                {uc.badge}
+              </span>
+              <h3 class="text-xl font-bold text-[#0f1419] mb-3">
+                {uc.title}
               </h3>
-              <p class="text-xs font-mono text-neutral-400 leading-relaxed">
-                {p.specSummary}
+              <p class="text-xs sm:text-sm text-gray-600 leading-relaxed mb-6">
+                {uc.desc}
               </p>
             </div>
 
-            <div class="flex items-center gap-6 font-mono text-xs border-t lg:border-t-0 pt-4 lg:pt-0 border-white/10">
-              <div class="text-right">
-                <div class="text-[10px] text-neutral-500 uppercase">THROUGHPUT</div>
-                <div class="text-sm font-bold text-white">{p.throughput}</div>
-              </div>
-              <div class="text-right">
-                <div class="text-[10px] text-neutral-500 uppercase">LATENCY</div>
-                <div class="text-sm font-bold text-white">{p.latency}</div>
-              </div>
-              <a
-                href={p.slug}
-                class="btn-engineering !py-1.5 !px-3 !text-xs whitespace-nowrap"
-              >
-                <span>SPEC</span>
+            <div class="pt-4 border-t border-gray-100">
+              <a href={uc.link} class="text-xs font-bold text-[#3e61ff] hover:underline flex items-center justify-between">
+                <span>Explore Technical Specs</span>
                 <span>&rarr;</span>
               </a>
             </div>
@@ -526,39 +569,179 @@ const npciProducts = [
         ))}
       </div>
 
+      <!-- Centered Blue Button -->
+      <div class="flex items-center justify-center gap-4">
+        <a
+          href={`${base}/products`}
+          class="btn-unibase-primary !py-3 !px-7 !text-sm"
+        >
+          Explore All Products
+        </a>
+        <a
+          href={`${base}/developers`}
+          class="btn-unibase-secondary !py-3 !px-7 !text-sm"
+        >
+          View Docs &rarr;
+        </a>
+      </div>
+
     </div>
   </section>
 
-  <!-- Industrial Engineering Call-to-Action Section -->
-  <section class="py-16 lg:py-24 bg-[#030303]">
+  <!-- 8. "Blog / Engineering Insights" Section (Vibrant Blue Card Headers as in screenshot) -->
+  <section class="py-16 md:py-24 bg-[#f8f8f8] border-t border-[#dadcdf]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="border border-white/10 p-8 sm:p-12 bg-[#080808] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-        <div class="max-w-2xl space-y-2">
-          <div class="text-[10px] font-mono text-neutral-400 uppercase tracking-widest">
-            // INITIATE ARCHITECTURAL ENGAGEMENT
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-white uppercase tracking-tight">
-            Schedule a Confidential Technical Briefing
-          </h2>
-          <p class="text-xs sm:text-sm font-mono text-neutral-400 leading-relaxed">
-            Connect with our Principal Payment Architects to model your bank's volume curves, calculate 5-year TCO savings, and run an automated PQC stress harness on your test infrastructure.
-          </p>
-        </div>
-        <div class="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-          <a
-            href={`${base}/company#contact`}
-            class="btn-engineering !py-3 !px-6 !text-xs whitespace-nowrap"
-          >
-            REQUEST ARCHITECTURE AUDIT
-          </a>
-          <a
-            href={`${base}/developers`}
-            class="btn-engineering-ghost !py-3 !px-6 !text-xs whitespace-nowrap"
-          >
-            API DOCUMENTATION
-          </a>
-        </div>
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight">
+          Engineering <span class="text-[#3e61ff]">Insights</span>
+        </h2>
+        <p class="text-sm sm:text-base text-gray-500 mt-3">
+          Deep-dives into post-quantum switch engineering, TCO reductions, and sub-millisecond sagas.
+        </p>
       </div>
+
+      <!-- 3 Blog Cards with Royal Blue Textured Headers -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        {blogPosts.map((post) => (
+          <div class="unibase-card overflow-hidden flex flex-col justify-between bg-white shadow-sm">
+            <div>
+              <!-- Vibrant Royal Blue Card Header with White Text -->
+              <div class="h-44 p-6 bg-[#3e61ff] text-white flex flex-col justify-between relative overflow-hidden">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-blue-200">
+                  {post.tag}
+                </div>
+                <h3 class="text-base sm:text-lg font-bold leading-snug text-white">
+                  {post.title}
+                </h3>
+              </div>
+
+              <!-- White Card Body -->
+              <div class="p-6 space-y-3">
+                <div class="text-[10px] font-mono text-gray-400">
+                  {post.date}
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed">
+                  {post.excerpt}
+                </p>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0">
+              <a href={post.link} class="text-xs font-bold text-[#3e61ff] hover:underline flex items-center justify-between">
+                <span>Read Analysis</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Centered View All Button -->
+      <div class="text-center">
+        <a
+          href={`${base}/company`}
+          class="btn-unibase-primary !py-2.5 !px-6 !text-xs"
+        >
+          View All Insights &rarr;
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 9. "How to Participate / Onboard" Section -->
+  <section class="py-16 md:py-24 bg-white border-t border-[#dadcdf]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight">
+          How to <span class="text-[#3e61ff]">Participate</span>
+        </h2>
+        <p class="text-sm sm:text-base text-gray-500 mt-2">
+          A phased, zero-downtime migration pathway for Tier-1 banks, payment aggregators, and transit networks.
+        </p>
+      </div>
+
+      <!-- Structured Technical Milestone Rows -->
+      <div class="max-w-4xl mx-auto space-y-4">
+        
+        <div class="unibase-card p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-mono font-bold text-[#3e61ff]">PHASE 01 // DISCOVERY</div>
+            <h4 class="text-base font-bold text-[#0f1419] mt-0.5">Architecture Audit & Volume Sizing</h4>
+            <p class="text-xs text-gray-500 mt-1">Quantify 5-year TCO savings, identify CBS bottleneck queries, and benchmark peak festival curves.</p>
+          </div>
+          <a href={`${base}/company#contact`} class="text-xs font-bold text-[#3e61ff] hover:underline shrink-0">
+            Request Audit &rarr;
+          </a>
+        </div>
+
+        <div class="unibase-card p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-mono font-bold text-[#3e61ff]">PHASE 02 // SANDBOX</div>
+            <h4 class="text-base font-bold text-[#0f1419] mt-0.5">Connect to PQC Migration Sandbox</h4>
+            <p class="text-xs text-gray-500 mt-1">Initiate simulated UPI pay/collect flows and test hybrid ML-KEM / ML-DSA cryptographic handshakes.</p>
+          </div>
+          <a href={`${base}/developers`} class="text-xs font-bold text-[#3e61ff] hover:underline shrink-0">
+            Launch Sandbox &rarr;
+          </a>
+        </div>
+
+        <div class="unibase-card p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-mono font-bold text-[#3e61ff]">PHASE 03 // SHADOW RUN</div>
+            <h4 class="text-base font-bold text-[#0f1419] mt-0.5">Parallel Shadow Deployment</h4>
+            <p class="text-xs text-gray-500 mt-1">Replicate real production traffic in passive shadow mode without impacting existing switch operations.</p>
+          </div>
+          <a href={`${base}/platform`} class="text-xs font-bold text-[#3e61ff] hover:underline shrink-0">
+            View Shadow Specs &rarr;
+          </a>
+        </div>
+
+        <div class="unibase-card p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-mono font-bold text-[#3e61ff]">PHASE 04 // CUTOVER</div>
+            <h4 class="text-base font-bold text-[#0f1419] mt-0.5">Zero-Downtime Production Cutover</h4>
+            <p class="text-xs text-gray-500 mt-1">Gradually shift traffic route-by-route with instant sub-second fallback protection.</p>
+          </div>
+          <a href={`${base}/company#contact`} class="text-xs font-bold text-[#3e61ff] hover:underline shrink-0">
+            Contact Architects &rarr;
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 10. FAQ Accordion Section -->
+  <section class="py-16 md:py-24 bg-white border-t border-[#dadcdf]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+          Frequently Asked <span class="text-[#3e61ff]">Questions</span>
+        </h2>
+      </div>
+
+      <!-- FAQ Accordion List -->
+      <div class="divide-y divide-gray-200">
+        {faqs.map((faq) => (
+          <details class="group py-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-bold text-[#0f1419] hover:text-[#3e61ff] transition-colors">
+              <span>{faq.q}</span>
+              <span class="shrink-0 text-xl font-mono text-[#3e61ff] transition-transform duration-200 group-open:rotate-45">
+                +
+              </span>
+            </summary>
+            <p class="mt-3 text-xs sm:text-sm text-gray-600 leading-relaxed pr-6">
+              {faq.a}
+            </p>
+          </details>
+        ))}
+      </div>
+
     </div>
   </section>
 </Layout>

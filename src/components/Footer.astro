@@ -4,7 +4,7 @@ const currentYear = new Date().getFullYear();
 
 const footerSections = [
   {
-    title: 'NPCI PRODUCT SPECIFICATIONS',
+    title: 'Products',
     links: [
       { name: 'UPI Acquiring Switch', href: `${base}/products/upi-acquiring` },
       { name: 'UPI Issuing Switch', href: `${base}/products/upi-issuing` },
@@ -14,85 +14,73 @@ const footerSections = [
     ],
   },
   {
-    title: 'PLATFORM ARCHITECTURE',
+    title: 'Platform',
     links: [
-      { name: 'Engine Overview', href: `${base}/platform` },
-      { name: 'Distributed Saga Runtime', href: `${base}/platform#runtime` },
+      { name: 'Architecture Overview', href: `${base}/platform` },
+      { name: 'Distributed Sagas', href: `${base}/platform#runtime` },
       { name: 'Hardware Acceleration', href: `${base}/hardware` },
-      { name: 'Post-Quantum Encryption', href: `${base}/compliance#fips` },
+      { name: 'Crypto-Agility Engine', href: `${base}/platform` },
     ],
   },
   {
-    title: 'ENGINEERING & TOOLING',
+    title: 'Resources',
     links: [
+      { name: 'Documentation', href: `${base}/developers` },
       { name: 'API Reference', href: `${base}/developers#api` },
-      { name: 'Rust & Python SDKs', href: `${base}/developers#sdks` },
-      { name: 'CLI Tooling (gajactl)', href: `${base}/developers#cli` },
-      { name: 'Hardware Simulator', href: `${base}/developers#sandbox` },
+      { name: 'Python & Rust SDKs', href: `${base}/developers#sdks` },
+      { name: 'PQC Migration Sandbox', href: `${base}/developers` },
     ],
   },
   {
-    title: 'STANDARDS & TRUST',
+    title: 'Company',
     links: [
-      { name: 'NIST FIPS 203 / 204 Standards', href: `${base}/compliance#certifications` },
-      { name: 'SOC 2 Type II Reports', href: `${base}/compliance#soc2` },
-      { name: 'FIPS 140-3 Hardware Enclaves', href: `${base}/compliance#fips` },
-      { name: 'RBI Cyber Security Framework', href: `${base}/compliance#security` },
-    ],
-  },
-  {
-    title: 'CORPORATE & AUDITS',
-    links: [
-      { name: 'Mission & Systems Team', href: `${base}/company#about` },
-      { name: 'Architects & Leadership', href: `${base}/company#leadership` },
-      { name: 'Systems Engineering Careers', href: `${base}/company#careers` },
-      { name: 'Contact & Procurement', href: `${base}/company#contact` },
+      { name: 'About Us', href: `${base}/company#about` },
+      { name: 'Leadership & Team', href: `${base}/company#leadership` },
+      { name: 'Compliance & Trust', href: `${base}/compliance` },
+      { name: 'Contact Sales', href: `${base}/company#contact` },
     ],
   },
 ];
 ---
 
-<footer class="mt-auto border-t border-white/10 bg-[#030303] text-neutral-400 font-mono text-xs">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+<footer class="mt-auto border-t border-[#dadcdf] bg-white text-gray-600 text-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
       
-      <!-- Brand & Metadata Column -->
-      <div class="col-span-2 md:col-span-3 lg:col-span-1 space-y-4">
-        <div class="flex items-center gap-2">
-          <div class="w-5 h-5 border border-white/20 bg-neutral-900 flex items-center justify-center font-bold text-white text-[10px]">
+      <!-- Brand & Status Column -->
+      <div class="col-span-2 md:col-span-3 lg:col-span-2 space-y-4">
+        <a href={`${base}/`} class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-[#3e61ff] flex items-center justify-center text-white font-bold text-sm">
             G
           </div>
-          <span class="text-sm font-bold text-white tracking-widest uppercase">
-            GAJALOGIC<span class="text-neutral-500">//</span>SYS
+          <span class="text-xl font-extrabold tracking-tight text-[#0f1419]">
+            Gaja<span class="text-[#3e61ff]">Logic</span>
           </span>
-        </div>
+        </a>
         
-        <p class="text-[11px] text-neutral-500 leading-relaxed">
-          National payment switch infrastructure, distributed saga orchestration, and post-quantum cryptographic execution engines.
+        <p class="text-xs text-gray-500 leading-relaxed max-w-sm">
+          Open quantum-safe payment infrastructure for high-throughput national rails. Sub-millisecond distributed sagas, in-memory core banking offloading, and post-quantum encryption.
         </p>
 
-        <div class="p-2 border border-white/10 bg-[#080808] text-[10px] space-y-1">
-          <div class="text-neutral-400 font-bold flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 bg-white"></span>
-            NETWORK STATE: VERIFIED
-          </div>
-          <div class="text-neutral-500">NPCI CORE: CONNECTED</div>
-          <div class="text-neutral-500">PQC SUITE: FIPS 203/204 ACTIVE</div>
+        <!-- Live Status Pill -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          All Payment Switches Operational
         </div>
       </div>
 
       <!-- Links Columns -->
       {footerSections.map((section) => (
         <div class="space-y-3">
-          <h3 class="text-[10px] font-bold text-neutral-300 uppercase tracking-widest border-b border-white/10 pb-1">
+          <h3 class="text-xs font-bold text-[#0f1419] uppercase tracking-wider">
             {section.title}
           </h3>
-          <ul class="space-y-1.5 text-[11px]">
+          <ul class="space-y-2 text-xs">
             {section.links.map((link) => (
               <li>
                 <a
                   href={link.href}
-                  class="text-neutral-500 hover:text-white transition-colors block py-0.5"
+                  class="text-gray-500 hover:text-[#3e61ff] transition-colors"
                 >
                   {link.name}
                 </a>
@@ -104,17 +92,13 @@ const footerSections = [
 
     </div>
 
-    <!-- Bottom Technical Metadata Bar -->
-    <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-neutral-600">
-      <div class="flex items-center gap-4">
-        <span>© {currentYear} GAJALOGIC SYSTEMS INC.</span>
-        <span>SECURITY SPEC: FIPS 203 / FIPS 204</span>
-        <span>LATENCY SLA: &lt; 1.0 MS P99</span>
-      </div>
+    <!-- Bottom Bar -->
+    <div class="pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <p>© {currentYear} GajaLogic Systems Inc. All rights reserved.</p>
       <div class="flex items-center space-x-6">
-        <a href={`${base}/compliance`} class="hover:text-neutral-400 transition-colors">[PRIVACY PROTOCOL]</a>
-        <a href={`${base}/compliance`} class="hover:text-neutral-400 transition-colors">[TERMS OF SERVICE]</a>
-        <a href={`${base}/compliance#security`} class="hover:text-neutral-400 transition-colors">[SECURITY ADVISORY]</a>
+        <a href={`${base}/compliance`} class="hover:text-gray-600 transition-colors">Privacy Policy</a>
+        <a href={`${base}/compliance`} class="hover:text-gray-600 transition-colors">Terms of Service</a>
+        <a href={`${base}/compliance#security`} class="hover:text-gray-600 transition-colors">Security Disclosure</a>
       </div>
     </div>
   </div>
