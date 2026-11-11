@@ -83,3 +83,21 @@ All significant prompt intents and file modifications in this workspace are reco
   - `PROMPT_LOG.md` (created)
 - **Changes Made:**
   - Created `PROMPT_LOG.md` in the project root documenting session history and setting up the ongoing tracking format for future workspace tasks.
+
+---
+
+## [2026-11-12 / Step 6: Industrial Engineering Aesthetic & Homepage Redesign]
+- **Prompt Intent:** Adopt a strict industrial engineering aesthetic across the design system and homepage, eliminating AI clichés (no centered pill badges, no gradients, no Inter font, no fuzzy drop shadows, no cards-in-cards) in favor of a `#030303` palette, Space Grotesk headers, JetBrains Mono data/labels, razor-sharp 1px borders, left-aligned technical metadata headers, and data-dense parameter tables.
+- **Files Modified:**
+  - `src/styles/global.css` (modified)
+  - `src/layouts/Layout.astro` (modified)
+  - `src/components/Navbar.astro` (modified)
+  - `src/components/Footer.astro` (modified)
+  - `src/pages/index.astro` (modified)
+  - `docs/` (rebuilt static assets)
+  - `PROMPT_LOG.md` (appended)
+- **Changes Made:**
+  - Purged all purple-to-blue gradients, fuzzy drop shadows, and pill badges in favor of a strict monochromatic `#030303` systems engineering aesthetic with Space Grotesk and JetBrains Mono typography.
+  - Rebuilt the homepage with left-aligned technical metadata headers, razor-sharp 1px bordered frames (`.doc-panel`), a data-dense TCO engineering audit table (`.dense-table`), and precise rectangular interactive button states.
+
+
