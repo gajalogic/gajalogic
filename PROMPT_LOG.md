@@ -180,5 +180,15 @@ All significant prompt intents and file modifications in this workspace are reco
 - **Deployment:** `.github/workflows/deploy.yml` deploys on push to `main` via `actions/deploy-pages`. Commit `033da04` pushed; workflow run succeeded.
 - **Verification (live):** All 26 pages return HTTP 200 at `https://sanjibparida.github.io/gajalogic/`; CSS + InteractiveBackground JS assets 200; canonical URLs correct; internal links resolve (Pages issues 301 trailing-slash redirects, followed by browsers); browser check of homepage + product page renders styled with the interactive aurora and zero console errors.
 
+---
+
+## [2026-11-12 / Step 14: Custom Domain gajalogic.com — Root-Cause Fix]
+- **Prompt Intent:** Fix the site breaking when served from the custom domain `gajalogic.com` while rendering fine from the github.io subpath.
+- **Root Cause (two layers):** (1) The deployed build was subpath-based (`base: /gajalogic`), but a custom domain serves Pages at the ROOT — every asset/link `/gajalogic/…` 404'd. (2) DNS for `gajalogic.com`/`www` resolves to Cloudflare proxy IPs (104.21.x/172.67.x), not GitHub Pages IPs (185.199.108–111.153), so GitHub cannot verify the domain (its github.io URL went 404, then 301→domain once a CNAME shipped in the artifact).
+- **Files Modified:** `astro.config.mjs` (`site: https://gajalogic.com`, `base: '/'` — env overrides kept for CI compatibility), `src/layouts/Layout.astro` (canonical fallback `https://gajalogic.com`), `public/CNAME` + `docs/CNAME` (`gajalogic.com`, rides inside the Pages artifact), `.github/workflows/deploy.yml` (removed `SITE_URL`/`BASE_PATH` env overrides — post-rename `configure-pages` would emit `/gajalogic` and resurrect the broken subpath build), `docs/` rebuilt root-based.
+- **Integration:** Remote carried three web-UI CNAME toggles (`52cab1a`, `8f421e6`, `7a12c2e`); local fix rebased on top → `b7de9f3` (domain-root build) + `882a8f6` (workflow pin); pushed to the renamed remote `github.com/gajalogic/gajalogic`.
+- **Verification (live):** `https://gajalogic.com/` now serves the root-based build — canonical `https://gajalogic.com/`, root-prefixed links, CSS/JS assets 200, all 26 pages 200, `gajalogic.github.io/gajalogic/` 301s to the domain, browser render (home + UPI Acquiring) zero console errors.
+- **Remaining (user-side):** Cloudflare DNS still proxies the domain (orange cloud) → occasional 520s browser→Cloudflare→GitHub and GitHub cannot verify the domain / provision its own cert. Fix: apex A records → 185.199.108/109/110/111.153 and `www` CNAME → `gajalogic.github.io`, all **DNS only (grey cloud)**; then re-save the Pages custom domain and enable Enforce HTTPS.
+
 
 
