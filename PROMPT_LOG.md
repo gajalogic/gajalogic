@@ -172,5 +172,13 @@ All significant prompt intents and file modifications in this workspace are reco
 - **Files Modified:** `src/components/Footer.astro` (status pill div deleted; brand column keeps wordmark + description)
 - **Changes Made:** Verified: `npm run build` (26 pages); grep confirms zero references remain in `src/` and `docs/`.
 
+---
+
+## [2026-11-12 / Step 13: GitHub Pages Hosting (Project Site)]
+- **Prompt Intent:** Host the site on GitHub (`sanjibparida/gajalogic`) and serve it as a static site via GitHub Pages.
+- **Files Modified:** `astro.config.mjs` (fixed defaults: `site: https://sanjibparida.github.io`, `base: /gajalogic` — the previous defaults pointed at a non-existent user page and built with base `/`, which broke asset URLs and internal links on the project-site subpath), `src/layouts/Layout.astro` (canonical fallback aligned), `docs/` (rebuilt as a correct subpath build).
+- **Deployment:** `.github/workflows/deploy.yml` deploys on push to `main` via `actions/deploy-pages`. Commit `033da04` pushed; workflow run succeeded.
+- **Verification (live):** All 26 pages return HTTP 200 at `https://sanjibparida.github.io/gajalogic/`; CSS + InteractiveBackground JS assets 200; canonical URLs correct; internal links resolve (Pages issues 301 trailing-slash redirects, followed by browsers); browser check of homepage + product page renders styled with the interactive aurora and zero console errors.
+
 
 
