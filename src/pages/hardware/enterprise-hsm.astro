@@ -1,0 +1,199 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const hsmMetrics = [
+  { value: 'Thales Luna', label: 'Network HSM', sub: 'Native enterprise integration' },
+  { value: 'FIPS 140-3', label: 'Level 3 Validation', sub: 'Tamper-responsive key vaults' },
+  { value: 'QRNG', label: 'True Entropy Source', sub: 'Silicon photonic quantum RNG' },
+  { value: 'M-of-N', label: 'Quorum Control', sub: 'Blue PED key ceremonies' },
+];
+
+const hsmModules = [
+  {
+    step: 'Module 01 // Native Enterprise Integration',
+    title: 'Thales Luna Network HSMs as First-Class Peers',
+    desc: 'Gajalogic does not treat HSMs as black-box appendages. Thales Luna Network HSMs integrate natively with the switch fabric: PQC-capable key stores, partition-level access control, and per-transaction signing at line rate. Banks keep their existing Luna estate; the switch simply uses it correctly.',
+    tech: ['Thales Luna Native Client', 'Partitioned Key Stores', 'Line-Rate HSM Signing'],
+  },
+  {
+    step: 'Module 02 // True Entropy',
+    title: 'Silicon Photonic QRNG Feeds',
+    desc: 'Key generation quality is bounded by entropy quality. Gajalogic provisions Silicon Photonic Quantum Random Number Generators alongside classical TRNG chains, feeding quantum-sourced entropy directly into Luna key ceremonies for ML-KEM and ML-DSA key material.',
+    tech: ['Silicon Photonic QRNG', 'Dual-Source Entropy Mixing', 'Continuous Entropy Health Checks'],
+  },
+  {
+    step: 'Module 03 // Protocol Transparency',
+    title: 'Security Officer Blue PED Key Activation',
+    desc: 'Every control path is a documented protocol, not vendor folklore. Security Officer Blue PED key activation follows an explicit, auditable sequence: quorum formation, role authentication, and capability unlocking — each step journaled for compliance review.',
+    tech: ['SO Blue PED Activation', 'M-of-N Quorum Rules', 'Jerked-Step Audit Journal'],
+  },
+  {
+    step: 'Module 04 // Zeroization Recovery',
+    title: 'Tamper Response Without Business Loss',
+    desc: 'When an HSM detects tamper conditions, key material zeroizes — that is the point. Gajalogic documents the exact recovery protocols: quorum-held backup restoration, PQC key re-injection, and re-attestation to the switch fabric, so zeroization is an incident, not an outage.',
+    tech: ['Documented Zeroization', 'Quorum Backup Restore', 'PQC Key Re-Injection'],
+  },
+];
+
+const ceremonyMatrix = [
+  { step: 'SO Blue PED activation', protocol: 'M-of-N quorum authentication', operator: 'Security Officers', artifact: 'Capability unlock journal' },
+  { step: 'Partition creation', protocol: 'Luna partition provisioning', operator: 'Crypto Officer', artifact: 'Partition policy doc' },
+  { step: 'PQC key generation', protocol: 'QRNG-fed ML-KEM / ML-DSA ceremony', operator: 'Crypto Officer + Auditor', artifact: 'Key attestation record' },
+  { step: 'Tamper zeroization', protocol: 'Auto-erase on breach condition', operator: 'HSM firmware', artifact: 'Zeroization event log' },
+  { step: 'Recovery re-injection', protocol: 'Quorum-held backup restore', operator: 'M-of-N Quorum', artifact: 'Restoration attestation' },
+];
+---
+
+<Layout
+  title="Enterprise HSM | GajaLogic Root of Trust Integration"
+  description="Native Thales Luna Network HSM integration, silicon photonic QRNG entropy, documented Blue PED key ceremonies, and zeroization recovery protocols."
+>
+  <PageHeader
+    eyebrow="Hardware & Edge Security // HSM"
+    title="Enterprise Root of Trust"
+    subtitle="Native integration with Thales Luna Network HSMs and Silicon Photonic QRNG entropy — with exact, documented protocols for Blue PED activation and zeroization recovery."
+    badge="Root of Trust // FIPS 140-3"
+  >
+    <div slot="actions">
+      <a href="#modules" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Examine the Protocols
+      </a>
+      <a href={`${base}/hardware/ble-contactless`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Next: BLE Contactless
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {hsmMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HSM Modules -->
+  <section id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Root of Trust Architecture</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Keys Born from Quantum Entropy, Governed by Quorum
+      </h2>
+      <p class="text-gray-500 mt-3 text-base">
+        Four subsystems make the enterprise key estate auditable end to end.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {hsmModules.map((m) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {m.step}
+            </span>
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
+              {m.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {m.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
+            {m.tech.map((t) => (
+              <span class="mono-tag text-[11px]">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Ceremony Log Deep Dive -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="unibase-card p-8 sm:p-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="mono-tag font-semibold uppercase">Protocol Transparency // Ceremonies</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0f1419] tracking-tight">
+            Every Ceremony Leaves a Paper Trail
+          </h3>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            RBI auditors and internal risk teams don't want reassurance — they want the journal. Key ceremonies on the Gajalogic platform emit step-by-step attestation records: who formed the quorum, which PED keys authenticated, where the entropy came from, and which partition received which key profile.
+          </p>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            The same journal records zeroization events and their recoveries, closing the loop from tamper condition to documented restoration.
+          </p>
+        </div>
+
+        <div class="lg:col-span-5 bg-gray-50 rounded-2xl p-6 border border-[#dadcdf] font-mono text-xs text-gray-700 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-[#dadcdf] text-gray-500">
+            <span>CEREMONY_JOURNAL_EXTRACT</span>
+            <span class="text-emerald-600">ATTESTED</span>
+          </div>
+          <div><span class="text-[#3e61ff]">ceremony_id:</span> <span class="text-[#0f1419]">"KC-20261112-042"</span></div>
+          <div><span class="text-[#3e61ff]">hsm:</span> <span class="text-[#0f1419]">"Thales Luna Network HSM / PQC-capable"</span></div>
+          <div><span class="text-[#3e61ff]">quorum:</span> <span class="text-[#0f1419]">"3-of-5 Blue PED authenticated"</span></div>
+          <div><span class="text-[#3e61ff]">entropy:</span> <span class="text-[#3e61ff]">"Silicon Photonic QRNG + TRNG mix"</span></div>
+          <div><span class="text-[#3e61ff]">key_profile:</span> <span class="text-[#0f1419]">"ML-KEM-768 / ML-DSA-65"</span></div>
+          <div><span class="text-[#3e61ff]">attestation:</span> <span class="text-emerald-600">"SIGNED / EXPORTED TO CBOM"</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ceremony Matrix Table -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Governance Matrix</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Protocol Matrix for Key Lifecycle Events
+      </h3>
+    </div>
+
+    <div class="unibase-card overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs text-gray-700">
+          <thead class="bg-gray-50 border-b border-[#dadcdf] text-[#0f1419] font-bold">
+            <tr>
+              <th class="py-3.5 px-6">Ceremony / Event</th>
+              <th class="py-3.5 px-6">Protocol</th>
+              <th class="py-3.5 px-6">Operator</th>
+              <th class="py-3.5 px-6">Artifact</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#dadcdf]">
+            {ceremonyMatrix.map((row) => (
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="py-3.5 px-6 font-bold text-[#0f1419]">{row.step}</td>
+                <td class="py-3.5 px-6">{row.protocol}</td>
+                <td class="py-3.5 px-6 text-[#3e61ff] font-semibold">{row.operator}</td>
+                <td class="py-3.5 px-6">{row.artifact}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Stand Up a Sovereign, Auditable Key Estate"
+    subtitle="Request the HSM integration runbook, ceremony journal samples, or a joint session with your security officers on quorum design."
+    buttonText="Request the HSM Runbook"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="See the CBOM Framework"
+    secondaryHref={`${base}/compliance/cbom`}
+  />
+</Layout>

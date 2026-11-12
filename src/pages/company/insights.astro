@@ -1,0 +1,126 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const insights = [
+  {
+    tag: 'TCO WHITEPAPER',
+    title: 'The Volume Penalty: Why Legacy Switch Licensing Punishes India\u2019s Growth',
+    date: 'Nov 2026',
+    readTime: '14 min read',
+    abstract: 'Per-TPS fee brackets, mainframe core licensing, and consulting-dependent profile changes compound into an eight-figure five-year cost. A component-level teardown of where the money goes — and what an elastic, compute-priced stack replaces it with.',
+    accent: 'from-[#3e61ff] to-[#5b78ff]',
+  },
+  {
+    tag: 'QUANTUM TIMELINE',
+    title: 'Harvest Now, Decrypt Later: The Clock Already Running on UPI Metadata',
+    date: 'Oct 2026',
+    readTime: '11 min read',
+    abstract: 'Account numbers, VPA graphs, and settlement ledgers are long-lived financial identifiers. We map the realistic CRQC timeline against data confidentiality horizons and show why hybrid classical + PQC execution is the only defensible posture for BFSI before the 2027 mandate.',
+    accent: 'from-purple-500 to-purple-600',
+  },
+  {
+    tag: 'SUPPLY CHAIN',
+    title: 'Engineering the Sub-₹600 Soundbox: A BoM Case Study',
+    date: 'Sep 2026',
+    readTime: '9 min read',
+    abstract: 'Component-by-component decisions — OpenCPU over external MCUs, FR4 trace antennas over tuned FPC, Cat-1 over multi-mode modems — that collapse merchant device cost without surrendering PQC-ready security.',
+    accent: 'from-emerald-500 to-emerald-600',
+  },
+];
+
+const talkTracks = [
+  { venue: 'NPCI Ecosystem Briefings', topic: 'Zero-downtime PQC migration for national rails' },
+  { venue: 'RBI / BFSI Risk Forums', topic: 'CBOM as an operational audit primitive' },
+  { venue: 'Fintech Engineering Summits', topic: 'Saga orchestration patterns at 75k TPS' },
+];
+---
+
+<Layout
+  title="Insights | GajaLogic Thought Leadership & Whitepapers"
+  description="Engineering whitepapers on TCO reduction, hardware supply chain optimization, and the timeline of the quantum threat to Indian payments."
+>
+  <PageHeader
+    eyebrow="Company // Insights"
+    title="Insights & Engineering Whitepapers"
+    subtitle="High-level thought leadership on TCO reduction, hardware supply chain optimization, and the timeline of the quantum threat."
+    badge="Thought Leadership"
+  >
+    <div slot="actions">
+      <a href="#insights" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Read the Whitepapers
+      </a>
+      <a href={`${base}/company/contact`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Request a Briefing
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Insights Grid -->
+  <section id="insights" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Published Research</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Evidence, Not Op-eds
+      </h2>
+      <p class="text-gray-500 mt-3 text-base">
+        Every claim in our marketing traces back to a published engineering argument. Start here.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {insights.map((post) => (
+        <article class="unibase-card overflow-hidden flex flex-col group">
+          <div class={`h-2 w-full bg-gradient-to-r ${post.accent}`}></div>
+          <div class="p-7 flex flex-col justify-between flex-1">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="mono-tag">{post.tag}</span>
+                <span class="text-[11px] font-mono text-gray-500">{post.date}</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-[#0f1419] mb-3 leading-snug group-hover:text-[#3e61ff] transition-colors">
+                {post.title}
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600 leading-relaxed mb-6">
+                {post.abstract}
+              </p>
+            </div>
+            <div class="pt-4 border-t border-[#dadcdf] flex items-center justify-between">
+              <span class="text-[11px] font-mono text-gray-500">{post.readTime}</span>
+              <a
+                href={`${base}/company/contact`}
+                class="inline-flex items-center text-xs font-bold text-[#3e61ff] group-hover:translate-x-1 transition-all"
+              >
+                <span>Request Full Paper</span>
+                <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Talk Tracks -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">On Stage</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Recent Talk Tracks
+      </h3>
+    </div>
+
+    <div class="unibase-card divide-y divide-[#dadcdf]">
+      {talkTracks.map((t) => (
+        <div class="px-6 sm:px-8 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div class="font-bold text-[#0f1419] text-sm sm:text-base">{t.venue}</div>
+          <div class="text-xs font-mono text-gray-500">{t.topic}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

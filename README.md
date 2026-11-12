@@ -12,15 +12,15 @@ A high-performance enterprise static website built with **[Astro](https://astro.
   - Automated deployment support via GitHub Actions workflow (`.github/workflows/deploy.yml`).
   - `.nojekyll` configuration to prevent GitHub Pages from ignoring `_astro/` asset directories.
   - Dynamic base path support via `BASE_PATH` environment variable and `import.meta.env.BASE_URL` for repository subpaths (e.g. `https://<username>.github.io/<repo>/`).
-- **Tailwind CSS v4**: Modern, tree-shaken styling with glassmorphism, responsive navigation, dark theme, and typography.
-- **7 Fully Designed Pages**:
-  - `/` — Homepage with hero, live telemetry terminal, metrics bar, and architecture pillars.
-  - `/products` — Enterprise product line (G4-Titan, Edge Micro V2, Logic-OS, Cloud Bridge) and comparison matrix.
-  - `/platform` — 4-layer compute stack, dataflow pipeline, and performance benchmarks.
-  - `/hardware` — Silicon die specs, 2U chassis blades, ruggedized modules, and interface pinout table.
-  - `/developers` — 3-step quick start, Python/Rust code samples, and SDK documentation.
-  - `/compliance` — SOC 2 Type II, ISO 27001, FIPS 140-3 Level 4, HIPAA, and security controls.
-  - `/company` — Mission, leadership, careers, and technical inquiry contact form.
+- **Tailwind CSS v4**: Modern, tree-shaken styling with a clean light design system (royal blue `#3e61ff`, 1px bordered `unibase-card`), responsive navigation, and typography.
+- **Content Architecture (hub + sub-pages)**:
+  - `/` — Homepage with hero, "Why Gajalogic" pillars, stack overview, and product grid.
+  - `/products` — NPCI Product Suite hub + 5 product pages (UPI Acquiring, UPI Issuing, TPAP, RuPay Cards, NCMC Transit).
+  - `/platform` — Core Platform hub + `/platform/crypto-agility` (Hybrid Cryptographic Engine) and `/platform/cloud-native-ledgers` (NATS JetStream + Benthos, immutable PQC-sealed journals).
+  - `/hardware` — Hardware & Edge Security hub + `/hardware/opencpu-soundbox` (sub-₹600 BoM), `/hardware/enterprise-hsm` (Thales Luna + QRNG), and `/hardware/ble-contactless` (offline beacon payments).
+  - `/developers` — Developers hub + `/developers/sandbox` (PQC Migration Sandbox), `/developers/architecture` (Mermaid blueprints), `/developers/docs` (API reference + Playwright/DuckDB test harness).
+  - `/compliance` — Trust Center hub + `/compliance/rbi-qsafe` (2027 mandate alignment), `/compliance/pa-p-framework`, and `/compliance/cbom`.
+  - `/company` — Company hub + `/company/about`, `/company/insights`, and `/company/contact`.
 
 ---
 
@@ -47,21 +47,21 @@ gajalogic/
 │   └── favicon.svg           # High-resolution SVG favicon & brand icon
 ├── src/
 │   ├── components/
-│   │   ├── CtaBanner.astro   # Reusable call-to-action banner
-│   │   ├── FeatureCard.astro # Glassmorphic feature card
-│   │   ├── Footer.astro      # 6-column enterprise footer with status indicator
-│   │   ├── Navbar.astro      # Responsive navigation bar with mobile menu
-│   │   └── PageHeader.astro  # Reusable hero/header with badges and breadcrumbs
+│   │   ├── CtaBanner.astro   # Reusable blue gradient call-to-action banner
+│   │   ├── Footer.astro      # 7-column enterprise footer with status indicator
+│   │   ├── InteractiveBackground.astro # Cursor-reactive canvas aurora (dark/light variants)
+│   │   ├── Navbar.astro      # Responsive navigation bar with section dropdowns
+│   │   └── PageHeader.astro  # Reusable hero/header with badges and actions
 │   ├── layouts/
 │   │   └── Layout.astro      # Base HTML shell with SEO meta tags & OpenGraph
 │   ├── pages/
-│   │   ├── company.astro     # /company
-│   │   ├── compliance.astro  # /compliance
-│   │   ├── developers.astro  # /developers
-│   │   ├── hardware.astro    # /hardware
-│   │   ├── index.astro       # /
-│   │   ├── platform.astro    # /platform
-│   │   └── products.astro    # /products
+│   │   ├── index.astro               # /
+│   │   ├── products/                 # /products + 5 NPCI product pages
+│   │   ├── platform/                 # /platform + crypto-agility, cloud-native-ledgers
+│   │   ├── hardware/                 # /hardware + opencpu-soundbox, enterprise-hsm, ble-contactless
+│   │   ├── developers/               # /developers + sandbox, architecture, docs
+│   │   ├── compliance/               # /compliance + rbi-qsafe, pa-p-framework, cbom
+│   │   └── company/                  # /company + about, insights, contact
 │   └── styles/
 │       └── global.css        # Tailwind CSS v4 entrypoint and custom design tokens
 ├── .gitignore

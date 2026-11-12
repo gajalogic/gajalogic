@@ -1,0 +1,162 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const qsafeMetrics = [
+  { value: '2027', label: 'GoI PQC Mandate', sub: 'BFSI PQC foundations required' },
+  { value: 'Q-SAFE', label: 'RBI Committee', sub: 'Requirements mapped to platform controls' },
+  { value: '12-24 mo', label: 'Pragmatic Roadmap', sub: 'Discovery to full PQC deployment' },
+  { value: '0', label: 'Interop Breakage', sub: 'NPCI compatibility preserved throughout' },
+];
+
+const qsafeModules = [
+  {
+    step: 'Module 01 // Mandate Mapping',
+    title: 'Controls Mapped to Regulators, Line by Line',
+    desc: 'The Government of India PQC Task Force mandates PQC foundations for BFSI by 2027; the RBI Q-SAFE committee is defining the operational expectation set that follows. Gajalogic maintains a living mapping document: every mandate clause references the exact platform control, config surface, and evidence artifact that satisfies it.',
+    tech: ['Clause-to-Control Mapping', 'Living Compliance Doc', 'Evidence Artifacts'],
+  },
+  {
+    step: 'Module 02 // Proactive, Not Reactive',
+    title: 'Compliance Ahead of the Deadline',
+    desc: 'Most banks will start PQC discovery in 2026 and collide with their own core-system roadmaps. Gajalogic ships hybrid classical + PQC execution today, so aligning with the 2027 deadline is a configuration milestone — not an emergency procurement.',
+    tech: ['Hybrid PQC Today', 'Config-Driven Milestones', 'No Emergency Procurement'],
+  },
+  {
+    step: 'Module 03 // Phased Migration Discipline',
+    title: '12-24 Months, Zero Downtime',
+    desc: 'The migration roadmap moves banks from cryptographic discovery, to centralized key management, to full PQC deployment in pragmatic phases. NPCI interoperability is preserved at every phase boundary — no rail ever rejects a transaction mid-migration.',
+    tech: ['Phase-Gated Rollout', 'Centralized Key Management', 'Interop Guard Rails'],
+  },
+  {
+    step: 'Module 04 // Regulatory Reporting Hooks',
+    title: 'Evidence Flows to the Regulator, Automatically',
+    desc: 'Ceremony journals, algorithm inventories, and migration milestones export in regulator-friendly formats. When Q-SAFE requirements finalize, the reporting surface already exists.',
+    tech: ['Regulator-Friendly Exports', 'Ceremony Journal Feeds', 'Milestone Reporting'],
+  },
+];
+
+const timelineRows = [
+  { phase: 'Phase 1 // Discovery', window: 'Months 1-3', activity: 'Cryptographic asset inventory via CBOM; HSM estate audit; NPCI counterparty capability scan.', exit: 'Signed CBOM baseline' },
+  { phase: 'Phase 2 // Centralized Keys', window: 'Months 4-9', activity: 'Quorum-governed key management on enterprise HSMs; QRNG entropy provisioning; algorithm registry live.', exit: 'PQC-capable key estate' },
+  { phase: 'Phase 3 // Hybrid Parallel', window: 'Months 10-18', activity: 'ML-KEM / ML-DSA execution in parallel with classical; NPCI interop guard active; staff training.', exit: '100% payloads dual-sealed' },
+  { phase: 'Phase 4 // Full PQC', window: 'Months 18-24', activity: 'Classical ciphers retired from internal paths as counterparties certify; final attestation against 2027 mandate.', exit: '2027-ready attestation' },
+];
+---
+
+<Layout
+  title="RBI Q-SAFE Alignment | GajaLogic Regulatory Readiness"
+  description="Gajalogic maps directly to the Government of India PQC Task Force 2027 deadlines and RBI Q-SAFE committee requirements with a pragmatic 12-24 month migration framework."
+>
+  <PageHeader
+    eyebrow="Compliance & Trust // Regulatory"
+    title="RBI Q-SAFE & PQC Task Force Alignment"
+    subtitle="Proactive compliance: the platform maps directly to the GoI PQC Task Force deadlines mandating PQC foundations for BFSI by 2027, and to upcoming RBI Q-SAFE requirements."
+    badge="Regulatory Alignment // 2027"
+  >
+    <div slot="actions">
+      <a href="#modules" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        View the Alignment Program
+      </a>
+      <a href={`${base}/compliance/cbom`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Start with CBOM
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {qsafeMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Alignment Modules -->
+  <section id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Regulatory Program</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Beat the 2027 Horizon Without Breaking a Rail
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {qsafeModules.map((m) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {m.step}
+            </span>
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
+              {m.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {m.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
+            {m.tech.map((t) => (
+              <span class="mono-tag text-[11px]">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Migration Timeline Table -->
+  <section id="roadmap" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Migration Roadmap</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Four Phases to Full PQC Readiness
+      </h3>
+    </div>
+
+    <div class="unibase-card overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs text-gray-700">
+          <thead class="bg-gray-50 border-b border-[#dadcdf] text-[#0f1419] font-bold">
+            <tr>
+              <th class="py-3.5 px-6">Phase</th>
+              <th class="py-3.5 px-6">Window</th>
+              <th class="py-3.5 px-6">Key Activities</th>
+              <th class="py-3.5 px-6">Exit Criteria</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#dadcdf]">
+            {timelineRows.map((row) => (
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="py-3.5 px-6 font-bold text-[#0f1419]">{row.phase}</td>
+                <td class="py-3.5 px-6 text-[#3e61ff] font-semibold">{row.window}</td>
+                <td class="py-3.5 px-6">{row.activity}</td>
+                <td class="py-3.5 px-6">{row.exit}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Map Your Bank to the 2027 Mandate"
+    subtitle="Our compliance engineers will walk your risk team through the clause-to-control mapping and size a phased roadmap for your estate."
+    buttonText="Schedule a Regulatory Briefing"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="See the PA-P Framework"
+    secondaryHref={`${base}/compliance/pa-p-framework`}
+  />
+</Layout>

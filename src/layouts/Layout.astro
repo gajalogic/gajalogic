@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import InteractiveBackground from '../components/InteractiveBackground.astro';
 
 interface Props {
   title?: string;
@@ -11,8 +12,8 @@ interface Props {
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const {
-  title = 'GajaLogic — Open Payment Layer for National Rails',
-  description = 'High-throughput UPI and IMPS switches embedded with Post-Quantum Cryptography (PQC). Eradicating legacy licensing bloat while neutralizing the Harvest Now, Decrypt Later threat.',
+  title = 'GajaLogic — Quantum-Safe, NPCI-Native Payment Infrastructure',
+  description = 'High-throughput UPI and IMPS switches embedded with Post-Quantum Cryptography (PQC). Eradicate legacy licensing bloat while neutralizing the "Harvest Now, Decrypt Later" threat.',
   image = `${base}/favicon.svg`,
 } = Astro.props;
 
@@ -52,12 +53,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://gajalogi
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   </head>
-  <body class="bg-white text-[#0f1419] antialiased min-h-screen flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
+  <body class="text-[#0f1419] antialiased min-h-screen flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
+    <!-- Cursor-reactive interactive background (fixed, pointer-events: none, behind everything) -->
+    <InteractiveBackground variant="light" />
+
     <!-- Navbar -->
     <Navbar />
 
     <!-- Main Content Frame -->
-    <main class="flex-1 w-full bg-white">
+    <main class="flex-1 w-full">
       <slot />
     </main>
 

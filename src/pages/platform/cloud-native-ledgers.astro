@@ -1,0 +1,208 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const ledgerMetrics = [
+  { value: 'NATS JetStream', label: 'Event Backbone', sub: 'Per-rail subjects, at-least-once delivery' },
+  { value: 'Benthos', label: 'Stream Processing', sub: 'Declarative ISO 8583 / ISO 20022 transforms' },
+  { value: 'Append-Only', label: 'Immutable Journals', sub: 'Financial records can never be rewritten' },
+  { value: 'PQC TLS', label: 'Transport Sealing', sub: 'Hybrid X25519 + ML-KEM handshakes' },
+];
+
+const ledgerModules = [
+  {
+    step: 'Module 01 // Event-Driven Mastery',
+    title: 'Asynchronous Clearing on NATS JetStream',
+    desc: 'Clearing and settlement are deployed as message streams, not nightly batch jobs. Dedicated JetStream subjects per rail carry every authorization, reversal, and fee event with idempotency keys, so downstream consumers can replay history without corrupting balances.',
+    tech: ['Per-Rail Subjects', 'Idempotency Keys', 'Replayable Streams'],
+  },
+  {
+    step: 'Module 02 // Stream Processing Fabric',
+    title: 'Benthos Transform Pipelines',
+    desc: 'Benthos pipelines translate, enrich, and fan out ISO 8583 and ISO 20022 payloads declaratively — no bespoke middleware services to maintain. Adding a new counterparty format is a pipeline config change, reviewed and versioned like code.',
+    tech: ['ISO 8583 <-> ISO 20022', 'Declarative YAML Pipelines', 'Version-Controlled Transforms'],
+  },
+  {
+    step: 'Module 03 // Immutable Storage',
+    title: 'Post-Quantum Sealed Financial Records',
+    desc: 'Financial records and their payloads are written to append-only ledgers over post-quantum TLS handshakes. Each batch is signed with ML-DSA at line rate, so historical settlement data remains provably intact — and provably private — for decades.',
+    tech: ['Append-Only Journals', 'ML-DSA Batch Seals (FIPS 204)', 'Hybrid PQC TLS Transport'],
+  },
+  {
+    step: 'Module 04 // Settlement Fan-Out',
+    title: 'T+0 Merchant Payouts & Reconciliation',
+    desc: 'Settlement events fan out to sponsor banks, merchant ledgers, and NPCI DMS/NMS reporting automatically. Automated reconciliation feeds close the loop, eliminating end-of-day spreadsheet archaeology for operations teams.',
+    tech: ['T+0 Payout Engine', 'NPCI DMS / NMS Feeds', 'Automated Reconciliation'],
+  },
+];
+
+const railMatrix = [
+  { rail: 'UPI', payload: 'ISO 8583 / JSON hybrid', subject: 'gj.upi.clearing.*', sla: '< 15 ms event commit' },
+  { rail: 'IMPS', payload: 'ISO 20022 (pacs/camt)', subject: 'gj.imps.clearing.*', sla: '< 40 ms event commit' },
+  { rail: 'RuPay DMS', payload: 'NPCI DMS settlement files', subject: 'gj.rupay.dms.ingest', sla: '4.2x faster file processing' },
+  { rail: 'NCMC', payload: 'Offline wallet journals', subject: 'gj.ncmc.sync.batch', sla: 'Zero-leakage batch sync' },
+];
+---
+
+<Layout
+  title="Cloud-Native Ledgers | GajaLogic Event-Driven Clearing & Settlement"
+  description="NATS JetStream and Benthos power asynchronous clearing and settlement, with ISO 8583 / ISO 20022 records written to immutable, post-quantum sealed ledgers."
+>
+  <PageHeader
+    eyebrow="Core Platform Architecture // Ledgers"
+    title="High-Throughput Cloud-Native Ledgers"
+    subtitle="Event-driven clearing and settlement built on NATS JetStream and Benthos — with every financial record written to immutable, post-quantum sealed journals."
+    badge="Engine 02 // Ledgers"
+  >
+    <div slot="actions">
+      <a href="#modules" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Examine the Ledger Stack
+      </a>
+      <a href={`${base}/platform/crypto-agility`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Previous: Crypto-Agility Engine
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {ledgerMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Ledger Modules -->
+  <section id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Dataflow Architecture</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        From Authorization Event to Immutable Journal
+      </h2>
+      <p class="text-gray-500 mt-3 text-base">
+        Four subsystems carry every rupee from the moment a transaction clears to a sealed, auditable record.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {ledgerModules.map((m) => (
+        <div id={m.step.startsWith('Module 03') ? 'ledger' : undefined} class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {m.step}
+            </span>
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
+              {m.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {m.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
+            {m.tech.map((t) => (
+              <span class="mono-tag text-[11px]">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Journal Deep Dive -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="unibase-card p-8 sm:p-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="mono-tag font-semibold uppercase">Immutable Storage // PQC Sealed</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0f1419] tracking-tight">
+            History You Can Cryptographically Prove
+          </h3>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            Settlement disputes, RBI audits, and forensic reviews all reduce to one question: can you prove the ledger wasn't altered?
+          </p>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            Every Gajalogic journal batch is append-only, sealed with ML-DSA signatures, and transported over hybrid post-quantum TLS. A record written today is as verifiable — and as unreadable to intercepted traffic — in 2040 as it was at write time.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono text-gray-500">
+            <span class="flex items-center gap-1.5 text-[#3e61ff]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Zero Impact on Real-Time Authorization Flow
+            </span>
+            <span class="flex items-center gap-1.5 text-emerald-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Verifiable Batch Hash Chains
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-gray-50 rounded-2xl p-6 border border-[#dadcdf] font-mono text-xs text-gray-700 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-[#dadcdf] text-gray-500">
+            <span>JOURNAL_BATCH_SEAL</span>
+            <span class="text-emerald-600">SEALED</span>
+          </div>
+          <div><span class="text-[#3e61ff]">batch_id:</span> <span class="text-[#0f1419]">"JRN-20261112-77401"</span></div>
+          <div><span class="text-[#3e61ff]">stream:</span> <span class="text-[#0f1419]">"gj.upi.clearing.reversals"</span></div>
+          <div><span class="text-[#3e61ff]">payload_fmt:</span> <span class="text-[#0f1419]">"ISO 8583 -> ISO 20022 (pacs.004)"</span></div>
+          <div><span class="text-[#3e61ff]">entries:</span> <span class="text-[#0f1419]">148,920 events</span></div>
+          <div><span class="text-[#3e61ff]">seal_alg:</span> <span class="text-emerald-600">"ML-DSA-65 (NIST FIPS 204)"</span></div>
+          <div><span class="text-[#3e61ff]">transport:</span> <span class="text-[#3e61ff]">"TLS 1.3 + X25519MLKEM768"</span></div>
+          <div><span class="text-[#3e61ff]">rewrite_attempt:</span> <span class="text-rose-600 font-bold">DENIED (append-only)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rail Matrix Table -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Rail Coverage</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Clearing Matrix by National Rail
+      </h3>
+    </div>
+
+    <div class="unibase-card overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs text-gray-700">
+          <thead class="bg-gray-50 border-b border-[#dadcdf] text-[#0f1419] font-bold">
+            <tr>
+              <th class="py-3.5 px-6">Rail</th>
+              <th class="py-3.5 px-6">Payload Format</th>
+              <th class="py-3.5 px-6">JetStream Subject</th>
+              <th class="py-3.5 px-6">Clearing SLA</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#dadcdf]">
+            {railMatrix.map((row) => (
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="py-3.5 px-6 font-bold text-[#0f1419]">{row.rail}</td>
+                <td class="py-3.5 px-6">{row.payload}</td>
+                <td class="py-3.5 px-6 text-[#3e61ff] font-semibold">{row.subject}</td>
+                <td class="py-3.5 px-6">{row.sla}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Modernize Your Clearing & Settlement Backbone"
+    subtitle="Our platform engineers can stream your settlement volumes through a reference JetStream/Benthos topology and report end-to-end journal integrity metrics."
+    buttonText="Request a Ledger Pilot"
+    secondaryText="Explore the NPCI Product Suite"
+    secondaryHref={`${base}/products`}
+  />
+</Layout>

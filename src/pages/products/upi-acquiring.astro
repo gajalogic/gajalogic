@@ -76,13 +76,13 @@ const tcoBreakdown = [
     <div slot="actions">
       <a
         href="#architecture"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-all"
+        class="btn-unibase-primary !py-2.5 !px-5 !text-sm"
       >
         Inspect Saga Architecture
       </a>
       <a
         href="#tco"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-900 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+        class="btn-unibase-secondary !py-2.5 !px-5 !text-sm"
       >
         TCO Analysis vs Legacy
       </a>
@@ -91,13 +91,13 @@ const tcoBreakdown = [
 
   <!-- High-Contrast Metric Telemetry Strip -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
-    <div class="unibase-card p-6 sm:p-8 border border-white/10 bg-slate-950/90 shadow-2xl">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
         {acquiringMetrics.map((m) => (
           <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
-            <span class="text-xs font-mono uppercase tracking-wider text-sky-400 block mb-1">{m.label}</span>
-            <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">{m.value}</div>
-            <p class="text-xs text-slate-400 mt-1">{m.sub}</p>
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-3xl sm:text-4xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
           </div>
         ))}
       </div>
@@ -108,10 +108,10 @@ const tcoBreakdown = [
   <section id="architecture" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
     <div class="text-center max-w-3xl mx-auto">
       <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Architecture Blueprint</span>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
         Sub-Millisecond Distributed Saga Execution
       </h2>
-      <p class="text-slate-400 mt-3 text-base">
+      <p class="text-gray-500 mt-3 text-base">
         Traditional database-backed locks collapse during high-concurrency flash sales. Gajalogic replaces ACID database bottlenecks with in-memory non-blocking saga actors.
       </p>
     </div>
@@ -119,22 +119,22 @@ const tcoBreakdown = [
     <!-- Saga Stages Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {sagaStages.map((stage) => (
-        <div class="unibase-card p-8 flex flex-col justify-between border border-white/10 relative overflow-hidden group">
-          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sky-500/0 group-hover:via-sky-400/60 to-transparent transition-all duration-500"></div>
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
           <div>
-            <span class="text-xs font-mono font-semibold text-sky-400 uppercase tracking-wider block mb-2">
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
               {stage.step}
             </span>
-            <h3 class="text-2xl font-bold text-white mb-3">
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
               {stage.title}
             </h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+            <p class="text-gray-600 text-sm leading-relaxed mb-6 font-normal">
               {stage.desc}
             </p>
           </div>
-          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-800">
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
             {stage.tech.map((t) => (
-              <span class="mono-tag text-[11px] bg-slate-900 text-slate-300 border-slate-800">
+              <span class="mono-tag text-[11px]">
                 {t}
               </span>
             ))}
@@ -145,82 +145,82 @@ const tcoBreakdown = [
   </section>
 
   <!-- Quantum-Safe Settlement & Non-Repudiation Section -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
-    <div class="unibase-card p-8 sm:p-12 border border-white/10 bg-slate-950/80">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="unibase-card p-8 sm:p-12">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div class="lg:col-span-7 space-y-4">
-          <span class="mono-tag font-semibold uppercase text-emerald-400 border-emerald-500/30 bg-emerald-950/30">
+          <span class="mono-tag font-semibold uppercase text-emerald-600 border-emerald-200 bg-emerald-50">
             Post-Quantum Compliance // FIPS 204
           </span>
-          <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0f1419] tracking-tight">
             Cryptographically Immutable Merchant Settlement
           </h3>
-          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
             Hostile state actors and syndicates are harvesting encrypted financial records today to decrypt them when cryptanalytically relevant quantum computers (CRQCs) emerge. 
           </p>
-          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-            Gajalogic implements <strong class="text-white font-medium">NIST FIPS 204 (ML-DSA)</strong> lattice-based digital signatures on all merchant settlement journals at line rate. Settlement integrity, fee-split receipts, and chargeback audits remain mathematically secure into the 2040s and beyond, without delaying instantaneous T+0 merchant payouts.
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
+            Gajalogic implements <strong class="text-[#0f1419] font-medium">NIST FIPS 204 (ML-DSA)</strong> lattice-based digital signatures on all merchant settlement journals at line rate. Settlement integrity, fee-split receipts, and chargeback audits remain mathematically secure into the 2040s and beyond, without delaying instantaneous T+0 merchant payouts.
           </p>
-          <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono text-slate-400">
-            <span class="flex items-center gap-1.5 text-sky-400">
+          <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono text-gray-500">
+            <span class="flex items-center gap-1.5 text-[#3e61ff]">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               Zero Impact on 15ms Real-Time Settlement SLA
             </span>
-            <span class="flex items-center gap-1.5 text-emerald-400">
+            <span class="flex items-center gap-1.5 text-emerald-600">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               Hardware HSM & Cloud Sidecar Deployable
             </span>
           </div>
         </div>
 
-        <div class="lg:col-span-5 bg-slate-900/90 rounded-2xl p-6 border border-slate-800 font-mono text-xs text-slate-300 space-y-3">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-slate-400">
+        <div class="lg:col-span-5 bg-gray-50 rounded-2xl p-6 border border-[#dadcdf] font-mono text-xs text-gray-600 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-[#dadcdf] text-gray-500">
             <span>SETTLEMENT_RECORD_AUDIT</span>
-            <span class="text-emerald-400">VERIFIED</span>
+            <span class="text-emerald-600">VERIFIED</span>
           </div>
-          <div><span class="text-sky-400">batch_id:</span> <span class="text-slate-100">"STMT-20261112-98432"</span></div>
-          <div><span class="text-sky-400">merchant_vpa:</span> <span class="text-slate-100">"bharat-retail@hdfcbank"</span></div>
-          <div><span class="text-sky-400">gross_inflow:</span> <span class="text-slate-100">INR 14,892,400.00</span></div>
-          <div><span class="text-sky-400">pqc_signature_alg:</span> <span class="text-emerald-400">"ML-DSA-65 (NIST FIPS 204)"</span></div>
-          <div><span class="text-sky-400">signature_hex:</span> <span class="text-slate-500 break-all">4a9b...7f21e09c8b3d4f1</span></div>
-          <div><span class="text-sky-400">tamper_seal:</span> <span class="text-indigo-400">"HARDWARE_ENCLAVE_SIGNED"</span></div>
+          <div><span class="text-[#3e61ff]">batch_id:</span> <span class="text-[#0f1419]">"STMT-20261112-98432"</span></div>
+          <div><span class="text-[#3e61ff]">merchant_vpa:</span> <span class="text-[#0f1419]">"bharat-retail@hdfcbank"</span></div>
+          <div><span class="text-[#3e61ff]">gross_inflow:</span> <span class="text-[#0f1419]">INR 14,892,400.00</span></div>
+          <div><span class="text-[#3e61ff]">pqc_signature_alg:</span> <span class="text-emerald-600">"ML-DSA-65 (NIST FIPS 204)"</span></div>
+          <div><span class="text-[#3e61ff]">signature_hex:</span> <span class="text-gray-400 break-all">4a9b...7f21e09c8b3d4f1</span></div>
+          <div><span class="text-[#3e61ff]">tamper_seal:</span> <span class="text-[#3e61ff]">"HARDWARE_ENCLAVE_SIGNED"</span></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- TCO Comparison: Legacy vs. Gajalogic Cloud-Native Stack -->
-  <section id="tco" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+  <section id="tco" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
     <div class="text-center max-w-3xl mx-auto mb-12">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">Cost & Performance Matrix</h2>
-      <h3 class="text-3xl font-extrabold text-white tracking-tight">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-[#3e61ff] mb-2">Cost & Performance Matrix</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
         Monolithic Acquiring Switches vs. Gajalogic
       </h3>
-      <p class="text-slate-400 mt-2 text-sm sm:text-base">
+      <p class="text-gray-500 mt-2 text-sm sm:text-base">
         A strategic comparison detailing how Gajalogic eliminates legacy transaction-tier penalties and reduces infrastructure TCO by up to 68%.
       </p>
     </div>
 
-    <div class="unibase-card overflow-hidden border border-white/10 shadow-2xl">
+    <div class="unibase-card overflow-hidden shadow-sm">
       <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm text-slate-300">
-          <thead class="bg-slate-900/90 text-xs font-mono uppercase text-slate-400 border-b border-slate-800">
+        <table class="w-full text-left text-sm text-gray-600">
+          <thead class="bg-gray-50 text-xs font-mono uppercase text-gray-500 border-b border-[#dadcdf]">
             <tr>
               <th class="px-6 py-4 w-1/4">Evaluation Category</th>
-              <th class="px-6 py-4 w-3/8 text-rose-400">Legacy Switch (Base24 / Way4 Acquiring)</th>
-              <th class="px-6 py-4 w-3/8 text-sky-400 font-bold">Gajalogic Elastic Acquiring Stack</th>
+              <th class="px-6 py-4 w-3/8 text-rose-600">Legacy Switch (Base24 / Way4 Acquiring)</th>
+              <th class="px-6 py-4 w-3/8 text-[#3e61ff] font-bold">Gajalogic Elastic Acquiring Stack</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-800 text-xs sm:text-sm">
+          <tbody class="divide-y divide-[#dadcdf] text-xs sm:text-sm">
             {tcoBreakdown.map((row) => (
-              <tr class="hover:bg-slate-800/40 transition-colors">
-                <td class="px-6 py-4 font-mono font-semibold text-white bg-slate-950/40">
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="px-6 py-4 font-mono font-semibold text-[#0f1419] bg-gray-50/60">
                   {row.category}
                 </td>
-                <td class="px-6 py-4 text-slate-400 leading-relaxed border-r border-slate-800">
+                <td class="px-6 py-4 text-gray-500 leading-relaxed border-r border-[#dadcdf]">
                   {row.legacy}
                 </td>
-                <td class="px-6 py-4 text-slate-200 leading-relaxed bg-sky-950/10">
+                <td class="px-6 py-4 text-gray-700 leading-relaxed bg-blue-50/40">
                   {row.gajalogic}
                 </td>
               </tr>

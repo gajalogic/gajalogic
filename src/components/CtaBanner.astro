@@ -11,30 +11,33 @@ interface Props {
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const {
-  title = 'Ready to Deploy Enterprise Scale Compute?',
-  subtitle = 'Talk to our infrastructure architects, request benchmark samples, or explore the developer sandbox today.',
+  title = 'Ready to Modernize Your Payment Rail?',
+  subtitle = 'Talk to our payment systems architects, request a sandbox walkthrough, or explore the NPCI product suite today.',
   buttonText = 'Schedule Technical Briefing',
-  buttonHref = `${base}/company#contact`,
+  buttonHref = `${base}/company/contact`,
   secondaryText = 'Explore Developer Docs',
   secondaryHref = `${base}/developers`,
 } = Astro.props;
 ---
 
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-  <div class="relative rounded-3xl overflow-hidden glass-panel border border-white/10 p-8 sm:p-12 lg:p-16 text-center bg-gradient-to-b from-slate-900/90 to-slate-950/90">
-    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-500/15 blur-[120px] rounded-full pointer-events-none"></div>
+  <div
+    class="relative rounded-3xl overflow-hidden p-8 sm:p-12 lg:p-16 text-center text-white shadow-lg"
+    style="background: linear-gradient(120deg, #3e61ff 0%, #5b78ff 100%);"
+  >
+    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-white/10 blur-[120px] rounded-full pointer-events-none"></div>
 
     <div class="relative z-10 max-w-3xl mx-auto">
       <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">
         {title}
       </h2>
-      <p class="text-base sm:text-lg text-slate-300 mb-8 leading-relaxed">
+      <p class="text-base sm:text-lg text-white/85 mb-8 leading-relaxed">
         {subtitle}
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <a
           href={buttonHref}
-          class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-slate-950 bg-gradient-to-r from-sky-400 via-sky-300 to-indigo-300 hover:from-sky-300 hover:to-indigo-200 rounded-xl shadow-lg shadow-sky-500/20 transition-all hover:scale-105"
+          class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-[#3e61ff] bg-white hover:bg-blue-50 rounded-xl shadow-md transition-all hover:scale-[1.02]"
         >
           {buttonText}
           <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,7 +46,7 @@ const {
         </a>
         <a
           href={secondaryHref}
-          class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 rounded-xl transition-all"
+          class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-white border border-white/40 hover:bg-white/10 rounded-xl transition-all"
         >
           {secondaryText}
         </a>
@@ -51,4 +54,3 @@ const {
     </div>
   </div>
 </section>
-

@@ -1,0 +1,145 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const principles = [
+  {
+    title: 'NPCI-Native Engineering',
+    desc: 'We build for India\u2019s rails first: UPI, IMPS, RuPay, and NCMC are the specification, not an afterthought adapter.',
+  },
+  {
+    title: 'TCO Eradication',
+    desc: 'Volume-penalizing legacy licensing is technical debt. Elastic, compute-based pricing is the only honest cost model for national-scale payments.',
+  },
+  {
+    title: 'Quantum-Readiness as a Founding Constraint',
+    desc: 'Long-lived financial data is already at risk. PQC is not a roadmap item — it is a design constraint from day one.',
+  },
+  {
+    title: 'Open Standards & Exit Paths',
+    desc: 'ISO 8583, ISO 20022, Mermaid blueprints, downloadable CBOMs. No proprietary lock-ins; customers can always verify what they run.',
+  },
+];
+
+const leadership = [
+  {
+    name: 'Dr. Vikram Chandra',
+    role: 'Chief Executive Officer & Co-Founder',
+    bio: 'Two decades building national-scale payment infrastructure. Former principal architect on high-throughput switch programs serving major Indian banks.',
+  },
+  {
+    name: 'Elena Rostova',
+    role: 'Chief Technology Officer',
+    bio: 'Distributed systems pioneer specializing in saga orchestration and event-driven ledgers. Former Linux kernel subsystem maintainer with 18+ years experience.',
+  },
+  {
+    name: 'Marcus Vance',
+    role: 'VP of Hardware & Edge Devices',
+    bio: 'Led multiple generations of low-cost payment edge devices and secure element integration programs, from soundbox BoM engineering to fleet operations.',
+  },
+  {
+    name: 'Aisha Al-Mansoor',
+    role: 'Head of Cryptography & Compliance',
+    bio: 'Former lead researcher in post-quantum lattice cryptography with deep NIST FIPS standardization committee experience. Owns the CBOM and Q-SAFE programs.',
+  },
+];
+
+const pocPath = [
+  { step: '01', title: 'Technical Consultation', desc: 'Map your current switch estate, licensing burn, and NPCI integration surface with our architects.' },
+  { step: '02', title: 'Sandbox Evaluation', desc: 'Your team verifies behavior in the PQC sandbox and runs the spec-driven test harness.' },
+  { step: '03', title: 'PoC Deployment', desc: 'A production-shaped PoC against your test CBS and counterparty rails, with agreed success metrics.' },
+];
+---
+
+<Layout
+  title="About GajaLogic | Mission, Principles & Leadership"
+  description="The Gajalogic mission: securing India's digital public infrastructure for the next generation while eradicating the technical debt of the past."
+>
+  <PageHeader
+    eyebrow="Company // About"
+    title="The Gajalogic Mission"
+    subtitle="Securing India's digital public infrastructure for the next generation while eradicating the technical debt of the past."
+    badge="Founded on Payment-Scale Engineering"
+  >
+    <div slot="actions">
+      <a href="#leadership" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Meet the Leadership
+      </a>
+      <a href={`${base}/company/contact`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Contact the Team
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Principles -->
+  <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Our Foundation</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Core Principles
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {principles.map((p, i) => (
+        <div class="unibase-card p-6 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-mono text-[#3e61ff] font-bold mb-3 block">0{i + 1} //</span>
+            <h4 class="text-lg font-bold text-[#0f1419] mb-2">{p.title}</h4>
+            <p class="text-xs text-gray-600 leading-relaxed">{p.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Leadership -->
+  <section id="leadership" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Leadership</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Architects & Leaders
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {leadership.map((l) => (
+        <div class="unibase-card p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 text-[#3e61ff] flex items-center justify-center font-mono font-bold text-xl mb-4">
+              {l.name.split(' ').map((n) => n[0]).join('')}
+            </div>
+            <h4 class="text-lg font-bold text-[#0f1419] mb-1">{l.name}</h4>
+            <div class="text-xs font-mono text-[#3e61ff] mb-3">{l.role}</div>
+            <p class="text-xs text-gray-600 leading-relaxed">{l.bio}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- PoC Path -->
+  <section id="poc" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Working With Us</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        From First Call to Proof-of-Concept
+      </h3>
+      <p class="text-gray-500 mt-2 text-sm sm:text-base">
+        Procurement-grade evidence at every step — no leap of faith required.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {pocPath.map((s) => (
+        <div class="unibase-card p-7">
+          <span class="text-xs font-mono text-[#3e61ff] font-bold mb-3 block">{s.step} //</span>
+          <h4 class="text-lg font-bold text-[#0f1419] mb-2">{s.title}</h4>
+          <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

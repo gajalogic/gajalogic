@@ -1,0 +1,223 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const docsMetrics = [
+  { value: 'REST + gRPC', label: 'API Surface', sub: 'Uniform specs across every rail' },
+  { value: 'Python / Java / Go', label: 'Official SDKs', sub: 'Typed clients with retry policies' },
+  { value: 'Playwright', label: 'Harness Layer 1', sub: 'End-to-end spec-driven scenarios' },
+  { value: 'DuckDB', label: 'Harness Layer 2', sub: 'SQL-grade ledger consistency checks' },
+];
+
+const apiGroups = [
+  { group: 'UPI Pay / Collect', method: 'POST', endpoint: '/v1/upi/transactions', spec: 'NPCI UPI Unified API' },
+  { group: 'UPI Reversals & UDIR', method: 'POST', endpoint: '/v1/upi/reversals', spec: 'NPCI UDIR API v2' },
+  { group: 'Balance & VPA Verification', method: 'GET', endpoint: '/v1/upi/lookup/{vpa}', spec: 'In-memory cache, CBS fallback' },
+  { group: 'RuPay Card Lifecycle', method: 'POST', endpoint: '/v1/rupay/cards', spec: 'RuPay 2.0 EMV profiles' },
+  { group: 'NCMC Offline Journals', method: 'POST', endpoint: '/v1/ncmc/journals/sync', spec: 'Batch reconciliation spec' },
+  { group: 'Settlement & Reporting', method: 'GET', endpoint: '/v1/settlement/reports', spec: 'DMS / NMS feed compatible' },
+];
+
+const pythonSample = `import gajalogic as gj
+
+client = gj.Client(env="sandbox")
+
+# Initiate a UPI collect request against the simulated fabric
+txn = client.upi.collect(
+    payer_vpa="rahim@okhdfc",
+    payee_vpa="bharat-retail@icici",
+    amount_inr=249.00,
+    idempotency_key="order-88431",
+)
+
+print(txn.status)          # SUCCESS
+print(txn.pqc.seal)        # ML-DSA-65 (FIPS 204)
+print(txn.trace.export())  # architecture-review.json`;
+
+const goSample = `package main
+
+import "github.com/gajalogic/gaja-go"
+
+func main() {
+    client := gaja.New(gaja.SandboxEnv)
+
+    // Verify a VPA and confirm it resolves in-memory (no CBS hit)
+    lookup, _ := client.UPI.LookupVPA("bharat-retail@icici")
+
+    println(lookup.Resolved)         // true
+    println(lookup.Source)           // IN_MEMORY_CACHE
+    println(lookup.LatencyMicros)    // 138
+}`;
+
+const harnessLayers = [
+  {
+    layer: 'Harness Layer 01 // Playwright',
+    title: 'Spec-Driven End-to-End Scenarios',
+    desc: 'Every documented API behavior is encoded as a Playwright scenario against the sandbox fabric. Documentation and behavior cannot drift: a spec change without a passing scenario fails the release gate.',
+    tech: ['Behavior-As-Code', 'CI Release Gate', 'Sandbox Fabric Targets'],
+  },
+  {
+    layer: 'Harness Layer 02 // DuckDB',
+    title: 'SQL-Grade Ledger Consistency Checks',
+    desc: 'Test journals are ingested into DuckDB as columnar tables, letting engineers assert financial invariants in SQL: zero phantom debits, reversal completeness, and settlement totals that tie out to the paisa.',
+    tech: ['Columnar Journal Ingestion', 'Financial Invariant SQL', 'Paisa-Exact Tie-Outs'],
+  },
+];
+---
+
+<Layout
+  title="Docs & Test Harness | GajaLogic API Reference & SDKs"
+  description="API references, official SDKs, and a rigorous spec-driven test suite using Playwright and DuckDB for automated code verification."
+>
+  <PageHeader
+    eyebrow="Developers & Migration // Documentation"
+    title="Docs & Rigorous Test Harness"
+    subtitle="API references plus a rigorous test suite utilizing Playwright and DuckDB for automated, spec-driven code verification. If the docs lie, the harness fails loudly."
+    badge="API Reference // Spec-Driven"
+  >
+    <div slot="actions">
+      <a href="#api" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Browse the API Reference
+      </a>
+      <a href="#sdks" class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Grab an SDK
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {docsMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- API Reference Table -->
+  <section id="api" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">API Reference</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        One Contract Per Rail, Zero Special Cases
+      </h3>
+      <p class="text-gray-500 mt-2 text-sm sm:text-base">
+        Uniform REST + gRPC surface across UPI, RuPay, and NCMC with NPCI-aligned specifications.
+      </p>
+    </div>
+
+    <div class="unibase-card overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs text-gray-700">
+          <thead class="bg-gray-50 border-b border-[#dadcdf] text-[#0f1419] font-bold">
+            <tr>
+              <th class="py-3.5 px-6">API Group</th>
+              <th class="py-3.5 px-6">Method</th>
+              <th class="py-3.5 px-6">Endpoint</th>
+              <th class="py-3.5 px-6">Aligned Spec</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#dadcdf]">
+            {apiGroups.map((row) => (
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="py-3.5 px-6 font-bold text-[#0f1419]">{row.group}</td>
+                <td class="py-3.5 px-6 text-[#3e61ff] font-semibold">{row.method}</td>
+                <td class="py-3.5 px-6">{row.endpoint}</td>
+                <td class="py-3.5 px-6">{row.spec}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SDK Code Samples -->
+  <section id="sdks" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf] space-y-8">
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Official SDKs</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Typed Clients, Idempotent by Default
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="unibase-card overflow-hidden">
+        <div class="px-4 py-3 bg-gray-50 border-b border-[#dadcdf] flex items-center justify-between">
+          <span class="text-xs font-mono text-[#3e61ff] font-semibold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#3e61ff]"></span>
+            quickstart_collect.py (Python SDK)
+          </span>
+          <span class="text-[11px] font-mono text-gray-500">pip install gajalogic</span>
+        </div>
+        <pre class="p-6 bg-gray-50 font-mono text-xs text-gray-700 overflow-x-auto leading-relaxed"><code>{pythonSample}</code></pre>
+      </div>
+
+      <div class="unibase-card overflow-hidden">
+        <div class="px-4 py-3 bg-gray-50 border-b border-[#dadcdf] flex items-center justify-between">
+          <span class="text-xs font-mono text-[#3e61ff] font-semibold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+            lookup_vpa.go (Go SDK)
+          </span>
+          <span class="text-[11px] font-mono text-gray-500">go get github.com/gajalogic/gaja-go</span>
+        </div>
+        <pre class="p-6 bg-gray-50 font-mono text-xs text-gray-700 overflow-x-auto leading-relaxed"><code>{goSample}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test Harness -->
+  <section id="testing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Verification</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        The Rigorous Test Harness
+      </h3>
+      <p class="text-gray-500 mt-2 text-sm sm:text-base">
+        Two automated layers keep documentation, behavior, and ledger state in lockstep.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {harnessLayers.map((h) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {h.layer}
+            </span>
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
+              {h.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {h.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
+            {h.tech.map((t) => (
+              <span class="mono-tag text-[11px]">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Put Your Integrators in Front of the Harness"
+    subtitle="Request sandbox credentials for your engineering team and run your first spec-driven scenario this sprint."
+    buttonText="Request Sandbox Credentials"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="View the Blueprints"
+    secondaryHref={`${base}/developers/architecture`}
+  />
+</Layout>

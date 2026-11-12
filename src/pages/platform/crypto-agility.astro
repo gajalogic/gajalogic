@@ -1,0 +1,203 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const cryptoMetrics = [
+  { value: 'FIPS 203/204/205', label: 'NIST-Certified Suites', sub: 'ML-KEM, ML-DSA & SLH-DSA native' },
+  { value: '0', label: 'Downtime Algorithm Swaps', sub: 'Config push, not redeployment' },
+  { value: '< 1 ms', label: 'PQC Overhead (P99)', sub: 'Measured across full switch transit' },
+  { value: '100%', label: 'NPCI Interoperability', sub: 'Classical ciphers never removed first' },
+];
+
+const engineModules = [
+  {
+    step: 'Module 01 // Parallel Execution',
+    title: 'Classical and PQC Run Concurrently',
+    desc: 'The platform abstracts underlying algorithms so classical (RSA/ECC) and Post-Quantum (ML-KEM/ML-DSA) encryption execute side by side on every transaction. NPCI counterparties receive fully interoperable classical ciphers today, while every payload simultaneously receives a quantum-safe seal for long-term confidentiality.',
+    tech: ['Dual-Pipeline Crypto Fabric', 'Per-Transaction Dual Sealing', 'Algorithm Abstraction Layer'],
+  },
+  {
+    step: 'Module 02 // Zero-Disruption API',
+    title: 'Swap Algorithms via Configuration',
+    desc: 'Cryptographic suites are selected by centralized configuration, never hard-coded. When NIST finalizes a new parameter set or a vulnerability lands, operators push a config update and the fleet re-negotiates on the next transaction window — no redeploy, no downtime, no NPCI outage.',
+    tech: ['Centralized Config Push', 'Rolling Cipher Negotiation', 'Versioned Algorithm Profiles'],
+  },
+  {
+    step: 'Module 03 // Live Algorithm Registry',
+    title: 'Every Crypto Asset Inventoried',
+    desc: 'Keys, certificates, and algorithm versions register themselves in a live cryptographic inventory. The registry feeds directly into the Cryptographic Bill of Materials (CBOM), turning quantum-readiness audits from a quarterly fire drill into an automated report.',
+    tech: ['Auto-Registered Key Inventory', 'CBOM Export Hooks', 'Algorithm Version Telemetry'],
+  },
+  {
+    step: 'Module 04 // NPCI Interoperability Guarantee',
+    title: 'Rails Never See an Unknown Cipher',
+    desc: 'Hybrid crypto-agility is strictly additive. Classical signatures remain on every message until NPCI rails and counterparty banks formally support PQC, guaranteeing that no UPI, IMPS, or RuPay transaction is ever rejected for an unrecognized algorithm.',
+    tech: ['Additive-Only Migration', 'Counterparty Capability Probes', 'Graceful Fallback Chains'],
+  },
+];
+
+const algorithmMatrix = [
+  { algorithm: 'ML-KEM-768', role: 'Key encapsulation (metadata & settlement)', standard: 'NIST FIPS 203', status: 'Active // Parallel' },
+  { algorithm: 'ML-DSA-65', role: 'Digital signatures (journals & ledgers)', standard: 'NIST FIPS 204', status: 'Active // Parallel' },
+  { algorithm: 'SLH-DSA-SHA2-128s', role: 'Conservative fallback signing', standard: 'NIST FIPS 205', status: 'Active // Standby' },
+  { algorithm: 'RSA-2048 / ECC P-256', role: 'Classical interchange with NPCI rails', standard: 'NIST (Legacy)', status: 'Active // Interop' },
+  { algorithm: 'X25519 + ML-KEM Hybrid', role: 'PQC TLS for ledger & API transport', standard: 'IETF Hybrid KEM', status: 'Active // Transport' },
+];
+---
+
+<Layout
+  title="Crypto-Agility Engine | GajaLogic Hybrid Cryptographic Platform"
+  description="Classical (RSA/ECC) and post-quantum (ML-KEM/ML-DSA) encryption run concurrently with zero-downtime algorithm swaps via centralized configuration."
+>
+  <PageHeader
+    eyebrow="Core Platform Architecture // Cryptography"
+    title="The Hybrid Cryptographic Engine"
+    subtitle="Innovation without disruption. Classical and post-quantum algorithms execute in parallel on every transaction, and algorithm swaps are a configuration change — not a software release."
+    badge="Engine 01 // Crypto-Agility"
+  >
+    <div slot="actions">
+      <a href="#modules" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Examine the Engine
+      </a>
+      <a href={`${base}/platform/cloud-native-ledgers`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Next: Cloud-Native Ledgers
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {cryptoMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Engine Modules -->
+  <section id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Architecture Blueprint</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Parallel Execution, Zero-Disruption Control
+      </h2>
+      <p class="text-gray-500 mt-3 text-base">
+        Four subsystems keep India's payment rails running on classical ciphers today while silently arming them for the quantum decade.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {engineModules.map((m) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {m.step}
+            </span>
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
+              {m.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {m.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
+            {m.tech.map((t) => (
+              <span class="mono-tag text-[11px]">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Configuration Deep Dive -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="unibase-card p-8 sm:p-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="mono-tag font-semibold uppercase">Zero-Disruption // Config-First</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0f1419] tracking-tight">
+            Cryptography as Runtime Configuration
+          </h3>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            Legacy switches weld RSA-2048 into firmware. Upgrading them to post-quantum means HSM array replacements and multi-year programs.
+          </p>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            Gajalogic treats the algorithm suite as fleet configuration. The example profile runs hybrid-parallel mode: NPCI traffic keeps its classical envelope while every payload is additionally sealed with ML-KEM and signed with ML-DSA. Changing one field re-negotiates the entire fabric.
+          </p>
+        </div>
+
+        <div class="lg:col-span-5 bg-gray-50 rounded-2xl p-6 border border-[#dadcdf] font-mono text-xs text-gray-700 space-y-1.5">
+          <div class="flex items-center justify-between pb-2 border-b border-[#dadcdf] text-gray-500">
+            <span>crypto_profile.yaml</span>
+            <span class="text-emerald-600">HYBRID-PARALLEL</span>
+          </div>
+          <div><span class="text-[#3e61ff]">mode:</span> <span class="text-[#0f1419]">hybrid-parallel</span></div>
+          <div><span class="text-[#3e61ff]">classical:</span> <span class="text-[#0f1419]">RSA-2048 / ECC P-256</span></div>
+          <div><span class="text-[#3e61ff]">post_quantum:</span></div>
+          <div class="pl-4"><span class="text-[#3e61ff]">kex:</span> <span class="text-[#0f1419]">ML-KEM-768 (FIPS 203)</span></div>
+          <div class="pl-4"><span class="text-[#3e61ff]">sig:</span> <span class="text-[#0f1419]">ML-DSA-65 (FIPS 204)</span></div>
+          <div class="pl-4"><span class="text-[#3e61ff]">fallback:</span> <span class="text-[#0f1419]">SLH-DSA (FIPS 205)</span></div>
+          <div><span class="text-[#3e61ff]">rotation:</span> <span class="text-[#0f1419]">config_push</span> <span class="text-gray-400"># no redeploy</span></div>
+          <div><span class="text-[#3e61ff]">interop_guard:</span> <span class="text-[#0f1419]">classical_always_on</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Algorithm Matrix Table -->
+  <section id="matrix" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Supported Suites</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Algorithm Capability Matrix
+      </h3>
+      <p class="text-gray-500 mt-2 text-sm sm:text-base">
+        Every suite registered in the live algorithm registry and exported to the Cryptographic Bill of Materials.
+      </p>
+    </div>
+
+    <div class="unibase-card overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs text-gray-700">
+          <thead class="bg-gray-50 border-b border-[#dadcdf] text-[#0f1419] font-bold">
+            <tr>
+              <th class="py-3.5 px-6">Algorithm</th>
+              <th class="py-3.5 px-6">Role</th>
+              <th class="py-3.5 px-6">Standard</th>
+              <th class="py-3.5 px-6">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#dadcdf]">
+            {algorithmMatrix.map((row) => (
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="py-3.5 px-6 font-bold text-[#0f1419]">{row.algorithm}</td>
+                <td class="py-3.5 px-6">{row.role}</td>
+                <td class="py-3.5 px-6 text-[#3e61ff] font-semibold">{row.standard}</td>
+                <td class="py-3.5 px-6">{row.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Plan Your Zero-Downtime PQC Migration"
+    subtitle="Our cryptography engineers will map your current algorithm inventory and model a hybrid-parallel rollout against the 2027 regulatory horizon."
+    buttonText="Request a Crypto-Agility Workshop"
+    secondaryText="See the CBOM Framework"
+    secondaryHref={`${base}/compliance/cbom`}
+  />
+</Layout>

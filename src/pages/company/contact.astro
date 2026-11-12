@@ -1,0 +1,145 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const channels = [
+  {
+    title: 'Enterprise Sales',
+    desc: 'Switch migration scoping, licensing burn analysis, and commercial models for banks, PA-Ps, and TPAPs.',
+    tag: 'BANKS & PA-Ps',
+  },
+  {
+    title: 'Technical Consultation',
+    desc: 'Architecture reviews with your CBS and integration teams: saga fit, PQC posture, and clearing topology.',
+    tag: 'CTO OFFICE',
+  },
+  {
+    title: 'PoC Deployments',
+    desc: 'Production-shaped proofs of concept against your test CBS, counterparty rails, and success metrics.',
+    tag: 'PROOF FIRST',
+  },
+];
+---
+
+<Layout
+  title="Contact GajaLogic | Enterprise Sales, Consultations & PoCs"
+  description="Direct channels for enterprise sales inquiries, technical consultations, and proof-of-concept (PoC) deployments."
+>
+  <PageHeader
+    eyebrow="Company // Contact"
+    title="Connect with GajaLogic"
+    subtitle="Direct channels for enterprise sales inquiries, technical consultations, and proof-of-concept deployments. Reach a payment systems architect, not a ticket queue."
+    badge="Response Within One Business Day"
+  >
+    <div slot="actions">
+      <a href="#contact" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Send an Inquiry
+      </a>
+      <a href={`${base}/developers/sandbox`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Try the Sandbox First
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Channels -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      {channels.map((c, i) => (
+        <div class="unibase-card p-7">
+          <span class="text-xs font-mono text-[#3e61ff] font-bold mb-3 block">0{i + 1} //</span>
+          <span class="mono-tag text-[11px] mb-4">{c.tag}</span>
+          <h4 class="text-lg font-bold text-[#0f1419] mb-2">{c.title}</h4>
+          <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">{c.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Contact Form -->
+    <section id="contact" class="max-w-4xl mx-auto">
+      <div class="unibase-card p-8 sm:p-12">
+        <div class="text-center max-w-xl mx-auto mb-8">
+          <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Technical Inquiry</span>
+          <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+            Tell Us About Your Rail
+          </h3>
+          <p class="text-sm text-gray-500 mt-2">
+            The more specific the workload, the sharper the response.
+          </p>
+        </div>
+
+        <form class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you for reaching out to Gajalogic. A payment systems architect will respond within one business day.');">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-mono text-gray-600 uppercase mb-2">Full Name</label>
+              <input
+                type="text"
+                required
+                placeholder="Priya Sharma"
+                class="w-full px-4 py-3 rounded-xl bg-white border border-[#dadcdf] text-[#0f1419] placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#3e61ff]/40 focus:border-[#3e61ff]"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-gray-600 uppercase mb-2">Work Email</label>
+              <input
+                type="email"
+                required
+                placeholder="priya@yourbank.in"
+                class="w-full px-4 py-3 rounded-xl bg-white border border-[#dadcdf] text-[#0f1419] placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#3e61ff]/40 focus:border-[#3e61ff]"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-mono text-gray-600 uppercase mb-2">Organization</label>
+              <input
+                type="text"
+                required
+                placeholder="Bank / Aggregator / TPAP"
+                class="w-full px-4 py-3 rounded-xl bg-white border border-[#dadcdf] text-[#0f1419] placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#3e61ff]/40 focus:border-[#3e61ff]"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-gray-600 uppercase mb-2">Topic of Interest</label>
+              <select
+                class="w-full px-4 py-3 rounded-xl bg-white border border-[#dadcdf] text-[#0f1419] text-sm focus:outline-none focus:ring-2 focus:ring-[#3e61ff]/40 focus:border-[#3e61ff]"
+              >
+                <option>UPI Acquiring Switch</option>
+                <option>UPI Issuing Switch / CBS Offload</option>
+                <option>TPAP Infrastructure</option>
+                <option>RuPay Issuing & Acquiring</option>
+                <option>NCMC & Transit Solutions</option>
+                <option>OpenCPU Soundbox Program</option>
+                <option>Enterprise HSM & Key Management</option>
+                <option>PQC Migration / CBOM Assessment</option>
+                <option>Proof-of-Concept Deployment</option>
+                <option>Press & General Inquiries</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-gray-600 uppercase mb-2">Message / Workload Profile</label>
+            <textarea
+              rows="4"
+              required
+              placeholder="Peak TPS, current switch, licensing burn, CBS platform, PQC timeline..."
+              class="w-full px-4 py-3 rounded-xl bg-white border border-[#dadcdf] text-[#0f1419] placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#3e61ff]/40 focus:border-[#3e61ff]"
+            ></textarea>
+          </div>
+
+          <div class="text-center pt-2">
+            <button
+              type="submit"
+              class="btn-unibase-primary w-full sm:w-auto !py-3.5 !px-8 !text-base"
+            >
+              Submit Inquiry
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </section>
+</Layout>

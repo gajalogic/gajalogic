@@ -76,13 +76,13 @@ const transitComparison = [
     <div slot="actions">
       <a
         href="#architecture"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-sm transition-all"
+        class="btn-unibase-primary !py-2.5 !px-5 !text-sm"
       >
         Explore Transit Architecture
       </a>
       <a
         href="#pqc-rd"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-900 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+        class="btn-unibase-secondary !py-2.5 !px-5 !text-sm"
       >
         PQC Smart Card Silicon R&D
       </a>
@@ -91,13 +91,13 @@ const transitComparison = [
 
   <!-- High-Contrast Metric Telemetry Strip -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
-    <div class="unibase-card p-6 sm:p-8 border border-white/10 bg-slate-950/90 shadow-2xl">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
         {transitMetrics.map((m) => (
           <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
             <span class="text-xs font-mono uppercase tracking-wider text-amber-400 block mb-1">{m.label}</span>
-            <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">{m.value}</div>
-            <p class="text-xs text-slate-400 mt-1">{m.sub}</p>
+            <div class="text-3xl sm:text-4xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
           </div>
         ))}
       </div>
@@ -110,10 +110,10 @@ const transitComparison = [
       <span class="mono-tag font-semibold uppercase tracking-wider text-amber-400 border-amber-500/30 bg-amber-950/30 mb-2 inline-block">
         Mass Transit Architecture
       </span>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
         Sub-300ms Turnstiles & Zero-Leakage Offline Wallets
       </h2>
-      <p class="text-slate-400 mt-3 text-base">
+      <p class="text-gray-500 mt-3 text-base">
         Eliminate passenger bottlenecks at metro turnstiles and bus gates with deterministic offline cryptographic execution.
       </p>
     </div>
@@ -121,22 +121,22 @@ const transitComparison = [
     <!-- 4 Modules Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {transitArchitectureModules.map((mod) => (
-        <div class="unibase-card p-8 flex flex-col justify-between border border-white/10 relative overflow-hidden group">
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
           <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-500/0 group-hover:via-amber-400/60 to-transparent transition-all duration-500"></div>
           <div>
             <span class="text-xs font-mono font-semibold text-amber-400 uppercase tracking-wider block mb-2">
               {mod.step}
             </span>
-            <h3 class="text-2xl font-bold text-white mb-3">
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
               {mod.title}
             </h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+            <p class="text-gray-600 text-sm leading-relaxed mb-6 font-normal">
               {mod.desc}
             </p>
           </div>
-          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-800">
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
             {mod.tech.map((t) => (
-              <span class="mono-tag text-[11px] bg-slate-900 text-slate-300 border-slate-800">
+              <span class="mono-tag text-[11px]">
                 {t}
               </span>
             ))}
@@ -147,83 +147,83 @@ const transitComparison = [
   </section>
 
   <!-- PQC Smart Card R&D Section -->
-  <section id="pqc-rd" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
-    <div class="unibase-card p-8 sm:p-12 border border-white/10 bg-slate-950/80">
+  <section id="pqc-rd" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="unibase-card p-8 sm:p-12">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div class="lg:col-span-7 space-y-4">
           <span class="mono-tag font-semibold uppercase text-amber-400 border-amber-500/30 bg-amber-950/30">
             Silicon R&D // Post-Quantum Smart Card Cryptography
           </span>
-          <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0f1419] tracking-tight">
             PQC Architecture for Memory-Constrained Silicon
           </h3>
-          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
             While server-class cloud environments can easily process multi-kilobyte post-quantum keys, physical transit cards (contactless dual-interface JavaCard/NATIVE smart chips) possess severe execution bounds: typically 32 KB to 64 KB of persistent EEPROM and ultra-low clock speeds.
           </p>
-          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-            Gajalogic's silicon cryptography R&D team has engineered a compact <strong class="text-white font-medium">hybrid stateful hash / compressed lattice verification engine</strong> that fits inside an unprecedented <strong class="text-amber-400 font-mono">48 KB card footprint</strong>. Turnstiles verify authenticity in under 80 milliseconds of NFC RF field contact, ensuring sovereign transit infrastructure remains secure against future quantum cloning devices.
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
+            Gajalogic's silicon cryptography R&D team has engineered a compact <strong class="text-[#0f1419] font-medium">hybrid stateful hash / compressed lattice verification engine</strong> that fits inside an unprecedented <strong class="text-amber-400 font-mono">48 KB card footprint</strong>. Turnstiles verify authenticity in under 80 milliseconds of NFC RF field contact, ensuring sovereign transit infrastructure remains secure against future quantum cloning devices.
           </p>
-          <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono text-slate-400">
+          <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono text-gray-500">
             <span class="flex items-center gap-1.5 text-amber-400">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               Compatible with RuPay qSPARC Contactless Specs
             </span>
-            <span class="flex items-center gap-1.5 text-sky-400">
+            <span class="flex items-center gap-1.5 text-[#3e61ff]">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               ISO 14443 Type A/B 13.56 MHz High-Speed RF Communication
             </span>
           </div>
         </div>
 
-        <div class="lg:col-span-5 bg-slate-900/90 rounded-2xl p-6 border border-slate-800 font-mono text-xs text-slate-300 space-y-3">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-slate-400">
+        <div class="lg:col-span-5 bg-gray-50 rounded-2xl p-6 border border-[#dadcdf] font-mono text-xs text-gray-600 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-[#dadcdf] text-gray-500">
             <span>TURNSTILE_NFC_TELEMETRY</span>
-            <span class="text-emerald-400">GATE OPEN</span>
+            <span class="text-emerald-600">GATE OPEN</span>
           </div>
-          <div><span class="text-amber-400">gate_id:</span> <span class="text-slate-100">"DELHI-METRO-NDLS-G04"</span></div>
-          <div><span class="text-amber-400">card_applet_profile:</span> <span class="text-slate-100">"NCMC_qSPARC_PQC_V2"</span></div>
-          <div><span class="text-amber-400">rf_contact_time:</span> <span class="text-sky-300 font-bold">142 ms</span></div>
-          <div><span class="text-amber-400">offline_balance_before:</span> <span class="text-slate-100">INR 480.00</span></div>
-          <div><span class="text-amber-400">fare_deducted:</span> <span class="text-slate-100">INR 32.00</span></div>
-          <div><span class="text-amber-400">crypto_verification_time:</span> <span class="text-emerald-400 font-bold">78 ms (Target &lt; 120ms)</span></div>
-          <div><span class="text-amber-400">total_turnstile_latency:</span> <span class="text-emerald-400 font-bold">220 ms (PASSED SLA &lt; 300ms)</span></div>
+          <div><span class="text-amber-400">gate_id:</span> <span class="text-[#0f1419]">"DELHI-METRO-NDLS-G04"</span></div>
+          <div><span class="text-amber-400">card_applet_profile:</span> <span class="text-[#0f1419]">"NCMC_qSPARC_PQC_V2"</span></div>
+          <div><span class="text-amber-400">rf_contact_time:</span> <span class="text-[#3151e6] font-bold">142 ms</span></div>
+          <div><span class="text-amber-400">offline_balance_before:</span> <span class="text-[#0f1419]">INR 480.00</span></div>
+          <div><span class="text-amber-400">fare_deducted:</span> <span class="text-[#0f1419]">INR 32.00</span></div>
+          <div><span class="text-amber-400">crypto_verification_time:</span> <span class="text-emerald-600 font-bold">78 ms (Target &lt; 120ms)</span></div>
+          <div><span class="text-amber-400">total_turnstile_latency:</span> <span class="text-emerald-600 font-bold">220 ms (PASSED SLA &lt; 300ms)</span></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Legacy Transit vs. Gajalogic Comparison Table -->
-  <section id="comparison" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+  <section id="comparison" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
     <div class="text-center max-w-3xl mx-auto mb-12">
       <h2 class="text-xs font-mono uppercase tracking-widest text-amber-400 mb-2">Transit Benchmark Matrix</h2>
-      <h3 class="text-3xl font-extrabold text-white tracking-tight">
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
         Legacy Transit Ticketing Systems vs. Gajalogic NCMC Rail
       </h3>
-      <p class="text-slate-400 mt-2 text-sm sm:text-base">
+      <p class="text-gray-500 mt-2 text-sm sm:text-base">
         A comparative evaluation for Metro Rail Authorities, Smart City Transport Departments, and Mobility Operators.
       </p>
     </div>
 
-    <div class="unibase-card overflow-hidden border border-white/10 shadow-2xl">
+    <div class="unibase-card overflow-hidden shadow-sm">
       <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm text-slate-300">
-          <thead class="bg-slate-900/90 text-xs font-mono uppercase text-slate-400 border-b border-slate-800">
+        <table class="w-full text-left text-sm text-gray-600">
+          <thead class="bg-gray-50 text-xs font-mono uppercase text-gray-500 border-b border-[#dadcdf]">
             <tr>
               <th class="px-6 py-4 w-1/4">Evaluation Parameter</th>
-              <th class="px-6 py-4 w-3/8 text-rose-400">Legacy Closed-Loop / Early NCMC Systems</th>
+              <th class="px-6 py-4 w-3/8 text-rose-600">Legacy Closed-Loop / Early NCMC Systems</th>
               <th class="px-6 py-4 w-3/8 text-amber-400 font-bold">Gajalogic High-Velocity NCMC Rail</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-800 text-xs sm:text-sm">
+          <tbody class="divide-y divide-[#dadcdf] text-xs sm:text-sm">
             {transitComparison.map((row) => (
-              <tr class="hover:bg-slate-800/40 transition-colors">
-                <td class="px-6 py-4 font-mono font-semibold text-white bg-slate-950/40">
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="px-6 py-4 font-mono font-semibold text-[#0f1419] bg-gray-50/60">
                   {row.dimension}
                 </td>
-                <td class="px-6 py-4 text-slate-400 leading-relaxed border-r border-slate-800">
+                <td class="px-6 py-4 text-gray-500 leading-relaxed border-r border-[#dadcdf]">
                   {row.legacy}
                 </td>
-                <td class="px-6 py-4 text-slate-200 leading-relaxed bg-amber-950/10">
+                <td class="px-6 py-4 text-gray-700 leading-relaxed bg-amber-950/10">
                   {row.gajalogic}
                 </td>
               </tr>

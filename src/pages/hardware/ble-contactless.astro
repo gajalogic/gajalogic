@@ -1,0 +1,156 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const bleMetrics = [
+  { value: '30 m', label: 'Beacon Range', sub: 'Tunable power classes per venue' },
+  { value: '< 240 ms', label: 'Offline Auth Window', sub: 'Beacon detect to cryptogram accept' },
+  { value: 'Patent-Pending', label: 'Broadcast Protocol', sub: 'Offline payment beacon advertising' },
+  { value: 'NCMC + RuPay', label: 'Rail Compatibility', sub: 'Contactless acquiring forward-compatible' },
+];
+
+const bleModules = [
+  {
+    step: 'Module 01 // Offline Payment Broadcasting',
+    title: 'BLE Beacons That Carry Value',
+    desc: 'Patent-pending protocol: a merchant terminal in offline mode advertises payment-ready state via BLE, and consumer devices broadcast cryptographically signed payment tokens back over the same channel. No network, no NFC handoff ceremony — the radio link IS the payment handshake.',
+    tech: ['BLE 5 Advertising Chains', 'Signed Payment Tokens', 'Offline-First Handshake'],
+  },
+  {
+    step: 'Module 02 // Hardware Secure Elements',
+    title: 'Every Broadcast Cryptographically Bound',
+    desc: 'Payment beacons are signed inside hardware secure elements on both the merchant and consumer sides. Replayed, relayed, or re-ordered advertisements fail verification; amount, merchant identity, and nonce are bound into each cryptogram.',
+    tech: ['Secure Element Signing', 'Anti-Relay Nonces', 'Amount-Bound Cryptograms'],
+  },
+  {
+    step: 'Module 03 // NCMC & RuPay Forward Compatibility',
+    title: 'Future-Proof Contactless Acquiring',
+    desc: 'The protocol is designed alongside NCMC and RuPay contactless evolution: venues can run dual-mode lanes today (standard contactless plus BLE offline) and graduate to fully offline beacon acquiring as NPCI specifications mature.',
+    tech: ['Dual-Mode Lanes', 'qSPARC-Aware Profiles', 'Spec-Forward Design'],
+  },
+  {
+    step: 'Module 04 // Venue Integration',
+    title: 'Turnstiles, Buses & Unattended POS',
+    desc: 'BLE beacons shine where contactless struggles: underground metro stations with degraded coverage, moving buses, and unattended kiosks. Power classes are tuned per venue so a bus fleet and a metro hall can share one protocol at different radii.',
+    tech: ['Power-Class Tuning', 'Unattended POS Support', 'Degraded-Network Operation'],
+  },
+];
+---
+
+<Layout
+  title="BLE Contactless | GajaLogic Next-Gen Offline Payment Broadcasting"
+  description="Patent-pending offline payment broadcasting via Bluetooth Low Energy beacons and hardware secure elements for future-proof NCMC and RuPay contactless acquiring."
+>
+  <PageHeader
+    eyebrow="Hardware & Edge Security // Contactless"
+    title="Next-Gen BLE Contactless Payments"
+    subtitle="Patent-pending offline payment broadcasting over Bluetooth Low Energy, with hardware secure element signing — built for NCMC and RuPay contactless acquiring."
+    badge="Innovation // Patent-Pending"
+  >
+    <div slot="actions">
+      <a href="#modules" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Examine the Protocol
+      </a>
+      <a href={`${base}/hardware/opencpu-soundbox`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Previous: OpenCPU Soundbox
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {bleMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Protocol Modules -->
+  <section id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Protocol Architecture</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        The Radio Link Is the Payment Handshake
+      </h2>
+      <p class="text-gray-500 mt-3 text-base">
+        Four subsystems turn commodity BLE radios into a cryptographically bound payment channel.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {bleModules.map((m) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {m.step}
+            </span>
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
+              {m.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {m.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
+            {m.tech.map((t) => (
+              <span class="mono-tag text-[11px]">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Handshake Deep Dive -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="unibase-card p-8 sm:p-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="mono-tag font-semibold uppercase">Offline-First // Anti-Relay</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0f1419] tracking-tight">
+            Zero Network, Zero Trust Assumptions
+          </h3>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            Offline payments fail when they assume connectivity will return. The BLE protocol treats every tap as potentially never-syncing: value is bounded, cryptograms are amount-bound and nonce-fresh, and the merchant terminal's secure element refuses any advertisement that fails local verification.
+          </p>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            When connectivity does return, batch journals sync into the NCMC clearing fabric with zero financial leakage — the same reconciliation guarantees as the transit rail.
+          </p>
+        </div>
+
+        <div class="lg:col-span-5 bg-gray-50 rounded-2xl p-6 border border-[#dadcdf] font-mono text-xs text-gray-700 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-[#dadcdf] text-gray-500">
+            <span>BLE_BEACON_EXCHANGE</span>
+            <span class="text-emerald-600">OFFLINE OK</span>
+          </div>
+          <div><span class="text-[#3e61ff]">adv_type:</span> <span class="text-[#0f1419]">"PAY_READY_BROADCAST"</span></div>
+          <div><span class="text-[#3e61ff]">merchant:</span> <span class="text-[#0f1419]">"metro-gate-B12@ncmc"</span></div>
+          <div><span class="text-[#3e61ff]">amount_bound:</span> <span class="text-[#0f1419]">"INR 40.00 (fare table v7)"</span></div>
+          <div><span class="text-[#3e61ff]">nonce:</span> <span class="text-[#0f1419]">"0x9f2c...fresh &lt; 240ms"</span></div>
+          <div><span class="text-[#3e61ff]">signature:</span> <span class="text-emerald-600">"SECURE_ELEMENT (SE-PQC PROFILE)"</span></div>
+          <div><span class="text-[#3e61ff]">replay_check:</span> <span class="text-rose-600 font-bold">"REJECTED (nonce reuse)"</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Run Offline Contactless Where Networks Don't Reach"
+    subtitle="Request the BLE protocol brief, a dual-mode lane reference design, or a transit venue pilot for your NCMC deployment."
+    buttonText="Request a BLE Pilot"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="Explore NCMC & Transit Rail"
+    secondaryHref={`${base}/products/ncmc-transit`}
+  />
+</Layout>

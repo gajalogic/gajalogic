@@ -136,13 +136,13 @@ const tcoComparison = [
     <div slot="actions">
       <a
         href="#products"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-all"
+        class="btn-unibase-primary !py-2.5 !px-5 !text-sm"
       >
         Explore Product Lines
       </a>
       <a
         href="#tco"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-900 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+        class="btn-unibase-secondary !py-2.5 !px-5 !text-sm"
       >
         TCO & Architecture Comparison
       </a>
@@ -151,27 +151,27 @@ const tcoComparison = [
 
   <!-- Executive Impact Summary Dashboard (BCG Style) -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
-    <div class="unibase-card p-6 sm:p-8 border border-white/10 bg-slate-950/90 shadow-2xl">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
         <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
-          <span class="text-xs font-mono uppercase tracking-wider text-sky-400 block mb-1">TCO Optimization</span>
-          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">-62%</div>
-          <p class="text-xs text-slate-400 mt-1">Reduction in cumulative infrastructure and per-TPS licensing bloat.</p>
+          <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">TCO Optimization</span>
+          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-[#0f1419] tracking-tight">-62%</div>
+          <p class="text-xs text-gray-500 mt-1">Reduction in cumulative infrastructure and per-TPS licensing bloat.</p>
         </div>
         <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
-          <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 block mb-1">P99 Determinism</span>
-          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">&lt; 1.0 ms</div>
-          <p class="text-xs text-slate-400 mt-1">In-switch processing latency under peak concurrent loads.</p>
+          <span class="text-xs font-mono uppercase tracking-wider text-emerald-600 block mb-1">P99 Determinism</span>
+          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-[#0f1419] tracking-tight">&lt; 1.0 ms</div>
+          <p class="text-xs text-gray-500 mt-1">In-switch processing latency under peak concurrent loads.</p>
         </div>
         <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
-          <span class="text-xs font-mono uppercase tracking-wider text-indigo-400 block mb-1">CBS Shielding</span>
-          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">84.6%</div>
-          <p class="text-xs text-slate-400 mt-1">Non-financial queries resolved in-memory without hitting core banking.</p>
+          <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">CBS Shielding</span>
+          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-[#0f1419] tracking-tight">84.6%</div>
+          <p class="text-xs text-gray-500 mt-1">Non-financial queries resolved in-memory without hitting core banking.</p>
         </div>
         <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
-          <span class="text-xs font-mono uppercase tracking-wider text-purple-400 block mb-1">Quantum Defense</span>
-          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight">FIPS 203</div>
-          <p class="text-xs text-slate-400 mt-1">NIST-standardized ML-KEM post-quantum cryptographic envelopes.</p>
+          <span class="text-xs font-mono uppercase tracking-wider text-purple-600 block mb-1">Quantum Defense</span>
+          <div class="text-3xl sm:text-4xl font-extrabold font-mono text-[#0f1419] tracking-tight">FIPS 203</div>
+          <p class="text-xs text-gray-500 mt-1">NIST-standardized ML-KEM post-quantum cryptographic envelopes.</p>
         </div>
       </div>
     </div>
@@ -180,11 +180,11 @@ const tcoComparison = [
   <!-- Interactive 5 Product Lines Grid -->
   <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
     <div class="text-center max-w-3xl mx-auto">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">Core Product Suite</h2>
-      <h3 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-[#3e61ff] mb-2">Core Product Suite</h2>
+      <h3 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight">
         Five Pillars of National Switch Modernization
       </h3>
-      <p class="text-slate-400 mt-3 text-base">
+      <p class="text-gray-500 mt-3 text-base">
         Select a solution to explore architectural specifications, saga execution models, and benchmark telemetry.
       </p>
     </div>
@@ -193,36 +193,36 @@ const tcoComparison = [
       {productLines.map((prod, idx) => (
         <div class={`unibase-card p-8 flex flex-col justify-between group relative overflow-hidden ${idx === 0 ? 'lg:col-span-2' : ''}`}>
           <!-- Top glowing accent -->
-          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sky-500/0 group-hover:via-sky-400/70 to-transparent transition-all duration-500"></div>
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
 
           <div>
             <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
               <span class="mono-tag font-bold uppercase tracking-wider">
                 {prod.badge}
               </span>
-              <span class="text-xs font-mono text-slate-400">
+              <span class="text-xs font-mono text-gray-500">
                 Product Code: GJ-{100 + idx}
               </span>
             </div>
 
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-2 group-hover:text-sky-300 transition-colors">
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0f1419] mb-2 group-hover:text-[#3151e6] transition-colors">
               <a href={prod.slug} class="hover:underline focus:outline-none">
                 {prod.title}
               </a>
             </h3>
 
-            <p class="text-sm font-mono text-sky-400 mb-4">{prod.tagline}</p>
+            <p class="text-sm font-mono text-[#3e61ff] mb-4">{prod.tagline}</p>
 
-            <p class="text-sm text-slate-300 leading-relaxed mb-6 font-light">
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 font-normal">
               {prod.description}
             </p>
 
             <!-- Key Metric Strip -->
-            <div class="grid grid-cols-3 gap-3 p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 mb-6 font-mono text-center">
+            <div class="grid grid-cols-3 gap-3 p-4 rounded-xl bg-gray-50 border border-[#dadcdf] mb-6 font-mono text-center">
               {prod.stats.map((s) => (
                 <div>
-                  <div class="text-xs text-slate-400">{s.label}</div>
-                  <div class="text-sm sm:text-base font-bold text-white mt-0.5">{s.value}</div>
+                  <div class="text-xs text-gray-500">{s.label}</div>
+                  <div class="text-sm sm:text-base font-bold text-[#0f1419] mt-0.5">{s.value}</div>
                 </div>
               ))}
             </div>
@@ -230,8 +230,8 @@ const tcoComparison = [
             <!-- Bullet Highlights -->
             <ul class="space-y-2 mb-6">
               {prod.highlights.map((h) => (
-                <li class="flex items-start text-xs sm:text-sm text-slate-300">
-                  <svg class="w-4 h-4 text-sky-400 mr-2.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li class="flex items-start text-xs sm:text-sm text-gray-600">
+                  <svg class="w-4 h-4 text-[#3e61ff] mr-2.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                   </svg>
                   <span>{h}</span>
@@ -240,11 +240,11 @@ const tcoComparison = [
             </ul>
           </div>
 
-          <div class="pt-5 border-t border-slate-800/80 flex items-center justify-between">
-            <span class="text-xs font-mono text-slate-400">Production Ready</span>
+          <div class="pt-5 border-t border-[#dadcdf] flex items-center justify-between">
+            <span class="text-xs font-mono text-gray-500">Production Ready</span>
             <a
               href={prod.slug}
-              class="inline-flex items-center text-sm font-semibold text-sky-400 group-hover:text-sky-300 group-hover:translate-x-1 transition-all"
+              class="inline-flex items-center text-sm font-semibold text-[#3e61ff] group-hover:text-[#3151e6] group-hover:translate-x-1 transition-all"
             >
               <span>Explore Technical Architecture</span>
               <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -258,37 +258,37 @@ const tcoComparison = [
   </section>
 
   <!-- Strategic TCO Comparison Section (BCG Analysis) -->
-  <section id="tco" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+  <section id="tco" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
     <div class="text-center max-w-3xl mx-auto mb-12">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">Strategic Analysis</h2>
-      <h3 class="text-3xl font-extrabold text-white tracking-tight">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-[#3e61ff] mb-2">Strategic Analysis</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
         Monolithic Legacy Switches vs. Gajalogic Cloud-Native Stack
       </h3>
-      <p class="text-slate-400 mt-2 text-sm sm:text-base">
+      <p class="text-gray-500 mt-2 text-sm sm:text-base">
         A financial and architectural comparison for banking procurement committees, C-suite executives, and payment heads.
       </p>
     </div>
 
-    <div class="unibase-card overflow-hidden border border-white/10 shadow-2xl">
+    <div class="unibase-card overflow-hidden shadow-sm">
       <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm text-slate-300">
-          <thead class="bg-slate-900/90 text-xs font-mono uppercase text-slate-400 border-b border-slate-800">
+        <table class="w-full text-left text-sm text-gray-600">
+          <thead class="bg-gray-50 text-xs font-mono uppercase text-gray-500 border-b border-[#dadcdf]">
             <tr>
               <th class="px-6 py-4 w-1/4">Evaluation Dimension</th>
-              <th class="px-6 py-4 w-3/8 text-rose-400">Legacy Architecture (Way4 / Base24 / FIS)</th>
-              <th class="px-6 py-4 w-3/8 text-sky-400 font-bold">Gajalogic Sovereign Switch Platform</th>
+              <th class="px-6 py-4 w-3/8 text-rose-600">Legacy Architecture (Way4 / Base24 / FIS)</th>
+              <th class="px-6 py-4 w-3/8 text-[#3e61ff] font-bold">Gajalogic Sovereign Switch Platform</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-800 text-xs sm:text-sm">
+          <tbody class="divide-y divide-[#dadcdf] text-xs sm:text-sm">
             {tcoComparison.map((row) => (
-              <tr class="hover:bg-slate-800/40 transition-colors">
-                <td class="px-6 py-4 font-mono font-semibold text-white bg-slate-950/40">
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="px-6 py-4 font-mono font-semibold text-[#0f1419] bg-gray-50/60">
                   {row.dimension}
                 </td>
-                <td class="px-6 py-4 text-slate-400 leading-relaxed border-r border-slate-800">
+                <td class="px-6 py-4 text-gray-500 leading-relaxed border-r border-[#dadcdf]">
                   {row.legacy}
                 </td>
-                <td class="px-6 py-4 text-slate-200 leading-relaxed bg-sky-950/10">
+                <td class="px-6 py-4 text-gray-700 leading-relaxed bg-blue-50/40">
                   {row.gajalogic}
                 </td>
               </tr>

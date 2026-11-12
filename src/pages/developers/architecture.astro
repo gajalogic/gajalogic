@@ -1,0 +1,174 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const blueprintMetrics = [
+  { value: 'Mermaid.js', label: 'Diagram Source', sub: 'Plain text, versionable, diffable' },
+  { value: '.mmd', label: 'Downloadable', sub: 'Drop into any Mermaid renderer' },
+  { value: 'Real', label: 'Topology Fidelity', sub: 'Diagrams match production interfaces' },
+  { value: 'Zero', label: 'Slide-ware', sub: 'If it is not in the diagram, it is not in the switch' },
+];
+
+const blueprints = [
+  { name: 'Switch Topology Overview', file: 'switch-topology.mmd', desc: 'Merchant apps, TPAPs, bank CBS, and NPCI rails around the Gajalogic fabric.' },
+  { name: 'Hybrid PQC Handshake Flow', file: 'pqc-handshake.mmd', desc: 'X25519 + ML-KEM key exchange and ML-DSA verification sequence.' },
+  { name: 'Event-Driven Clearing Pipeline', file: 'clearing-pipeline.mmd', desc: 'Authorization to JetStream subject to immutable journal fan-out.' },
+];
+
+const topologyDiagram = `graph TD
+  subgraph Merchant & Fintech Edge
+    POS[POS / Soundbox] --> PA[Payment Aggregator]
+    TPAP[TPAP Consumer App] --> GJ
+  end
+  subgraph Gajalogic Switch Fabric
+    GW[API Gateway / NPCI Adapter] --> SAGA[Distributed Saga Orchestrator]
+    SAGA --> MEM[In-Memory VPA & Balance Cache]
+    SAGA --> PQC[Crypto-Agility Engine]
+    PQC --> JRN[Immutable Ledger - NATS JetStream]
+  end
+  subgraph Bank & NPCI
+    CBS[Core Banking - Finacle / BaNCS] <--> MEM
+    GJ --> NPCI[NPCI UPI / IMPS / RuPay Rails]
+    JRN --> SETTLE[T+0 Settlement Fan-Out]
+  end`;
+
+const handshakeDiagram = `sequenceDiagram
+  participant C as Counterparty / NPCI Rail
+  participant G as Gajalogic Edge
+  participant H as HSM (Thales Luna)
+  C->>G: TLS ClientHello (hybrid offered)
+  G->>C: ServerHello + X25519 share + ML-KEM-768 encapsulation
+  C->>G: ML-KEM ciphertext + classical signature
+  G->>H: Verify ML-DSA-65 / RSA chain
+  H-->>G: Attestation OK (QRNG-sourced keys)
+  G->>C: Session established - hybrid secrets derived
+  Note over C,H: PQC overhead < 1 ms P99 - classical ciphers never removed first`;
+---
+
+<Layout
+  title="Architecture Blueprints | GajaLogic Downloadable Mermaid Diagrams"
+  description="Downloadable Mermaid.js architecture diagrams mapping exactly how Gajalogic interfaces with your microservices, core banking, and NPCI rails."
+>
+  <PageHeader
+    eyebrow="Developers & Migration // Blueprints"
+    title="Transparent Architecture Blueprints"
+    subtitle="Downloadable Mermaid.js diagrams mapping exactly how Gajalogic interfaces with your existing microservices, core banking systems, and NPCI rails."
+    badge="Mermaid.js // Diffable"
+  >
+    <div slot="actions">
+      <a href="#diagrams" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        View the Diagrams
+      </a>
+      <a href={`${base}/developers/docs`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Read the Docs
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {blueprintMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Topology Diagram -->
+  <section id="diagrams" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Blueprint 01</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Switch Topology Overview
+      </h2>
+      <p class="text-gray-500 mt-3 text-base">
+        How merchant edge, fintech apps, bank cores, and NPCI rails connect through the Gajalogic fabric.
+      </p>
+    </div>
+
+    <div class="unibase-card p-6 sm:p-8">
+      <div class="flex items-center justify-between pb-3 border-b border-[#dadcdf] mb-4">
+        <span class="mono-tag text-[11px]">switch-topology.mmd</span>
+        <span class="text-xs font-mono text-gray-500">Mermaid.js source — paste into any renderer</span>
+      </div>
+      <pre class="bg-gray-50 rounded-xl p-5 border border-[#dadcdf] font-mono text-xs text-gray-700 overflow-x-auto leading-relaxed"><code>{topologyDiagram}</code></pre>
+    </div>
+  </section>
+
+  <!-- Handshake Diagram -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf] space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Blueprint 02</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Hybrid PQC Handshake Flow
+      </h2>
+      <p class="text-gray-500 mt-3 text-base">
+        The exact sequence of the X25519 + ML-KEM hybrid exchange and ML-DSA verification at the edge.
+      </p>
+    </div>
+
+    <div class="unibase-card p-6 sm:p-8">
+      <div class="flex items-center justify-between pb-3 border-b border-[#dadcdf] mb-4">
+        <span class="mono-tag text-[11px]">pqc-handshake.mmd</span>
+        <span class="text-xs font-mono text-gray-500">Sequence diagram — matches the sandbox visualizer</span>
+      </div>
+      <pre class="bg-gray-50 rounded-xl p-5 border border-[#dadcdf] font-mono text-xs text-gray-700 overflow-x-auto leading-relaxed"><code>{handshakeDiagram}</code></pre>
+    </div>
+  </section>
+
+  <!-- Blueprint Index -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Download Index</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Available Blueprints
+      </h3>
+    </div>
+
+    <div class="unibase-card overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs text-gray-700">
+          <thead class="bg-gray-50 border-b border-[#dadcdf] text-[#0f1419] font-bold">
+            <tr>
+              <th class="py-3.5 px-6">Blueprint</th>
+              <th class="py-3.5 px-6">File</th>
+              <th class="py-3.5 px-6">Coverage</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#dadcdf]">
+            {blueprints.map((b) => (
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="py-3.5 px-6 font-bold text-[#0f1419]">{b.name}</td>
+                <td class="py-3.5 px-6 text-[#3e61ff] font-semibold">{b.file}</td>
+                <td class="py-3.5 px-6">{b.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="text-center text-xs text-gray-500 mt-6">
+      Blueprint sources are distributed with the SDK bundle and inside the sandbox environment. Request access via the
+      <a href={`${base}/company/contact`} class="text-[#3e61ff] font-semibold hover:underline">contact form</a>.
+    </p>
+  </section>
+
+  <CtaBanner
+    title="Integrate Against the Real Topology"
+    subtitle="Download the blueprints, overlay your microservice map, and run the fit check before writing a single adapter."
+    buttonText="Request the Blueprint Bundle"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="Open the Sandbox"
+    secondaryHref={`${base}/developers/sandbox`}
+  />
+</Layout>

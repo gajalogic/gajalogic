@@ -1,0 +1,401 @@
+---
+/**
+ * InteractiveBackground — production-ready, cursor-reactive animated background.
+ *
+ * Architecture:
+ *  - <canvas> inside a fixed wrapper: position: fixed; inset: 0; z-index: -1;
+ *    overflow: hidden; pointer-events: none  → clicks pass through, zero layout
+ *    shift, zero scroll interference.
+ *  - HTML5 Canvas 2D rendered via requestAnimationFrame, dt-normalized so motion
+ *    is identical at 60Hz/120Hz/proponent refresh rates.
+ *  - Cursor tracked via pointermove (clientX/clientY, passive). All cursor motion
+ *    is applied through double-lerp smoothing: the focal glow eases toward the
+ *    pointer, and each node's repel offset eases toward its target offset — no
+ *    snapping, no jitter.
+ *  - DPR-aware resize handling (buffer scaled via setTransform, never distorted).
+ *  - Pauses on document.hidden; honors prefers-reduced-motion with a static frame.
+ *  - Deep navy "payment constellation" aesthetic: drifting nodes, proximity links,
+ *    and a luminous fluid gradient that follows the cursor.
+ */
+interface Props {
+  /** "dark" = deep navy futuristic canvas (spec default). "light" = soft aurora tuned for the light Unibase pages. */
+  variant?: 'dark' | 'light';
+  /** Upper bound for devicePixelRatio rendering (1 = fastest, 2 = crisp on retina). */
+  maxPixelRatio?: number;
+}
+
+const { variant = 'dark', maxPixelRatio = 2 } = Astro.props;
+---
+
+<div class="interactive-bg" data-variant={variant} data-max-dpr={maxPixelRatio} aria-hidden="true">
+  <canvas class="interactive-bg-canvas"></canvas>
+</div>
+
+<style>
+  .interactive-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    /* CSS-painted fallback base: page never flashes unstyled before JS/canvas */
+    background:
+      radial-gradient(120% 80% at 50% -10%, var(--ib-tint) 0%, transparent 60%),
+      var(--ib-base);
+    contain: layout style paint;
+  }
+
+  .interactive-bg[data-variant='dark'] {
+    --ib-tint: rgba(40, 58, 128, 0.32);
+    --ib-base: linear-gradient(180deg, #0a0f1f 0%, #05070f 100%);
+  }
+
+  .interactive-bg[data-variant='light'] {
+    --ib-tint: rgba(62, 97, 255, 0.06);
+    --ib-base: linear-gradient(180deg, #ffffff 0%, #f6f7ff 100%);
+  }
+
+  .interactive-bg-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<script>
+  type BgNode = {
+    bx: number; by: number;  // base position (drifts, soft-bounces at edges)
+    vx: number; vy: number;  // drift velocity, px per 16.7ms reference frame
+    ox: number; oy: number;  // cursor-repel offset (eases back to 0)
+    tx: number; ty: number;  // repel offset target for this frame
+    r: number;               // core radius
+    tw: number; tws: number; // twinkle phase / speed
+  };
+
+  const PALETTES = {
+    dark: {
+      topColor: '#0a1024',
+      botColor: '#04060d',
+      tint: 'rgba(40, 58, 128, 0.30)',
+      nodeCore: '158, 178, 255',
+      nodeCoreAlpha: 0.85,
+      halo: '88, 116, 255',
+      haloAlpha: 0.14,
+      link: '96, 126, 255',
+      linkAlpha: 0.16,
+      cursorLink: '150, 172, 255',
+      cursorLinkAlpha: 0.4,
+      glow: '62, 97, 255',
+      glowAlpha: 0.15,
+      glowCore: '148, 122, 255',
+      glowCoreAlpha: 0.11,
+      composite: 'lighter' as GlobalCompositeOperation,
+    },
+    light: {
+      topColor: '#ffffff',
+      botColor: '#f4f6ff',
+      tint: 'rgba(62, 97, 255, 0.05)',
+      nodeCore: '62, 97, 255',
+      nodeCoreAlpha: 0.45,
+      halo: '62, 97, 255',
+      haloAlpha: 0.08,
+      link: '62, 97, 255',
+      linkAlpha: 0.1,
+      cursorLink: '62, 97, 255',
+      cursorLinkAlpha: 0.28,
+      glow: '62, 97, 255',
+      glowAlpha: 0.07,
+      glowCore: '120, 146, 255',
+      glowCoreAlpha: 0.06,
+      composite: 'source-over' as GlobalCompositeOperation,
+    },
+  };
+
+  const clamp = (v: number, lo: number, hi: number) => (v < lo ? lo : v > hi ? hi : v);
+  // Frame-rate-independent exponential smoothing factor (lerp with dt compensation)
+  const ease = (k: number, ds: number) => 1 - Math.pow(1 - k, ds);
+
+  function initBackground(host: HTMLElement) {
+    host.dataset.bgReady = 'true';
+
+    const canvas = host.querySelector('canvas');
+    if (!(canvas instanceof HTMLCanvasElement)) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) return; // CSS fallback gradient stays visible
+
+    const variant = host.dataset.variant === 'light' ? 'light' : 'dark';
+    const pal = PALETTES[variant];
+    const maxDpr = clamp(parseFloat(host.dataset.maxDpr ?? '2') || 2, 1, 2);
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let w = 0;
+    let h = 0;
+    let linkDist = 120;
+    let cursorDist = 170;
+    let repelR = 190;
+    let baseGrad: CanvasGradient | null = null;
+    let tintGrad: CanvasGradient | null = null;
+    let nodes: BgNode[] = [];
+    let raf = 0;
+    let last = 0;
+
+    const target = { x: window.innerWidth / 2, y: window.innerHeight / 2 }; // pointer position
+    const cur = { x: target.x, y: target.y }; // lerped focal point
+
+    const rand = (a: number, b: number) => a + Math.random() * (b - a);
+
+    function makeNode(): BgNode {
+      return {
+        bx: rand(0, w),
+        by: rand(0, h),
+        vx: rand(-0.18, 0.18),
+        vy: rand(-0.18, 0.18),
+        ox: 0,
+        oy: 0,
+        tx: 0,
+        ty: 0,
+        r: rand(0.9, 2.1),
+        tw: rand(0, Math.PI * 2),
+        tws: rand(0.3, 1.1),
+      };
+    }
+
+    function resize() {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      if (!w || !h) return;
+
+      // DPR-aware buffer: never distorted, capped for fill-rate
+      const dpr = clamp(window.devicePixelRatio || 1, 1, maxDpr);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const m = Math.min(w, h);
+      linkDist = clamp(m * 0.15, 90, 150);
+      cursorDist = linkDist * 1.45;
+      repelR = linkDist * 1.6;
+
+      // Cached gradients (rebuilt only on resize, never per frame)
+      baseGrad = ctx.createLinearGradient(0, 0, 0, h);
+      baseGrad.addColorStop(0, pal.topColor);
+      baseGrad.addColorStop(1, pal.botColor);
+
+      tintGrad = ctx.createRadialGradient(w * 0.5, -h * 0.25, 0, w * 0.5, -h * 0.25, h * 1.1);
+      tintGrad.addColorStop(0, pal.tint);
+      tintGrad.addColorStop(1, 'rgba(0,0,0,0)');
+
+      // Density scales with viewport area, clamped for mobile & 4K
+      const targetCount = clamp(Math.round((w * h) / 16000), 36, 130);
+      while (nodes.length < targetCount) nodes.push(makeNode());
+      if (nodes.length > targetCount) nodes.length = targetCount;
+      for (const n of nodes) {
+        n.bx = clamp(n.bx, 0, w);
+        n.by = clamp(n.by, 0, h);
+      }
+
+      if (reduced.matches) draw(performance.now(), 1, true);
+    }
+
+    function draw(now: number, ds: number, isStatic: boolean) {
+      if (!baseGrad || !tintGrad || !w || !h) return;
+
+      // 1. Base canvas: deep navy gradient + top tint (cached)
+      ctx.fillStyle = baseGrad;
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = tintGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.globalCompositeOperation = pal.composite;
+
+      // 2. Fluid gradient focal point: luminous glow easing toward the cursor
+      if (!isStatic) {
+        const R = Math.min(w, h) * 0.45;
+        let g = ctx.createRadialGradient(cur.x, cur.y, 0, cur.x, cur.y, R);
+        g.addColorStop(0, `rgba(${pal.glow},${pal.glowAlpha})`);
+        g.addColorStop(1, `rgba(${pal.glow},0)`);
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+
+        const R2 = Math.min(w, h) * 0.18;
+        g = ctx.createRadialGradient(cur.x, cur.y, 0, cur.x, cur.y, R2);
+        g.addColorStop(0, `rgba(${pal.glowCore},${pal.glowCoreAlpha})`);
+        g.addColorStop(1, `rgba(${pal.glowCore},0)`);
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+      }
+
+      // 3. Proximity links between nodes — 3 alpha tiers batched into 3 strokes
+      const paths = [new Path2D(), new Path2D(), new Path2D()];
+      const d2max = linkDist * linkDist;
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        const ax = a.bx + a.ox;
+        const ay = a.by + a.oy;
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = ax - (b.bx + b.ox);
+          const dy = ay - (b.by + b.oy);
+          const d2 = dx * dx + dy * dy;
+          if (d2 >= d2max) continue;
+          const t = 1 - Math.sqrt(d2) / linkDist;
+          const p = paths[t < 0.34 ? 0 : t < 0.67 ? 1 : 2];
+          p.moveTo(ax, ay);
+          p.lineTo(b.bx + b.ox, b.by + b.oy);
+        }
+      }
+      const tierAlpha = [0.35, 0.65, 1.0];
+      ctx.strokeStyle = `rgb(${pal.link})`;
+      ctx.lineWidth = 1;
+      for (let t = 0; t < 3; t++) {
+        ctx.globalAlpha = tierAlpha[t] * pal.linkAlpha;
+        ctx.stroke(paths[t]);
+      }
+
+      // 4. Cursor links + repel physics (single pass per node)
+      const cPaths = [new Path2D(), new Path2D()];
+      const cd2max = cursorDist * cursorDist;
+      const r2max = repelR * repelR;
+      for (const n of nodes) {
+        const nx = n.bx + n.ox;
+        const ny = n.by + n.oy;
+        const dx = nx - cur.x;
+        const dy = ny - cur.y;
+        const d2 = dx * dx + dy * dy;
+
+        // Repel target: quadratic falloff, max ~44px displacement.
+        // The offset itself is lerped, so nodes glide away and glide back.
+        if (!isStatic && d2 < r2max && d2 > 0.01) {
+          const d = Math.sqrt(d2);
+          const f = (1 - d / repelR) * (1 - d / repelR) * 44;
+          n.tx = (dx / d) * f;
+          n.ty = (dy / d) * f;
+        } else {
+          n.tx = 0;
+          n.ty = 0;
+        }
+        const ok = ease(0.1, ds);
+        n.ox += (n.tx - n.ox) * ok;
+        n.oy += (n.ty - n.oy) * ok;
+
+        if (!isStatic && d2 < cd2max) {
+          const t = 1 - Math.sqrt(d2) / cursorDist;
+          const p = cPaths[t < 0.5 ? 0 : 1];
+          p.moveTo(cur.x, cur.y);
+          p.lineTo(nx, ny);
+        }
+      }
+      ctx.strokeStyle = `rgb(${pal.cursorLink})`;
+      const cTier = [0.5, 1.0];
+      for (let t = 0; t < 2; t++) {
+        ctx.globalAlpha = cTier[t] * pal.cursorLinkAlpha;
+        ctx.stroke(cPaths[t]);
+      }
+
+      // 5. Nodes: soft halo pass, then bright core pass (fillStyle hoisted)
+      const tSec = now / 1000;
+      ctx.fillStyle = `rgb(${pal.halo})`;
+      for (const n of nodes) {
+        const twk = 0.6 + 0.4 * Math.sin(tSec * n.tws * 2 + n.tw);
+        ctx.globalAlpha = pal.haloAlpha * twk;
+        ctx.beginPath();
+        ctx.arc(n.bx + n.ox, n.by + n.oy, n.r * 5, 0, 6.2832);
+        ctx.fill();
+      }
+      ctx.fillStyle = `rgb(${pal.nodeCore})`;
+      for (const n of nodes) {
+        const twk = 0.6 + 0.4 * Math.sin(tSec * n.tws * 2 + n.tw);
+        ctx.globalAlpha = pal.nodeCoreAlpha * twk;
+        ctx.beginPath();
+        ctx.arc(n.bx + n.ox, n.by + n.oy, n.r, 0, 6.2832);
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    function frame(now: number) {
+      raf = requestAnimationFrame(frame);
+      const dt = clamp(now - last, 0, 50); // clamp huge gaps (tab switch)
+      last = now;
+      const ds = clamp(dt / 16.667, 0.25, 3);
+
+      // Ease the focal point toward the pointer
+      const k = ease(0.085, ds);
+      cur.x += (target.x - cur.x) * k;
+      cur.y += (target.y - cur.y) * k;
+
+      // Organic drift with soft edge bounce
+      for (const n of nodes) {
+        n.bx += n.vx * ds;
+        n.by += n.vy * ds;
+        if (n.bx < -30 || n.bx > w + 30) {
+          n.vx *= -1;
+          n.bx = clamp(n.bx, -30, w + 30);
+        }
+        if (n.by < -30 || n.by > h + 30) {
+          n.vy *= -1;
+          n.by = clamp(n.by, -30, h + 30);
+        }
+      }
+
+      draw(now, ds, false);
+    }
+
+    function startLoop() {
+      if (raf) return;
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    }
+
+    function stopLoop() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+
+    // Pointer tracking (covers mouse, pen & touch) — passive, never preventDefault
+    window.addEventListener(
+      'pointermove',
+      (e) => {
+        target.x = e.clientX;
+        target.y = e.clientY;
+      },
+      { passive: true }
+    );
+    // Gracefully fade the glow out when the pointer leaves the window
+    document.documentElement.addEventListener('mouseleave', () => {
+      target.x = -10000;
+      target.y = -10000;
+    });
+
+    // Zero work while the tab is hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopLoop();
+      else if (!reduced.matches) startLoop();
+    });
+
+    // Accessibility: static frame instead of animation when reduced motion is set
+    const onPrefChange = () => {
+      if (reduced.matches) {
+        stopLoop();
+        draw(performance.now(), 1, true);
+      } else {
+        startLoop();
+      }
+    };
+    reduced.addEventListener?.('change', onPrefChange);
+
+    resize();
+    if (reduced.matches) {
+      draw(performance.now(), 1, true);
+    } else {
+      startLoop();
+    }
+  }
+
+  const hosts = document.querySelectorAll<HTMLElement>('.interactive-bg:not([data-bg-ready])');
+  hosts.forEach(initBackground);
+</script>

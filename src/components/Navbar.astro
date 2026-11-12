@@ -2,20 +2,63 @@
 const currentPath = Astro.url.pathname;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const productSubLinks = [
-  { code: 'UPI', name: 'UPI Acquiring Switch', href: `${base}/products/upi-acquiring`, desc: 'Sub-ms saga & O(1) in-memory VPA lookup' },
-  { code: 'CBS', name: 'UPI Issuing Switch', href: `${base}/products/upi-issuing`, desc: 'In-memory CBS offload & PQC shield' },
-  { code: 'TPAP', name: 'TPAP Infrastructure', href: `${base}/products/upi-tpap`, desc: 'Decoupled PQC for fintech consumer apps' },
-  { code: 'CARD', name: 'RuPay Issuing & Acquiring', href: `${base}/products/rupay-cards`, desc: 'EMV switch replacing legacy CMS' },
-  { code: 'NCMC', name: 'NCMC & Transit Solutions', href: `${base}/products/ncmc-transit`, desc: '<240ms turnstiles & offline wallets' },
-];
-
 const navLinks = [
-  { name: 'Products', href: `${base}/products`, hasDropdown: true },
-  { name: 'Platform', href: `${base}/platform` },
-  { name: 'Hardware', href: `${base}/hardware` },
-  { name: 'Developers', href: `${base}/developers` },
-  { name: 'Compliance', href: `${base}/compliance` },
+  {
+    name: 'Products',
+    href: `${base}/products`,
+    subs: [
+      { code: 'UPI', name: 'UPI Acquiring Switch', href: `${base}/products/upi-acquiring`, desc: 'Sub-ms saga & O(1) in-memory VPA lookup' },
+      { code: 'CBS', name: 'UPI Issuing Switch', href: `${base}/products/upi-issuing`, desc: 'In-memory CBS offload & PQC shield' },
+      { code: 'TPAP', name: 'TPAP Infrastructure', href: `${base}/products/upi-tpap`, desc: 'Decoupled PQC for fintech consumer apps' },
+      { code: 'CARD', name: 'RuPay Issuing & Acquiring', href: `${base}/products/rupay-cards`, desc: 'EMV switch replacing legacy CMS' },
+      { code: 'NCMC', name: 'NCMC & Transit Solutions', href: `${base}/products/ncmc-transit`, desc: '<240ms turnstiles & offline wallets' },
+    ],
+    dropdownLabel: 'NPCI Product Suite',
+    dropdownDesc: 'Post-quantum national payment switches',
+  },
+  {
+    name: 'Platform',
+    href: `${base}/platform`,
+    subs: [
+      { code: 'PQC', name: 'Crypto-Agility Engine', href: `${base}/platform/crypto-agility`, desc: 'Hybrid classical + PQC parallel execution' },
+      { code: 'LEDGER', name: 'Cloud-Native Ledgers', href: `${base}/platform/cloud-native-ledgers`, desc: 'Event-driven clearing & immutable journals' },
+    ],
+    dropdownLabel: 'Core Platform Architecture',
+    dropdownDesc: 'The engine underneath every switch',
+  },
+  {
+    name: 'Hardware',
+    href: `${base}/hardware`,
+    subs: [
+      { code: 'EDGE', name: 'OpenCPU Soundbox', href: `${base}/hardware/opencpu-soundbox`, desc: 'Sub-₹600 BoM 4G payment device' },
+      { code: 'HSM', name: 'Enterprise HSM', href: `${base}/hardware/enterprise-hsm`, desc: 'Thales Luna + QRNG root of trust' },
+      { code: 'BLE', name: 'BLE Contactless', href: `${base}/hardware/ble-contactless`, desc: 'Offline beacon payment broadcasting' },
+    ],
+    dropdownLabel: 'Hardware & Edge Security',
+    dropdownDesc: 'Edge devices and enterprise root of trust',
+  },
+  {
+    name: 'Developers',
+    href: `${base}/developers`,
+    subs: [
+      { code: 'DEMO', name: 'PQC Migration Sandbox', href: `${base}/developers/sandbox`, desc: 'Simulated UPI pay/collect & key exchange' },
+      { code: 'DIAG', name: 'Architecture Blueprints', href: `${base}/developers/architecture`, desc: 'Downloadable Mermaid.js diagrams' },
+      { code: 'API', name: 'Docs & Test Harness', href: `${base}/developers/docs`, desc: 'API reference, SDKs & spec-driven tests' },
+    ],
+    dropdownLabel: 'Developers & Migration',
+    dropdownDesc: 'Show, don\u2019t tell',
+  },
+  {
+    name: 'Compliance',
+    href: `${base}/compliance`,
+    subs: [
+      { code: 'RBI', name: 'RBI Q-SAFE Alignment', href: `${base}/compliance/rbi-qsafe`, desc: 'GoI PQC Task Force 2027 readiness' },
+      { code: 'PA-P', name: 'PA-P Framework', href: `${base}/compliance/pa-p-framework`, desc: 'Payment Aggregator authorization ready' },
+      { code: 'CBOM', name: 'Cryptographic Bill of Materials', href: `${base}/compliance/cbom`, desc: 'Automated crypto asset inventory' },
+    ],
+    dropdownLabel: 'Compliance & Trust Center',
+    dropdownDesc: 'For CISOs, risk & compliance heads',
+  },
   { name: 'Company', href: `${base}/company` },
 ];
 
@@ -32,26 +75,19 @@ function isActive(href: string) {
 <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-[#dadcdf]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-20">
-      
+
       <!-- Left: Logo -->
-      <a href={homeUrl} class="flex items-center gap-2.5 group">
-        <div class="w-9 h-9 rounded-xl bg-[#3e61ff] flex items-center justify-center text-white shadow-sm shadow-[#3e61ff]/30 group-hover:scale-105 transition-transform">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-          </svg>
-        </div>
-        <div class="flex items-baseline gap-1">
-          <span class="text-xl font-extrabold tracking-tight text-[#0f1419]">
-            Gaja<span class="text-[#3e61ff]">Logic</span>
-          </span>
-        </div>
+      <a href={homeUrl} class="flex items-center">
+        <span class="text-xl font-extrabold tracking-tight text-[#0f1419]">
+          Gaja<span class="text-[#3e61ff]">Logic</span>
+        </span>
       </a>
 
       <!-- Center: Navigation Links -->
       <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
         {navLinks.map((link) => {
           const active = isActive(link.href);
-          if (link.hasDropdown) {
+          if (link.subs) {
             return (
               <div class="relative group">
                 <a
@@ -73,12 +109,12 @@ function isActive(href: string) {
                   <div class="bg-white border border-[#dadcdf] shadow-xl rounded-2xl p-3 divide-y divide-gray-100">
                     <div class="pb-2 px-2 pt-1">
                       <div class="text-[11px] font-bold text-[#3e61ff] uppercase tracking-wider">
-                        NPCI Product Suite
+                        {link.dropdownLabel}
                       </div>
-                      <div class="text-[11px] text-gray-500">Post-quantum national payment switches</div>
+                      <div class="text-[11px] text-gray-500">{link.dropdownDesc}</div>
                     </div>
                     <div class="py-2 space-y-1">
-                      {productSubLinks.map((sub) => (
+                      {link.subs.map((sub) => (
                         <a
                           href={sub.href}
                           class="block p-2 rounded-xl text-xs hover:bg-gray-50 transition-colors group/item"
@@ -93,10 +129,10 @@ function isActive(href: string) {
                     </div>
                     <div class="pt-2 px-2">
                       <a
-                        href={`${base}/products`}
+                        href={link.href}
                         class="text-xs font-bold text-[#3e61ff] hover:underline flex items-center justify-between"
                       >
-                        <span>View Suite Overview</span>
+                        <span>View Section Overview</span>
                         <span>&rarr;</span>
                       </a>
                     </div>
@@ -124,13 +160,13 @@ function isActive(href: string) {
       <!-- Right: Action CTA -->
       <div class="hidden md:flex items-center space-x-4">
         <a
-          href={`${base}/developers`}
+          href={`${base}/developers/docs`}
           class="text-sm font-semibold text-[#0f1419] hover:text-[#3e61ff] transition-colors"
         >
           Docs
         </a>
         <a
-          href={`${base}/company#contact`}
+          href={`${base}/company/contact`}
           class="btn-unibase-primary !py-2.5 !px-5 !text-sm"
         >
           Get Started
@@ -164,9 +200,9 @@ function isActive(href: string) {
         >
           {link.name}
         </a>
-        {link.hasDropdown && (
+        {link.subs && (
           <div class="pl-4 py-1 space-y-1 border-l-2 border-gray-100 ml-3">
-            {productSubLinks.map((sub) => (
+            {link.subs.map((sub) => (
               <a href={sub.href} class="block py-1 text-sm text-gray-600 hover:text-[#3e61ff]">
                 {sub.name}
               </a>
@@ -177,13 +213,13 @@ function isActive(href: string) {
     ))}
     <div class="pt-4 border-t border-gray-100 flex flex-col space-y-2">
       <a
-        href={`${base}/developers`}
+        href={`${base}/developers/docs`}
         class="text-center py-2.5 text-sm font-semibold text-[#0f1419] hover:bg-gray-50 rounded-lg"
       >
         Documentation
       </a>
       <a
-        href={`${base}/company#contact`}
+        href={`${base}/company/contact`}
         class="btn-unibase-primary w-full text-center"
       >
         Get Started

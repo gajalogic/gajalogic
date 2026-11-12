@@ -1,0 +1,173 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const soundboxMetrics = [
+  { value: '< ₹600', label: 'Total BoM at Scale', sub: 'Component-level engineered cost' },
+  { value: '< 2 s', label: 'Voice Confirmation', sub: 'UPI pay request to spoken confirmation' },
+  { value: '99.9%', label: 'Notification Delivery', sub: '4G LTE with regional fallback bands' },
+  { value: 'PQC-Ready', label: 'Secure Element', sub: 'Lattice-sized hardware key storage' },
+];
+
+const bomBreakdown = [
+  { component: 'Fibocom LE271-IN', role: '4G LTE Cat-1 cellular module', cost: '₹235' },
+  { component: 'Air780E + LuatOS', role: 'OpenCPU SoC with LuatOS runtime (no external MCU)', cost: '₹180' },
+  { component: 'FR4 PCB trace antenna', role: 'Printed LTE antenna — no external whip or FPC', cost: '₹15' },
+  { component: 'Audio path', role: 'Speaker, amplifier & voice prompt playback', cost: '₹90' },
+  { component: 'Secure element', role: 'PQC-ready hardware key store', cost: '₹55' },
+  { component: 'Power, passives & assembly', role: 'Battery, PMIC, SMT & enclosure', cost: '₹25' },
+];
+
+const soundboxModules = [
+  {
+    step: 'Module 01 // The BoM Breakthrough',
+    title: 'Sub-₹600 Through Architectural Subtraction',
+    desc: 'Commercial payment soundboxes carry redundant silicon: an external applications MCU, a separate cellular module, a tuned FPC antenna, and licensing for a closed RTOS. The Gajalogic design collapses all four: the Air780E runs LuatOS directly as the OpenCPU application host, the LE271-IN provides single-mode Cat-1 connectivity sized for payment traffic, and an FR4 PCB trace antenna replaces external antenna hardware entirely.',
+    tech: ['OpenCPU (No External MCU)', 'LuatOS Runtime', 'FR4 Trace Antenna'],
+  },
+  {
+    step: 'Module 02 // Profitability at the Edge',
+    title: 'Merchant Unit Economics That Close',
+    desc: 'When the hardware floor drops from ₹3,000+ to under ₹600, soundbox-led UPI Acquiring becomes viable for small-ticket merchants — kirana stores, street vendors, single-counter retailers. The device pays for itself in weeks of MDR-equivalent economics rather than years, expanding the addressable merchant base by an order of magnitude.',
+    tech: ['Sub-₹600 Floor', 'Small-Ticket Merchant Viability', 'Weeks-Long Payback'],
+  },
+  {
+    step: 'Module 03 // Integrated PQC-Ready Security',
+    title: 'Secure Elements Sized for the Quantum Decade',
+    desc: 'The on-board secure element stores device identity keys and payment credentials with memory headroom for lattice-based algorithms. As NPCI and RBI guidance hardens, fleet firmware updates swap the cryptographic profile without touching hardware.',
+    tech: ['Hardware Key Isolation', 'Lattice-Sized Storage', 'OTA Crypto Profile Swaps'],
+  },
+  {
+    step: 'Module 04 // Fleet Operations',
+    title: 'LuatOS OTA & Remote Key Rotation',
+    desc: 'Every device is a first-class fleet citizen: LuatOS firmware updates roll out over 4G in staged waves, key rotation executes remotely through the secure element, and device health telemetry streams back into the acquiring switch\u2019s observability stack.',
+    tech: ['Staged OTA Waves', 'Remote Key Rotation', 'Health Telemetry Feed'],
+  },
+];
+---
+
+<Layout
+  title="OpenCPU Soundbox | GajaLogic Ultra-Low-Cost Edge Devices"
+  description="Sub-₹600 Bill of Materials 4G payment soundbox built on Fibocom LE271-IN, LuatOS Air780E OpenCPU, and FR4 PCB trace antennas — with PQC-ready secure elements."
+>
+  <PageHeader
+    eyebrow="Hardware & Edge Security // Soundbox"
+    title="OpenCPU 4G Payment Soundbox"
+    subtitle="Engineered for acquiring banks and Payment Aggregators deploying audio-confirm soundboxes at merchant scale. A sub-₹600 Bill of Materials that makes small-ticket merchant deployment profitable."
+    badge="Edge Device // BoM Breakthrough"
+  >
+    <div slot="actions">
+      <a href="#bom" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        View the BoM Breakdown
+      </a>
+      <a href={`${base}/hardware/enterprise-hsm`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Next: Enterprise HSM
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {soundboxMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture Modules -->
+  <section id="architecture" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Device Architecture</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Cost Engineered Out, Security Engineered In
+      </h2>
+      <p class="text-gray-500 mt-3 text-base">
+        Four subsystems take a commodity 4G module stack and turn it into a payments-grade merchant device.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {soundboxModules.map((m) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {m.step}
+            </span>
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
+              {m.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {m.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
+            {m.tech.map((t) => (
+              <span class="mono-tag text-[11px]">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- BoM Table -->
+  <section id="bom" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Bill of Materials</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Component-Level Cost Engineering
+      </h3>
+      <p class="text-gray-500 mt-2 text-sm sm:text-base">
+        Indicative BoM at 100k-unit scale. No external antenna, no external MCU, no closed-RTOS licensing.
+      </p>
+    </div>
+
+    <div class="unibase-card overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs text-gray-700">
+          <thead class="bg-gray-50 border-b border-[#dadcdf] text-[#0f1419] font-bold">
+            <tr>
+              <th class="py-3.5 px-6">Component</th>
+              <th class="py-3.5 px-6">Role in Design</th>
+              <th class="py-3.5 px-6 text-right">Unit Cost</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#dadcdf]">
+            {bomBreakdown.map((row) => (
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="py-3.5 px-6 font-bold text-[#0f1419]">{row.component}</td>
+                <td class="py-3.5 px-6">{row.role}</td>
+                <td class="py-3.5 px-6 text-right text-[#3e61ff] font-semibold">{row.cost}</td>
+              </tr>
+            ))}
+            <tr class="bg-blue-50/40">
+              <td class="py-3.5 px-6 font-bold text-[#0f1419]">Total BoM</td>
+              <td class="py-3.5 px-6">Complete device, tested & packed</td>
+              <td class="py-3.5 px-6 text-right font-bold text-[#0f1419]">&lt; ₹600</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Put a Sub-₹600 Soundbox in Every Merchant's Shop"
+    subtitle="Request the full BoM teardown, reference firmware, or a pilot batch for your UPI Acquiring deployment."
+    buttonText="Request Soundbox Pilot Kit"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="Explore UPI Acquiring Switch"
+    secondaryHref={`${base}/products/upi-acquiring`}
+  />
+</Layout>

@@ -5,218 +5,156 @@ import CtaBanner from '../components/CtaBanner.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const toolingFeatures = [
+const devMetrics = [
+  { value: 'Show', label: "Don't Tell", sub: 'Proof before pitch — always' },
+  { value: 'Live', label: 'Interactive Sandbox', sub: 'Simulated UPI pay/collect flows' },
+  { value: 'Mermaid', label: 'Open Blueprints', sub: 'Downloadable architecture diagrams' },
+  { value: 'Spec-Driven', label: 'Test Harness', sub: 'Playwright + DuckDB verification' },
+];
+
+const devPillars = [
   {
-    title: 'Python ML SDK',
-    desc: 'Seamless drop-in replacement for PyTorch and HuggingFace Transformers pipelines with automatic tensor compilation to G4 silicon.',
-    tag: 'Python 3.10+',
+    eyebrow: 'RESOURCE 01 // SANDBOX',
+    title: 'Live Interactive Demo',
+    desc: 'A web-based terminal where engineers can initiate simulated UPI pay/collect requests and visualize the hybrid PQC key exchange in real time. No sales call, no NDA — just open the terminal and watch the switch negotiate.',
+    href: `${base}/developers/sandbox`,
+    linkLabel: 'Open the Sandbox',
+    iconPath: 'M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
   },
   {
-    title: 'Zero-Overhead Rust Crate',
-    desc: 'Native asynchronous bindings with zero-copy buffer handoff, memory safety, and sub-microsecond event loops.',
-    tag: 'Crate: gaja-core',
+    eyebrow: 'RESOURCE 02 // BLUEPRINTS',
+    title: 'Transparent Architecture',
+    desc: 'Downloadable Mermaid.js diagrams mapping exactly how Gajalogic interfaces with your existing microservices, core banking, and NPCI rails. Nothing to hide — integrate against the real topology, not a slide.',
+    href: `${base}/developers/architecture`,
+    linkLabel: 'View the Blueprints',
+    iconPath: 'M9 17V7m0 10h6m3-13H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2z',
   },
   {
-    title: 'OpenTelemetry Exporters',
-    desc: 'Native Prometheus, Grafana, and Jaeger trace instrumentation exposing hardware thermal, power, and queue depth metrics.',
-    tag: 'Observability',
+    eyebrow: 'RESOURCE 03 // DOCS & TESTS',
+    title: 'Rigorous Test Harness',
+    desc: 'API references plus a rigorous test suite utilizing Playwright and DuckDB for automated, spec-driven code verification. If our documentation lies, our test harness fails loudly.',
+    href: `${base}/developers/docs`,
+    linkLabel: 'Read the Docs',
+    iconPath: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
   },
-  {
-    title: 'Local Silicon Simulator',
-    desc: 'Run bit-accurate hardware emulation in lightweight Docker containers on your workstation before deploying to live silicon.',
-    tag: 'CI/CD Ready',
-  },
+];
+
+const quickstartSteps = [
+  { step: '01', title: 'Open the Sandbox', desc: 'Launch the simulated terminal and fire a UPI pay request against the mock NPCI fabric.', cmd: 'open /developers/sandbox' },
+  { step: '02', title: 'Watch the Key Exchange', desc: 'Observe the hybrid X25519 + ML-KEM handshake negotiate in the PQC visualizer panel.', cmd: 'sandbox watch --pqc-handshake' },
+  { step: '03', title: 'Wire Your Service', desc: 'Pull a Mermaid blueprint, point your microservice at the adapter spec, and run the test harness.', cmd: 'gajalogic test --spec upi-acquiring' },
 ];
 ---
 
 <Layout
-  title="Developers | GajaLogic APIs, SDKs & Tooling"
-  description="Developer documentation, unified Python & Rust SDKs, command line utilities, and quick-start tutorials for GajaLogic platforms."
+  title="Developers | GajaLogic Sandbox, Blueprints & Test Harness"
+  description="Live interactive UPI/PQC sandbox, downloadable Mermaid architecture blueprints, and a rigorous Playwright + DuckDB test harness for integrators."
 >
   <PageHeader
-    eyebrow="Developer Ecosystem"
-    title="Built for Systems & AI Engineers"
-    subtitle="Clean APIs, deterministic latency guarantees, zero-copy memory transfers, and full compatibility with existing open-weights models."
-    badge="v4.2 SDK Released"
+    eyebrow="Developers & Migration"
+    title="Enterprise Developers Demand Proof"
+    subtitle="Show, don't tell. A live sandbox, transparent blueprints, and a rigorous test harness — everything an integrator needs to verify Gajalogic before committing a sprint."
+    badge="Show, Don't Tell"
   >
     <div slot="actions">
-      <a
-        href="#quickstart"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-colors"
-      >
-        Quick Start in 60s
+      <a href="#pillars" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Explore Developer Resources
       </a>
-      <a
-        href="#code-examples"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-800 text-slate-200 hover:text-white border border-slate-700 transition-colors"
-      >
-        View Code Samples
+      <a href={`${base}/developers/sandbox`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Jump to the Sandbox
       </a>
     </div>
   </PageHeader>
 
-  <!-- Quick Start Section -->
-  <section id="quickstart" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="text-center max-w-2xl mx-auto mb-12">
-      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Getting Started</h2>
-      <h3 class="text-3xl font-extrabold text-white">Three Steps to First Inference</h3>
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {devMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Three Developer Pillars -->
+  <section id="pillars" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Integration Resources</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Three Ways to Verify Before You Trust
+      </h2>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="glass-panel rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
-        <div>
-          <span class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
-            01
-          </span>
-          <h4 class="text-lg font-bold text-white mb-2">Install gajactl Tool</h4>
-          <p class="text-xs text-slate-300 mb-4 leading-relaxed">
-            Download and install the official GajaLogic orchestration and diagnostic CLI binary.
-          </p>
-        </div>
-        <div class="p-3 bg-slate-950 rounded-xl font-mono text-xs text-sky-300 border border-slate-800">
-          curl -fsSL https://cli.gajalogic.io | sh
-        </div>
-      </div>
-
-      <div class="glass-panel rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
-        <div>
-          <span class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
-            02
-          </span>
-          <h4 class="text-lg font-bold text-white mb-2">Initialize Enclave</h4>
-          <p class="text-xs text-slate-300 mb-4 leading-relaxed">
-            Verify PCIe topology, lock hardware cryptographic keys, and launch the local daemon.
-          </p>
-        </div>
-        <div class="p-3 bg-slate-950 rounded-xl font-mono text-xs text-sky-300 border border-slate-800">
-          gajactl enclave init --verify-puf
-        </div>
-      </div>
-
-      <div class="glass-panel rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
-        <div>
-          <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
-            03
-          </span>
-          <h4 class="text-lg font-bold text-white mb-2">Serve Model</h4>
-          <p class="text-xs text-slate-300 mb-4 leading-relaxed">
-            Deploy an open-weights LLM or vision model with line-rate token streaming enabled.
-          </p>
-        </div>
-        <div class="p-3 bg-slate-950 rounded-xl font-mono text-xs text-sky-300 border border-slate-800">
-          gajactl serve meta-llama/Llama-3-70B
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Multi-Language Code Snippets -->
-  <section id="code-examples" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5 space-y-8">
-    <div class="text-center max-w-2xl mx-auto mb-8">
-      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Native Code Snippets</h2>
-      <h3 class="text-3xl font-extrabold text-white">Effortless Integration Across Languages</h3>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      
-      <!-- Python SDK Example -->
-      <div class="glass-panel rounded-2xl overflow-hidden border border-white/10">
-        <div class="px-4 py-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
-          <span class="text-xs font-mono text-sky-400 font-semibold flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-sky-400"></span>
-            pipeline_inference.py (Python SDK)
-          </span>
-          <span class="text-[11px] font-mono text-slate-500">Python 3.11</span>
-        </div>
-        <pre class="p-6 bg-slate-950/95 font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed"><code><span class="text-indigo-400">import</span> gajalogic as gj
-<span class="text-indigo-400">from</span> transformers <span class="text-indigo-400">import</span> AutoTokenizer
-
-<span class="text-slate-500"># Connect to local G4 PCIe accelerator ring</span>
-device = gj.Device(<span class="text-emerald-300">"logic-titan:0"</span>, enclave_mode=<span class="text-emerald-300">"strict"</span>)
-print(<span class="text-emerald-300">f"Discovered &#123;device.compute_units&#125; LogicCore units"</span>)
-
-<span class="text-slate-500"># Compile transformer model graph directly into silicon memory</span>
-model = gj.Model.from_pretrained(
-    <span class="text-emerald-300">"meta-llama/Meta-Llama-3-70B-Instruct"</span>,
-    device=device,
-    precision=gj.Precision.FP8_E4M3,
-    max_context_length=8192
-)
-
-<span class="text-slate-500"># Stream tokens with deterministic sub-millisecond inter-token latency</span>
-prompt = <span class="text-emerald-300">"Explain quantum error correction using surface codes."</span>
-<span class="text-indigo-400">for</span> token <span class="text-indigo-400">in</span> model.generate_stream(prompt, temperature=0.2):
-    print(token.text, end=<span class="text-emerald-300">""</span>, flush=<span class="text-amber-300">True</span>)
-</code></pre>
-      </div>
-
-      <!-- Rust SDK Example -->
-      <div class="glass-panel rounded-2xl overflow-hidden border border-white/10">
-        <div class="px-4 py-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
-          <span class="text-xs font-mono text-purple-400 font-semibold flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-purple-400"></span>
-            main.rs (High-Yield Rust Crate)
-          </span>
-          <span class="text-[11px] font-mono text-slate-500">edition 2021</span>
-        </div>
-        <pre class="p-6 bg-slate-950/95 font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed"><code><span class="text-indigo-400">use</span> gaja_core::prelude::*;
-<span class="text-indigo-400">use</span> tokio_stream::StreamExt;
-
-<span class="text-amber-400">#[tokio::main]</span>
-<span class="text-indigo-400">async fn</span> main() -&gt; Result&lt;(), GajaError&gt; &#123;
-    <span class="text-slate-500">// Acquire zero-copy memory ring buffer on PCIe 5.0 slot</span>
-    <span class="text-indigo-400">let</span> cluster = Cluster::connect(<span class="text-emerald-300">"localhost:8443"</span>).<span class="text-indigo-400">await</span>?;
-    <span class="text-indigo-400">let</span> session = cluster.session(<span class="text-emerald-300">"crypto-enclave-01"</span>)?;
-
-    <span class="text-slate-500">// Dispatch batch requests across 8-card coherent fabric</span>
-    <span class="text-indigo-400">let mut</span> stream = session
-        .infer_stream(InferenceRequest::new(<span class="text-emerald-300">"input_payload.bin"</span>))
-        .<span class="text-indigo-400">await</span>?;
-
-    <span class="text-indigo-400">while let</span> Some(chunk) = stream.next().<span class="text-indigo-400">await</span> &#123;
-        println!(<span class="text-emerald-300">"Received chunk: &#123;:?&#125; in &#123;:?&#125;"</span>, chunk.id, chunk.latency);
-    &#125;
-
-    Ok(())
-&#125;
-</code></pre>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Tooling & Integration Grid -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="text-center max-w-2xl mx-auto mb-10">
-      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">SDK Ecosystem</h2>
-      <h3 class="text-3xl font-extrabold text-white">Full Compatibility Tooling</h3>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {toolingFeatures.map((f) => (
-        <div class="glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between">
+      {devPillars.map((pillar) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
           <div>
-            <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-slate-800 text-sky-400 border border-slate-700 block w-fit mb-3">
-              {f.tag}
+            <div class="p-3 w-fit rounded-xl bg-blue-50 border border-blue-200 text-[#3e61ff] mb-6">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={pillar.iconPath}/>
+              </svg>
+            </div>
+            <span class="text-xs font-mono font-bold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {pillar.eyebrow}
             </span>
-            <h4 class="text-base font-bold text-white mb-2">{f.title}</h4>
-            <p class="text-xs text-slate-300 leading-relaxed mb-4">{f.desc}</p>
+            <h3 class="text-2xl font-extrabold text-[#0f1419] mb-3">
+              {pillar.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {pillar.desc}
+            </p>
           </div>
           <a
-            href={`${base}/company#contact`}
-            class="text-xs font-mono text-sky-400 hover:text-sky-300 inline-flex items-center pt-3 border-t border-slate-800"
+            href={pillar.href}
+            class="inline-flex items-center text-sm font-bold text-[#3e61ff] group-hover:text-[#3151e6] group-hover:translate-x-1 transition-all"
           >
-            <span>Read Docs</span>
-            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <span>{pillar.linkLabel}</span>
+            <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
           </a>
         </div>
       ))}
     </div>
   </section>
 
+  <!-- Quick Start -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Getting Started</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        From Zero to First Verified Transaction
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {quickstartSteps.map((s) => (
+        <div class="unibase-card p-6 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-mono font-bold text-[#3e61ff] mb-3 block">{s.step} //</span>
+            <h4 class="text-lg font-bold text-[#0f1419] mb-2">{s.title}</h4>
+            <p class="text-xs text-gray-600 leading-relaxed mb-4">{s.desc}</p>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-xl border border-[#dadcdf] font-mono text-xs text-[#3e61ff]">
+            {s.cmd}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
   <CtaBanner
-    title="Ready to Build on GajaLogic Silicon?"
-    subtitle="Join our Developer Early Access program to receive SDK licenses, cloud sandbox access, and technical onboarding."
-    buttonText="Request Developer Access"
+    title="Bring Your Integration Team Into the Sandbox"
+    subtitle="Give your engineers hands-on time with the simulated switch fabric and PQC visualizer before any procurement conversation begins."
+    buttonText="Open the PQC Migration Sandbox"
+    buttonHref={`${base}/developers/sandbox`}
+    secondaryText="Contact the Integration Team"
+    secondaryHref={`${base}/company/contact`}
   />
 </Layout>

@@ -1,0 +1,161 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const papMetrics = [
+  { value: 'PA-P', label: 'Authorization Ready', sub: 'Physical PA-P requirements natively met' },
+  { value: 'T+0', label: 'Settlement TAT', sub: 'Merchant payout discipline by default' },
+  { value: '< 0.04%', label: 'Technical Decline Rate', sub: 'NPCI penalty thresholds cleared' },
+  { value: '100%', label: 'Escrow Reconciliation', sub: 'Daily automated tie-out' },
+];
+
+const papModules = [
+  {
+    step: 'Module 01 // Operational Readiness',
+    title: 'The Metrics Auditors Ask For, Built In',
+    desc: 'PA-P authorization is granted on operational proof: settlement turn-around, dispute ratios, uptime, and escrow discipline. Gajalogic emits these metrics natively from the switch fabric — not from month-end spreadsheet assembly — so the operational record is audit-grade by construction.',
+    tech: ['Native Metric Emission', 'Audit-Grade Records', 'No Spreadsheet Assembly'],
+  },
+  {
+    step: 'Module 02 // Reporting & Escrow Discipline',
+    title: 'Regulatory Reporting as a Pipeline, Not a Project',
+    desc: 'Settlement journals stream into regulator-aligned report formats automatically. Escrow reconciliation runs as a daily automated tie-out against the immutable ledger, with discrepancies surfaced as exceptions within the same business day.',
+    tech: ['Automated Report Formats', 'Daily Escrow Tie-Out', 'Same-Day Exception Surfacing'],
+  },
+  {
+    step: 'Module 03 // Dispute & Chargeback Machinery',
+    title: 'UDIR-Integrated Dispute Handling',
+    desc: 'PA-P assessment scrutinizes dispute handling depth. Gajalogic integrates NPCI UDIR workflows end to end, with deterministic reversal provenance from the saga trace — every dispute answer is backed by a cryptographic journal entry.',
+    tech: ['NPCI UDIR Integration', 'Saga-Proven Provenance', 'Deterministic Reversals'],
+  },
+  {
+    step: 'Module 04 // Architecture Fit for PA-P Scale',
+    title: 'Elastic Capacity for Authorization Growth',
+    desc: 'PA-P authorization comes with volume expectations. The platform\u2019s elastic saga workers and in-memory caching scale to festival-grade surges without CBS degradation, keeping the operational metrics that won the authorization healthy after it.',
+    tech: ['Elastic Saga Workers', 'Surge-Proof Operations', 'CBS Insulation'],
+  },
+];
+
+const papMatrix = [
+  { requirement: 'Settlement TAT', standard: 'T+0 / T+1 per PA-P guidance', gajalogic: 'T+0 payouts from the settlement fan-out engine' },
+  { requirement: 'Technical Decline Rate', standard: 'NPCI penalty thresholds', gajalogic: '< 0.04% with in-memory fallback buffers' },
+  { requirement: 'Escrow Reconciliation', standard: 'Daily reconciliation, zero leakage', gajalogic: 'Automated daily tie-out to immutable journals' },
+  { requirement: 'Dispute Resolution', standard: 'NPCI UDIR compliance', gajalogic: 'End-to-end UDIR integration with saga provenance' },
+  { requirement: 'System Uptime', standard: '99.9%+ operational availability', gajalogic: '99.999% transaction delivery SLA' },
+];
+---
+
+<Layout
+  title="PA-P Framework | GajaLogic Payment Aggregator Authorization Readiness"
+  description="Operational metrics and architecture natively supporting the stringent compliance and reporting requirements for physical Payment Aggregator (PA-P) authorization."
+>
+  <PageHeader
+    eyebrow="Compliance & Trust // Authorization"
+    title="PA-P Authorization Framework"
+    subtitle="Operational readiness: the system architecture and operational metrics natively support the stringent compliance and reporting requirements for physical Payment Aggregator (PA-P) authorization."
+    badge="PA-P Ready // Operational Proof"
+  >
+    <div slot="actions">
+      <a href="#modules" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        View the Readiness Program
+      </a>
+      <a href={`${base}/compliance/rbi-qsafe`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Previous: RBI Q-SAFE
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {papMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PA-P Modules -->
+  <section id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Authorization Readiness</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Win the License. Keep the Metrics That Won It.
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {papModules.map((m) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {m.step}
+            </span>
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
+              {m.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {m.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
+            {m.tech.map((t) => (
+              <span class="mono-tag text-[11px]">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- PA-P Requirements Matrix -->
+  <section id="matrix" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Requirements Matrix</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        PA-P Requirements vs. Platform Behavior
+      </h3>
+    </div>
+
+    <div class="unibase-card overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs text-gray-700">
+          <thead class="bg-gray-50 border-b border-[#dadcdf] text-[#0f1419] font-bold">
+            <tr>
+              <th class="py-3.5 px-6">Requirement</th>
+              <th class="py-3.5 px-6">Standard / Expectation</th>
+              <th class="py-3.5 px-6 text-[#3e61ff]">Gajalogic Behavior</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#dadcdf]">
+            {papMatrix.map((row) => (
+              <tr class="hover:bg-gray-50/60 transition-colors">
+                <td class="py-3.5 px-6 font-bold text-[#0f1419]">{row.requirement}</td>
+                <td class="py-3.5 px-6">{row.standard}</td>
+                <td class="py-3.5 px-6 text-[#3e61ff] font-semibold">{row.gajalogic}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Preparing a PA-P Application?"
+    subtitle="Request the operational metrics pack and architecture evidence that demonstrates authorization-grade readiness to your auditors."
+    buttonText="Request the PA-P Metrics Pack"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="See the CBOM Framework"
+    secondaryHref={`${base}/compliance/cbom`}
+  />
+</Layout>

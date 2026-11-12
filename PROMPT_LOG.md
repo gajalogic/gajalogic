@@ -116,5 +116,61 @@ All significant prompt intents and file modifications in this workspace are reco
   - Adopted the exact Unibase light mode design tokens (`--home-bg: #fff`, `--home-primary: #3e61ff`, `--home-border: #dadcdf`, and periwinkle Use Cases gradient).
   - Implemented the complete 10-section visual structure from the uploaded screenshot, including the panoramic landscape hero header, alternating zig-zag product feature cards with custom cybernetic vector artwork, and royal blue blog card headers.
 
+---
+
+## [2026-11-12 / Step 8: Content Architecture Reconciliation (Canonical Markdown IA)]
+- **Prompt Intent:** Use the attached content architecture markdown (`Gajalogic: Enterprise Website Content Architecture`) as the canonical content context; reconcile all mismatched/legacy dark-theme pages (AI-datacenter hardware narrative) to the payments/PQC narrative and the light Unibase design system, implementing the hub + sub-page IA.
+- **Files Modified:**
+  - `src/styles/global.css` (added `.mono-tag` utility)
+  - `src/components/CtaBanner.astro` (rewritten to light blue-gradient banner)
+  - `src/components/FeatureCard.astro` (deleted — unused, dark-theme)
+  - `src/components/Navbar.astro` (generalized section dropdowns for Products/Platform/Hardware/Developers/Compliance)
+  - `src/components/Footer.astro` (7-column sitemap with all sub-pages)
+  - `src/layouts/Layout.astro` (default title/description aligned to canonical hero)
+  - `src/pages/index.astro` (canonical hero headline + CTA targets)
+  - `src/pages/products/*.astro` (6 pages restyled from dark to light Unibase system)
+  - `src/pages/platform.astro` + `platform/crypto-agility.astro` + `platform/cloud-native-ledgers.astro` (rewritten)
+  - `src/pages/hardware.astro` + `hardware/opencpu-soundbox.astro` + `hardware/enterprise-hsm.astro` + `hardware/ble-contactless.astro` (rewritten)
+  - `src/pages/developers.astro` + `developers/sandbox.astro` + `developers/architecture.astro` + `developers/docs.astro` (rewritten)
+  - `src/pages/compliance.astro` + `compliance/rbi-qsafe.astro` + `compliance/pa-p-framework.astro` + `compliance/cbom.astro` (rewritten)
+  - `src/pages/company.astro` + `company/about.astro` + `company/insights.astro` + `company/contact.astro` (rewritten)
+  - `README.md` (structure updated), `docs/` (rebuilt)
+- **Changes Made:**
+  - Replaced the legacy AI-silicon narrative (vLLM/Llama/G4-Titan tensors) with the canonical payments/PQC content architecture: platform engines (crypto-agility, cloud-native ledgers), hardware & edge security (OpenCPU soundbox, enterprise HSM, BLE contactless), developer proof resources (sandbox, blueprints, docs/test harness), compliance trust center (RBI Q-SAFE, PA-P, CBOM), and company pages.
+  - Fixed the invisible-text bug: 10 routes were still dark-theme (`text-white`/`glass-panel`) on a white body after the `.glass-panel` class was purged from `global.css`. All routes now use the light design system (`.unibase-card`, `.btn-unibase-*`, `.mono-tag`, `#dadcdf` borders, `#3e61ff` accents) with dark terminal panels only as intentional code/telemetry accents.
+
+---
+
+## [2026-11-12 / Step 9: Interactive Background Component]
+- **Prompt Intent:** Add a production-ready, cursor-reactive interactive background component: full-viewport fixed wrapper (`z-index: -1`, `pointer-events: none`), lerp-smoothed cursor physics, HTML5 Canvas + `requestAnimationFrame`, clean DPR-aware resize, 60fps with zero layout shift.
+- **Files Added/Modified:**
+  - `src/components/InteractiveBackground.astro` (new — `variant="dark"` per spec + `variant="light"` tuned for Unibase)
+  - `src/layouts/Layout.astro` (mounted `variant="light"` site-wide; `body`/`main` backgrounds removed)
+  - `src/styles/global.css` (`--home-bg` → `transparent`; `--home-usecase-bg` gradient made translucent)
+  - `src/components/PageHeader.astro` (band background removed)
+  - `src/pages/index.astro` (homepage bands made transparent/translucent so the aurora shows)
+- **Changes Made:** Site-wide light aurora behind the Unibase design — drifting nodes with proximity links and a focal glow that eases toward the cursor (double-lerp: glow position + per-node repel offsets, no snapping). Performance/lifecycle: dt-normalized rAF (identical motion at any refresh rate), cached gradients rebuilt only on resize, alpha-tier batched `Path2D` link strokes, DPR-capped buffer via `setTransform`, `contain: layout style paint`, pauses on `document.hidden`, static frame under `prefers-reduced-motion`, CSS-painted fallback before JS loads.
+
+---
+
+## [2026-11-12 / Step 10: Homepage Hero Banner Removed]
+- **Prompt Intent:** Remove the homepage hero image — the panoramic illustrated banner ("NATIONAL PAYMENT SWITCH INFRASTRUCTURE // PQC ENCLAVE") — as irrelevant.
+- **Files Modified:** `src/pages/index.astro` (banner section deleted; section comments renumbered 2–10 → 1–9; stale `Layout` title override "Open Payment Layer for National Rails" aligned to the canonical hero copy)
+- **Changes Made:** Homepage now opens directly on the centered hero headline over the interactive background. Verified: `npm run build` (26 pages), browser screenshot, zero console errors.
+
+---
+
+## [2026-11-12 / Step 11: Navbar Stack Logo Removed]
+- **Prompt Intent:** Remove the blue stack icon rendered before the GajaLogic wordmark in the navbar.
+- **Files Modified:** `src/components/Navbar.astro` (icon box deleted; logo anchor simplified to the wordmark only)
+- **Changes Made:** Verified: `npm run build` (26 pages), browser screenshot, zero console errors. Footer still carries a blue "G" monogram box (pending user decision).
+
+---
+
+## [2026-11-12 / Step 12: Footer Status Pill Removed]
+- **Prompt Intent:** Remove the "All Payment Switches Operational" live-status pill from the footer.
+- **Files Modified:** `src/components/Footer.astro` (status pill div deleted; brand column keeps wordmark + description)
+- **Changes Made:** Verified: `npm run build` (26 pages); grep confirms zero references remain in `src/` and `docs/`.
+
 
 

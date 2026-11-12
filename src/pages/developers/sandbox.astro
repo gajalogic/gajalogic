@@ -1,0 +1,167 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const sandboxMetrics = [
+  { value: 'Simulated', label: 'NPCI Fabric', sub: 'Full pay/collect request lifecycle' },
+  { value: 'Real-Time', label: 'PQC Visualizer', sub: 'Hybrid key exchange, frame by frame' },
+  { value: '0 Setup', label: 'Browser Terminal', sub: 'Web-based, no SDK install needed' },
+  { value: '100%', label: 'Protocol Fidelity', sub: 'Same message shapes as production' },
+];
+
+const sandboxModules = [
+  {
+    step: 'Step 01 // Initiate a Pay Request',
+    title: 'Fire a Simulated UPI Pay',
+    desc: 'The terminal constructs a real UPI pay request — payer VPA, payee VPA, amount, and reference — and submits it into the simulated NPCI switch fabric. Every hop the production transaction would take is reproduced, including remitter-side debit checks and saga checkpoints.',
+    tech: ['UPI Pay / Collect', 'Saga Checkpoint Trace', 'Deterministic Replay'],
+  },
+  {
+    step: 'Step 02 // Watch the Saga Unfold',
+    title: 'Every Hop, Visible',
+    desc: 'Ingress parsing, in-memory VPA resolution, saga coordination, and settlement logging appear as timestamped events. Force a timeout or a reversal and watch the deterministic rollback recover the transaction in under 400 milliseconds.',
+    tech: ['Event Timeline', 'Forced Timeout Injection', 'Reversal Replay'],
+  },
+  {
+    step: 'Step 03 // Visualize the PQC Exchange',
+    title: 'Hybrid Key Exchange, Frame by Frame',
+    desc: 'The PQC visualizer decomposes the transport handshake: X25519 classical key share, ML-KEM-768 encapsulation, session key derivation, and ML-DSA signature verification. Engineers see exactly where post-quantum cost lands — and confirm it stays under a millisecond.',
+    tech: ['X25519 + ML-KEM Hybrid', 'ML-DSA Verify Trace', 'Per-Stage Latency Budget'],
+  },
+  {
+    step: 'Step 04 // Export Your Evidence',
+    title: 'Take the Trace to Your Team',
+    desc: 'Every sandbox run exports a structured event trace suitable for architecture reviews and integration planning. Pair it with the downloadable blueprints to brief your team without scheduling a vendor call.',
+    tech: ['Structured Trace Export', 'Blueprint Cross-Links', 'Architecture-Review Ready'],
+  },
+];
+---
+
+<Layout
+  title="PQC Migration Sandbox | GajaLogic Live Interactive Demo"
+  description="A web-based terminal to initiate simulated UPI pay/collect requests and visualize the hybrid post-quantum key exchange in real time."
+>
+  <PageHeader
+    eyebrow="Developers & Migration // Sandbox"
+    title="PQC Migration Sandbox"
+    subtitle="A web-based terminal where engineers initiate simulated UPI pay/collect requests and watch the hybrid post-quantum key exchange negotiate in real time."
+    badge="Live Demo // No Install"
+  >
+    <div slot="actions">
+      <a href="#terminal" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Open the Terminal
+      </a>
+      <a href={`${base}/developers/architecture`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        View the Blueprints
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {sandboxMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Simulated Terminal -->
+  <section id="terminal" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="unibase-card p-8 sm:p-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="mono-tag font-semibold uppercase">Live Demo // Web Terminal</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0f1419] tracking-tight">
+            A Session in the Sandbox Looks Like This
+          </h2>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            The sample session below walks a simulated UPI pay request through the switch: request construction, saga checkpoints, and the hybrid PQC handshake that seals the session. In the live sandbox, you drive it — including failure injection.
+          </p>
+          <ul class="space-y-2.5 text-xs sm:text-sm text-gray-600">
+            <li class="flex items-start">
+              <svg class="w-4 h-4 text-emerald-600 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Same message shapes as the production switch fabric</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-4 h-4 text-emerald-600 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>PQC visualizer decomposes the handshake stage by stage</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-4 h-4 text-emerald-600 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Trace export for architecture reviews and internal sign-off</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-5 bg-[#0b0f17] rounded-2xl p-6 border border-[#dadcdf] font-mono text-xs text-slate-300 space-y-2.5">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-700 text-slate-400">
+            <span>GAJALOGIC SANDBOX v4.6</span>
+            <span class="text-emerald-400">SIMULATED NPCI FABRIC</span>
+          </div>
+          <div><span class="text-sky-400">&gt;</span> pay --vpa rahim@okhdfc --payee bharat-retail@icici --inr 249.00</div>
+          <div><span class="text-sky-400">&gt;</span> [00.000s] INGRESS parse ok (protobuf zero-copy)</div>
+          <div><span class="text-sky-400">&gt;</span> [00.011s] VPA resolve <span class="text-emerald-400">O(1) hit</span> bharat-retail@icici</div>
+          <div><span class="text-sky-400">&gt;</span> [00.019s] SAGA stage-2 remitter debit intent</div>
+          <div><span class="text-sky-400">&gt;</span> [00.034s] HANDSHAKE <span class="text-purple-400">X25519 + ML-KEM-768</span> hybrid</div>
+          <div><span class="text-sky-400">&gt;</span> [00.041s] PQC overhead budget <span class="text-emerald-400">0.7 ms / P99 &lt; 1 ms</span></div>
+          <div><span class="text-sky-400">&gt;</span> [00.058s] LEDGER seal <span class="text-emerald-400">ML-DSA-65</span> journal JRN-77401</div>
+          <div><span class="text-sky-400">&gt;</span> [00.062s] STATUS <span class="text-emerald-400 font-bold">SUCCESS</span> txn UPI/9931/249.00</div>
+          <div><span class="text-sky-400">&gt;</span> export --trace architecture-review.json</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sandbox Modules -->
+  <section id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf] space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">What You Can Do</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Four Moves in the Sandbox
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {sandboxModules.map((m) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {m.step}
+            </span>
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
+              {m.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {m.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
+            {m.tech.map((t) => (
+              <span class="mono-tag text-[11px]">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Stop Evaluating Slides. Evaluate the Switch."
+    subtitle="Open the sandbox, break a few transactions, and watch the reversals recover. Then bring the trace to your architecture board."
+    buttonText="Request Full Sandbox Access"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="Read the Docs & Test Harness"
+    secondaryHref={`${base}/developers/docs`}
+  />
+</Layout>

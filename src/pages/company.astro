@@ -5,227 +5,131 @@ import CtaBanner from '../components/CtaBanner.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const principles = [
-  {
-    title: 'Sovereign Autonomy',
-    desc: 'Enterprises and nations must have total, unmediated control over their computational infrastructure, model weights, and data privacy.',
-  },
-  {
-    title: 'Physics-First Engineering',
-    desc: 'We optimize compute density at the atomic silicon level: minimizing thermal resistance, reducing energy waste, and bypassing bus latencies.',
-  },
-  {
-    title: 'Open Standards & Extensibility',
-    desc: 'No proprietary compiler lock-ins. We build atop standard CXL, PCIe, PyTorch, and open kernel interfaces so you always own your software stack.',
-  },
-  {
-    title: 'Deterministic Reliability',
-    desc: 'Mission-critical systems cannot tolerate random jitter or hypervisor pauses. Our hardware and OS deliver strict nanosecond repeatability.',
-  },
+const companyMetrics = [
+  { value: 'NPCI', label: 'Native Focus', sub: 'Built for India\u2019s rails, nothing else' },
+  { value: 'PQC', label: 'First Principles', sub: 'Quantum-safety as a founding constraint' },
+  { value: 'TCO', label: 'Debt Eradication', sub: 'Legacy licensing bloat eliminated' },
+  { value: 'PoC', label: 'Deployment First', sub: 'Proof before procurement' },
 ];
 
-const leadership = [
+const companySections = [
   {
-    name: 'Dr. Vikram Chandra',
-    role: 'Chief Executive Officer & Co-Founder',
-    bio: 'Former principal silicon architect at leading semiconductor fabs. PhD in Computer Engineering from Stanford University.',
+    eyebrow: 'SECTION 01 // ABOUT',
+    title: 'About & Mission',
+    desc: 'The Gajalogic mission: securing India\u2019s digital public infrastructure for the next generation while eradicating the technical debt of the past. Principles, leadership, and engineering culture.',
+    href: `${base}/company/about`,
+    linkLabel: 'Read the Mission',
   },
   {
-    name: 'Elena Rostova',
-    role: 'Chief Technology Officer',
-    bio: 'Pioneer in distributed memory architectures and microkernels. Former Linux kernel subsystem maintainer with 18+ years experience.',
+    eyebrow: 'SECTION 02 // INSIGHTS',
+    title: 'Insights & Whitepapers',
+    desc: 'High-level thought leadership: engineering whitepapers on TCO reduction, hardware supply chain optimization, and the timeline of the quantum threat.',
+    href: `${base}/company/insights`,
+    linkLabel: 'Browse Insights',
   },
   {
-    name: 'Marcus Vance',
-    role: 'VP of Hardware Engineering',
-    bio: 'Led tape-outs for 6 generations of high-performance tensor processors and aerospace-qualified avionics systems.',
+    eyebrow: 'SECTION 03 // CONTACT',
+    title: 'Enterprise Contact',
+    desc: 'Direct channels for enterprise sales inquiries, technical consultations, and proof-of-concept (PoC) deployments. Reach a payment systems architect, not a ticket queue.',
+    href: `${base}/company/contact`,
+    linkLabel: 'Contact the Team',
   },
-  {
-    name: 'Aisha Al-Mansoor',
-    role: 'Head of Cryptography & Compliance',
-    bio: 'Former lead researcher in post-quantum lattice cryptography and NIST FIPS standardization committees.',
-  },
-];
-
-const openRoles = [
-  { title: 'Principal Silicon Verification Engineer', location: 'Santa Clara, CA / Hybrid', team: 'Silicon Architecture' },
-  { title: 'Senior Linux Kernel / Rust Systems Engineer', location: 'Bengaluru / Remote', team: 'Logic-OS Core' },
-  { title: 'High-Speed PCB Hardware Designer', location: 'Zurich / On-Site', team: 'Systems Hardware' },
-  { title: 'AI Compiler Engineer (MLIR / LLVM)', location: 'Remote / US & EU', team: 'Software Tools' },
 ];
 ---
 
 <Layout
-  title="Company | About GajaLogic, Leadership & Vision"
-  description="Learn about GajaLogic: our mission to build sovereign compute infrastructure, our leadership team, engineering values, and careers."
+  title="Company | About GajaLogic, Insights & Contact"
+  description="The Gajalogic mission, thought leadership on TCO and the quantum threat, and direct enterprise channels for sales, consultations, and PoC deployments."
 >
   <PageHeader
-    eyebrow="Our Story & Mission"
-    title="Pioneering Sovereign Compute"
-    subtitle="We build high-performance computing silicon and distributed software platforms designed to operate reliably under the most demanding conditions on Earth."
-    badge="Founded on Deep Engineering"
+    eyebrow="Company"
+    title="Securing India's Digital Public Infrastructure"
+    subtitle="The Gajalogic mission for the next generation of Indian payments — and the eradication of the technical debt of the past."
+    badge="For Procurement, Executives & Press"
   >
     <div slot="actions">
-      <a
-        href="#contact"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-colors"
-      >
-        Contact Our Team
+      <a href="#sections" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Explore the Company
       </a>
-      <a
-        href="#careers"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-800 text-slate-200 hover:text-white border border-slate-700 transition-colors"
-      >
-        View Open Roles ({openRoles.length})
+      <a href={`${base}/company/contact`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Contact Sales
       </a>
     </div>
   </PageHeader>
 
-  <!-- Mission & Principles -->
-  <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="text-center max-w-2xl mx-auto mb-12">
-      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Our Foundation</h2>
-      <h3 class="text-3xl font-extrabold text-white">Core Engineering Principles</h3>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {principles.map((p, i) => (
-        <div class="glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between">
-          <div>
-            <span class="text-xs font-mono text-sky-400 font-bold mb-3 block">0{i + 1} //</span>
-            <h4 class="text-lg font-bold text-white mb-2">{p.title}</h4>
-            <p class="text-xs text-slate-300 leading-relaxed">{p.desc}</p>
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {companyMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- Leadership Team -->
-  <section id="leadership" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5 space-y-12">
-    <div class="text-center max-w-2xl mx-auto mb-8">
-      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Leadership</h2>
-      <h3 class="text-3xl font-extrabold text-white">Architects & Leaders</h3>
+  <!-- Company Sections -->
+  <section id="sections" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Company Directory</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Three Doors Into Gajalogic
+      </h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {leadership.map((l) => (
-        <div class="glass-panel rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {companySections.map((section, i) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
           <div>
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-500/20 to-indigo-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono font-bold text-xl mb-4">
-              {l.name.split(' ').map((n) => n[0]).join('')}
-            </div>
-            <h4 class="text-lg font-bold text-white mb-1">{l.name}</h4>
-            <div class="text-xs font-mono text-sky-400 mb-3">{l.role}</div>
-            <p class="text-xs text-slate-300 leading-relaxed font-light">{l.bio}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- Open Careers Section -->
-  <section id="careers" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
-    <div class="text-center max-w-2xl mx-auto mb-10">
-      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Join Our Mission</h2>
-      <h3 class="text-3xl font-extrabold text-white">Open Engineering Positions</h3>
-      <p class="text-sm text-slate-300 mt-2">Work with world-class silicon architects, kernel hackers, and distributed systems builders.</p>
-    </div>
-
-    <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 divide-y divide-slate-800">
-      {openRoles.map((role) => (
-        <div class="py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div>
-            <h4 class="text-base font-bold text-white">{role.title}</h4>
-            <div class="text-xs font-mono text-slate-400 mt-0.5">
-              <span>{role.team}</span> &bull; <span>{role.location}</span>
-            </div>
+            <span class="text-xs font-mono font-bold text-[#3e61ff] mb-3 block">0{i + 1} //</span>
+            <span class="text-xs font-mono font-bold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {section.eyebrow}
+            </span>
+            <h3 class="text-2xl font-extrabold text-[#0f1419] mb-3">
+              {section.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {section.desc}
+            </p>
           </div>
           <a
-            href="#contact"
-            class="inline-flex items-center text-xs font-semibold px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-400 hover:text-white transition-colors w-fit"
+            href={section.href}
+            class="inline-flex items-center text-sm font-bold text-[#3e61ff] group-hover:text-[#3151e6] group-hover:translate-x-1 transition-all"
           >
-            Apply Now &rarr;
+            <span>{section.linkLabel}</span>
+            <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
           </a>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- Contact Form Section -->
-  <section id="contact" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
-    <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/10">
-      <div class="text-center max-w-xl mx-auto mb-8">
-        <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Get In Touch</h2>
-        <h3 class="text-3xl font-extrabold text-white">Connect with GajaLogic</h3>
-        <p class="text-sm text-slate-300 mt-2">Schedule a confidential briefing, request evaluation silicon, or explore careers.</p>
-      </div>
-
-      <form class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you for reaching out to GajaLogic. An infrastructure architect will respond within 24 hours.');">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Full Name</label>
-            <input
-              type="text"
-              required
-              placeholder="Dr. Jane Doe"
-              class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-            />
-          </div>
-          <div>
-            <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Work Email</label>
-            <input
-              type="email"
-              required
-              placeholder="jane@enterprise.com"
-              class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-            />
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Organization / Company</label>
-            <input
-              type="text"
-              required
-              placeholder="Organization Name"
-              class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-            />
-          </div>
-          <div>
-            <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Topic of Interest</label>
-            <select class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
-              <option>Hardware Accelerator Evaluation (G4-Titan)</option>
-              <option>Edge Ruggedized Systems</option>
-              <option>Logic-OS Enterprise Clustering</option>
-              <option>Security & FIPS 140-3 Compliance Audit</option>
-              <option>Careers & Recruiting</option>
-              <option>Press & General Inquiries</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Message or Workload Specifications</label>
-          <textarea
-            rows="4"
-            required
-            placeholder="Tell us about your computational workloads, latency requirements, or cluster footprint..."
-            class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-          ></textarea>
-        </div>
-
-        <div class="text-center pt-2">
-          <button
-            type="submit"
-            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-slate-950 bg-gradient-to-r from-sky-400 to-indigo-400 hover:from-sky-300 hover:to-indigo-300 shadow-md transition-all hover:scale-105"
-          >
-            Submit Technical Inquiry
-          </button>
-        </div>
-      </form>
+  <!-- Mission Statement -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="max-w-3xl mx-auto text-center">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-4 inline-block">Mission</span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0f1419] tracking-tight leading-snug">
+        "Securing India's digital public infrastructure for the <span class="text-[#3e61ff]">next generation</span> — while eradicating the technical debt of the past."
+      </h2>
+      <p class="text-gray-500 mt-6 text-sm sm:text-base">
+        Every rupee moving over UPI, IMPS, RuPay, and NCMC deserves infrastructure that is both affordable to operate and safe to trust for decades. That combination — cost discipline and quantum-era security — is the entire company.
+      </p>
     </div>
   </section>
-</Layout>
 
+  <CtaBanner
+    title="Talk to a Payment Systems Architect"
+    subtitle="Enterprise sales, technical consultations, and PoC deployments — reach the engineers directly."
+    buttonText="Contact the Team"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="View the NPCI Product Suite"
+    secondaryHref={`${base}/products`}
+  />
+</Layout>

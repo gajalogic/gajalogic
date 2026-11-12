@@ -5,181 +5,160 @@ import CtaBanner from '../components/CtaBanner.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const certifications = [
+const complianceMetrics = [
+  { value: '2027', label: 'GoI PQC Deadline', sub: 'BFSI PQC foundations mandated' },
+  { value: 'Q-SAFE', label: 'RBI Alignment', sub: 'Committee requirements mapped' },
+  { value: 'PA-P', label: 'Authorization Ready', sub: 'Operational metrics natively supported' },
+  { value: 'CBOM', label: 'Audit Mastery', sub: 'Automated crypto asset inventory' },
+];
+
+const compliancePillars = [
   {
-    id: 'soc2',
-    code: 'SOC 2 Type II',
-    title: 'AICPA Trust Services Criteria',
-    desc: 'Audited annually by independent top-tier auditors across Security, Availability, and Confidentiality controls with zero findings.',
-    status: 'Active / Continuous Monitoring',
-    auditDate: 'Audited Q4 2026',
+    eyebrow: 'TRUST 01 // REGULATORY',
+    title: 'RBI Q-SAFE Alignment',
+    desc: 'Proactive compliance: the Gajalogic platform maps directly to the Government of India PQC Task Force deadlines mandating PQC foundations for BFSI by 2027, and to upcoming RBI Q-SAFE committee requirements.',
+    href: `${base}/compliance/rbi-qsafe`,
+    linkLabel: 'View Regulatory Alignment',
+    iconPath: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
   },
   {
-    id: 'iso27001',
-    code: 'ISO/IEC 27001:2022',
-    title: 'Information Security Management System (ISMS)',
-    desc: 'Comprehensive organizational security standard covering development lifecycle, physical datacenter controls, and cryptographic key governance.',
-    status: 'Certified / Global Scope',
-    auditDate: 'Recertified 2026',
+    eyebrow: 'TRUST 02 // AUTHORIZATION',
+    title: 'PA-P Framework',
+    desc: 'Operational readiness: validates that the system architecture and operational metrics natively support the stringent compliance and reporting requirements for physical Payment Aggregator (PA-P) authorization.',
+    href: `${base}/compliance/pa-p-framework`,
+    linkLabel: 'View the PA-P Framework',
+    iconPath: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
   },
   {
-    id: 'fips',
-    code: 'FIPS 140-3 Level 4',
-    title: 'Cryptographic Module Validation Program (CMVP)',
-    desc: 'Highest tier of hardware physical security validation featuring active physical tamper shielding and immediate automated key zeroization upon breach.',
-    status: 'NIST Certificate #4819',
-    auditDate: 'Hardware Validated',
-  },
-  {
-    id: 'hipaa',
-    code: 'HIPAA & HITECH',
-    title: 'Healthcare Patient Privacy Compliance',
-    desc: 'Ensures electronic Protected Health Information (ePHI) processed on GajaLogic nodes remains encrypted in memory, at rest, and across networks.',
-    status: 'BAA Ready',
-    auditDate: 'Verified Compliant',
-  },
-  {
-    id: 'gdpr',
-    code: 'GDPR & Sovereign Data',
-    title: 'Air-Gapped Sovereign Data Residency',
-    desc: 'No telemetry or model weights ever leave client premises. Fully compliant with EU Schrems II ruling and stringent national data sovereignty mandates.',
-    status: '100% On-Premise',
-    auditDate: 'Sovereign Guarantee',
-  },
-  {
-    id: 'eal4',
-    code: 'Common Criteria EAL4+',
-    title: 'Evaluation Assurance Level 4 Augmented',
-    desc: 'Rigorous formal design verification and independent vulnerability testing of the Logic-OS microkernel and memory virtualization layers.',
-    status: 'Targeted Evaluation',
-    auditDate: 'In Review 2026',
+    eyebrow: 'TRUST 03 // AUDIT',
+    title: 'Cryptographic Bill of Materials',
+    desc: 'Audit mastery: a clear, downloadable CBOM framework. Gajalogic inventories and secures every cryptographic asset across the network, transforming a complex risk audit into a seamless, automated reporting process.',
+    href: `${base}/compliance/cbom`,
+    linkLabel: 'View the CBOM Framework',
+    iconPath: 'M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
   },
 ];
 
-const securityPillars = [
-  {
-    title: 'Hardware Bill of Materials (HBOM)',
-    desc: 'Every integrated circuit, capacitor, and PCB trace is cryptographically signed and tracked throughout our Western-allied supply chain.',
-  },
-  {
-    title: 'Zero-Telemetry Architecture',
-    desc: 'GajaLogic nodes operate 100% air-gapped without mandatory cloud phones-home, telemetry phoning, or background license checks.',
-  },
-  {
-    title: 'Cold-Boot Attack Mitigation',
-    desc: 'Memory contents are scrambled with volatile physical unclonable function (PUF) keys that vanish within 10 nanoseconds of power loss.',
-  },
-  {
-    title: 'Firmware Attestation',
-    desc: 'Cryptographic boot measurements are stored in hardware TPM 2.0 registers to prevent unauthorized kernel rootkits or hypervisor tampering.',
-  },
+const enterpriseHygiene = [
+  { name: 'SOC 2 Type II', note: 'Annual independent audit across security, availability & confidentiality' },
+  { name: 'ISO/IEC 27001:2022', note: 'ISMS covering development lifecycle & cryptographic key governance' },
+  { name: 'FIPS 140-3 (HSM)', note: 'Validated cryptographic modules at the enterprise root of trust' },
+  { name: 'DPDP Act 2023', note: 'Data principal consent & purpose limitation aligned by design' },
 ];
 ---
 
 <Layout
-  title="Compliance & Trust | GajaLogic Sovereign Certifications"
-  description="GajaLogic compliance standards: SOC 2 Type II, ISO 27001, FIPS 140-3 Level 4, HIPAA, and sovereign air-gapped infrastructure."
+  title="Compliance & Trust Center | GajaLogic Regulatory Alignment"
+  description="RBI Q-SAFE and GoI PQC Task Force 2027 alignment, PA-P authorization readiness, and an automated Cryptographic Bill of Materials framework."
 >
   <PageHeader
-    eyebrow="Security & Governance"
-    title="Sovereign Compliance & Trust"
-    subtitle="Engineered from the silicon layer up to satisfy the strictest defense, intelligence, financial, and healthcare data sovereignty mandates."
-    badge="Enterprise Trust Center"
+    eyebrow="Compliance & Trust Center"
+    title="Proactive Compliance, Documented Trust"
+    subtitle="For CISOs, risk officers, and compliance heads: regulatory alignment mapped to mandates, authorization readiness built into operations, and audits turned into automated reports."
+    badge="For CISOs & Risk Officers"
   >
     <div slot="actions">
-      <a
-        href="#certifications"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-sky-400 text-slate-950 hover:bg-sky-300 shadow-sm transition-colors"
-      >
-        View Certifications
+      <a href="#pillars" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        Explore the Trust Center
       </a>
-      <a
-        href="#security"
-        class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-800 text-slate-200 hover:text-white border border-slate-700 transition-colors"
-      >
-        Security Architecture
+      <a href={`${base}/compliance/cbom`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Jump to CBOM
       </a>
     </div>
   </PageHeader>
 
-  <!-- Certifications Grid -->
-  <section id="certifications" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="text-center max-w-2xl mx-auto mb-12">
-      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Verified Standards</h2>
-      <h3 class="text-3xl font-extrabold text-white">Regulatory Certifications</h3>
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {complianceMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Three Trust Pillars -->
+  <section id="pillars" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Trust Deep Dives</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Three Pillars of the Trust Center
+      </h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {certifications.map((c) => (
-        <div id={c.id} class="glass-panel glass-panel-hover rounded-2xl p-7 flex flex-col justify-between border border-white/10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {compliancePillars.map((pillar) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
           <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
-                {c.code}
-              </span>
-              <span class="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                {c.status}
-              </span>
+            <div class="p-3 w-fit rounded-xl bg-blue-50 border border-blue-200 text-[#3e61ff] mb-6">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={pillar.iconPath}/>
+              </svg>
             </div>
-            <h4 class="text-lg font-bold text-white mb-2">{c.title}</h4>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
-              {c.desc}
+            <span class="text-xs font-mono font-bold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {pillar.eyebrow}
+            </span>
+            <h3 class="text-2xl font-extrabold text-[#0f1419] mb-3">
+              {pillar.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {pillar.desc}
             </p>
           </div>
-          <div class="pt-4 border-t border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400">
-            <span>{c.auditDate}</span>
-            <a href={`${base}/company#contact`} class="text-sky-400 hover:text-sky-300">Request Audit Package →</a>
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- Security Deep Dive -->
-  <section id="security" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5 space-y-12">
-    <div class="text-center max-w-2xl mx-auto mb-8">
-      <h2 class="text-xs font-mono uppercase text-sky-400 tracking-widest mb-2">Defense In Depth</h2>
-      <h3 class="text-3xl font-extrabold text-white">Hardware & Silicon Security Controls</h3>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {securityPillars.map((p) => (
-        <div class="glass-panel rounded-2xl p-6 border border-white/10">
-          <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 text-sky-400 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          <a
+            href={pillar.href}
+            class="inline-flex items-center text-sm font-bold text-[#3e61ff] group-hover:text-[#3151e6] group-hover:translate-x-1 transition-all"
+          >
+            <span>{pillar.linkLabel}</span>
+            <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-          </div>
-          <h4 class="text-base font-bold text-white mb-2">{p.title}</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">{p.desc}</p>
+          </a>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- Vulnerability Disclosure & Audit Report Access -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
-    <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/10 bg-slate-900/50 flex flex-col md:flex-row items-center justify-between gap-8">
-      <div>
-        <h3 class="text-2xl font-bold text-white mb-2">Request Auditor Reports & SOC 3</h3>
-        <p class="text-sm text-slate-300 max-w-xl">
-          Authorized enterprise risk officers, compliance assessors, and CISOs can request our complete third-party audit reports and penetration testing summaries under NDA.
-        </p>
-      </div>
-      <a
-        href={`${base}/company#contact`}
-        class="shrink-0 px-6 py-3 rounded-xl text-sm font-semibold bg-sky-400 text-slate-950 hover:bg-sky-300 transition-colors"
-      >
-        Request Compliance Documentation
-      </a>
+  <!-- Enterprise Hygiene -->
+  <section id="certifications" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-[#3e61ff] mb-2">Enterprise Hygiene</h2>
+      <h3 class="text-3xl font-extrabold text-[#0f1419] tracking-tight">
+        Baseline Certifications
+      </h3>
+      <p class="text-gray-500 mt-2 text-sm sm:text-base">
+        Regulatory-specific programs sit on top of a disciplined baseline. Audit packages are available under NDA.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {enterpriseHygiene.map((c) => (
+        <div class="unibase-card p-6">
+          <div class="flex items-center justify-between mb-3">
+            <span class="mono-tag">{c.name}</span>
+            <span class="text-[11px] font-mono text-emerald-600 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              Active
+            </span>
+          </div>
+          <p class="text-xs text-gray-600 leading-relaxed">{c.note}</p>
+        </div>
+      ))}
     </div>
   </section>
 
   <CtaBanner
-    title="Require Custom Government or Sovereign Accreditation?"
-    subtitle="Our dedicated security compliance team collaborates with national defense and governmental bodies on bespoke security requirements."
-    buttonText="Schedule Security Briefing"
+    title="Request the Full Audit Package"
+    subtitle="Risk officers and CISOs can request regulator-aligned documentation, the CBOM export format, and the PA-P operational metrics pack under NDA."
+    buttonText="Request Compliance Documentation"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="View Developer Resources"
+    secondaryHref={`${base}/developers`}
   />
 </Layout>
-

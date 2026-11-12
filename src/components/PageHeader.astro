@@ -9,32 +9,26 @@ interface Props {
 const { eyebrow, title, subtitle, badge } = Astro.props;
 ---
 
-<section class="relative pt-12 pb-16 md:pt-16 md:pb-24 overflow-hidden border-b border-white/5">
-  <!-- Ambient background glow -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-sky-500/10 blur-[100px] rounded-full"></div>
-    <div class="absolute top-0 right-1/4 w-[400px] h-[250px] bg-indigo-500/10 blur-[90px] rounded-full"></div>
-  </div>
-
+<section class="relative pt-12 pb-16 md:pt-16 md:pb-20 overflow-hidden border-b border-[#dadcdf]">
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     {badge && (
-      <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full text-xs font-medium bg-sky-500/10 text-sky-400 border border-sky-500/20 shadow-sm">
-        <span class="inline-block w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+      <div class="inline-flex items-center gap-2 px-3 py-1 mb-5 rounded-full text-xs font-semibold bg-blue-50 text-[#3e61ff] border border-blue-200 shadow-sm">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#3e61ff]"></span>
         {badge}
       </div>
     )}
 
     {eyebrow && (
-      <p class="text-xs sm:text-sm font-mono font-medium tracking-widest text-sky-400 uppercase mb-3">
+      <p class="text-xs sm:text-sm font-mono font-bold tracking-widest text-[#3e61ff] uppercase mb-3">
         {eyebrow}
       </p>
     )}
 
-    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 max-w-4xl mx-auto leading-tight">
+    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0f1419] mb-5 max-w-4xl mx-auto leading-tight">
       {title}
     </h1>
 
-    <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
+    <p class="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto font-normal leading-relaxed">
       {subtitle}
     </p>
 
@@ -43,4 +37,3 @@ const { eyebrow, title, subtitle, badge } = Astro.props;
     </div>
   </div>
 </section>
-

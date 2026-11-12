@@ -17,27 +17,37 @@ const footerSections = [
     title: 'Platform',
     links: [
       { name: 'Architecture Overview', href: `${base}/platform` },
-      { name: 'Distributed Sagas', href: `${base}/platform#runtime` },
-      { name: 'Hardware Acceleration', href: `${base}/hardware` },
-      { name: 'Crypto-Agility Engine', href: `${base}/platform` },
+      { name: 'Crypto-Agility Engine', href: `${base}/platform/crypto-agility` },
+      { name: 'Cloud-Native Ledgers', href: `${base}/platform/cloud-native-ledgers` },
+      { name: 'Immutable Settlement Journals', href: `${base}/platform/cloud-native-ledgers#ledger` },
+    ],
+  },
+  {
+    title: 'Hardware',
+    links: [
+      { name: 'OpenCPU Soundbox', href: `${base}/hardware/opencpu-soundbox` },
+      { name: 'Enterprise HSM', href: `${base}/hardware/enterprise-hsm` },
+      { name: 'BLE Contactless', href: `${base}/hardware/ble-contactless` },
+      { name: 'Edge Security Overview', href: `${base}/hardware` },
     ],
   },
   {
     title: 'Resources',
     links: [
-      { name: 'Documentation', href: `${base}/developers` },
-      { name: 'API Reference', href: `${base}/developers#api` },
-      { name: 'Python & Rust SDKs', href: `${base}/developers#sdks` },
-      { name: 'PQC Migration Sandbox', href: `${base}/developers` },
+      { name: 'Documentation', href: `${base}/developers/docs` },
+      { name: 'API Reference', href: `${base}/developers/docs#api` },
+      { name: 'Architecture Blueprints', href: `${base}/developers/architecture` },
+      { name: 'PQC Migration Sandbox', href: `${base}/developers/sandbox` },
+      { name: 'CBOM Framework', href: `${base}/compliance/cbom` },
     ],
   },
   {
     title: 'Company',
     links: [
-      { name: 'About Us', href: `${base}/company#about` },
-      { name: 'Leadership & Team', href: `${base}/company#leadership` },
+      { name: 'About Us', href: `${base}/company/about` },
+      { name: 'Insights', href: `${base}/company/insights` },
+      { name: 'Contact Sales', href: `${base}/company/contact` },
       { name: 'Compliance & Trust', href: `${base}/compliance` },
-      { name: 'Contact Sales', href: `${base}/company#contact` },
     ],
   },
 ];
@@ -45,8 +55,8 @@ const footerSections = [
 
 <footer class="mt-auto border-t border-[#dadcdf] bg-white text-gray-600 text-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
-      
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-8 mb-12">
+
       <!-- Brand & Status Column -->
       <div class="col-span-2 md:col-span-3 lg:col-span-2 space-y-4">
         <a href={`${base}/`} class="flex items-center gap-2.5">
@@ -57,16 +67,10 @@ const footerSections = [
             Gaja<span class="text-[#3e61ff]">Logic</span>
           </span>
         </a>
-        
-        <p class="text-xs text-gray-500 leading-relaxed max-w-sm">
-          Open quantum-safe payment infrastructure for high-throughput national rails. Sub-millisecond distributed sagas, in-memory core banking offloading, and post-quantum encryption.
-        </p>
 
-        <!-- Live Status Pill -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          All Payment Switches Operational
-        </div>
+        <p class="text-xs text-gray-500 leading-relaxed max-w-sm">
+          Quantum-safe, NPCI-native payment infrastructure. High-throughput UPI and IMPS switches embedded with post-quantum cryptography, event-driven ledgers, and sovereign root of trust.
+        </p>
       </div>
 
       <!-- Links Columns -->
@@ -98,7 +102,7 @@ const footerSections = [
       <div class="flex items-center space-x-6">
         <a href={`${base}/compliance`} class="hover:text-gray-600 transition-colors">Privacy Policy</a>
         <a href={`${base}/compliance`} class="hover:text-gray-600 transition-colors">Terms of Service</a>
-        <a href={`${base}/compliance#security`} class="hover:text-gray-600 transition-colors">Security Disclosure</a>
+        <a href={`${base}/compliance/cbom`} class="hover:text-gray-600 transition-colors">Security Disclosure</a>
       </div>
     </div>
   </div>

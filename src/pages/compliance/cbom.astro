@@ -1,0 +1,174 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const cbomMetrics = [
+  { value: '100%', label: 'Crypto Asset Coverage', sub: 'Every key, cert & algorithm inventoried' },
+  { value: 'Automated', label: 'Report Generation', sub: 'Risk audit as an export, not a project' },
+  { value: '12-24 mo', label: 'Migration Roadmap', sub: 'Discovery to full PQC deployment' },
+  { value: '0', label: 'Downtime Migration', sub: 'NPCI interoperability preserved' },
+];
+
+const cbomModules = [
+  {
+    step: 'Module 01 // Continuous Inventory',
+    title: 'Every Cryptographic Asset, Auto-Registered',
+    desc: 'Keys, certificates, algorithm versions, and HSM partitions register themselves in the CBOM as they are created or rotated. The inventory is continuous — not a quarterly snapshot that is stale the day after the audit.',
+    tech: ['Self-Registering Assets', 'Continuous Rotation Tracking', 'HSM Partition Mapping'],
+  },
+  {
+    step: 'Module 02 // Audit Mastery',
+    title: 'The Risk Audit Becomes an Export',
+    desc: 'Quantum-readiness assessments fail on the same step: nobody knows exactly which algorithms are running where. The CBOM answers authoritatively, in a downloadable, machine-readable format your risk team can diff between audit cycles.',
+    tech: ['Downloadable CBOM Export', 'Machine-Readable Format', 'Audit-Cycle Diffing'],
+  },
+  {
+    step: 'Module 03 // Phased Migration Roadmap',
+    title: 'Discovery to Full PQC in 12-24 Months',
+    desc: 'The pragmatic framework moves banks through discovery, centralized key management, hybrid parallel operation, and full PQC deployment — each phase gated by CBOM evidence so regulators and boards see objective progress.',
+    tech: ['Phase-Gated Evidence', 'Board-Ready Reporting', 'Objective Exit Criteria'],
+  },
+  {
+    step: 'Module 04 // Zero-Downtime Discipline',
+    title: 'NPCI Interop at Every Phase Boundary',
+    desc: 'Cryptographic migration fails when it breaks a counterparty. The CBOM tracks interop capability per rail and counterparty, so no migration step removes a cipher any NPCI rail still requires.',
+    tech: ['Interop Capability Matrix', 'Counterparty Tracking', 'Additive-Only Migration'],
+  },
+];
+
+const cbomSample = `{
+  "cbom_version": "1.2",
+  "generated": "2026-11-12T09:30:00Z",
+  "scope": "gajalogic-fabric/production",
+  "algorithms": [
+    { "id": "ML-KEM-768",  "standard": "FIPS 203", "role": "kex",    "status": "active" },
+    { "id": "ML-DSA-65",   "standard": "FIPS 204", "role": "sig",    "status": "active" },
+    { "id": "SLH-DSA-128s","standard": "FIPS 205", "role": "sig",    "status": "standby" },
+    { "id": "RSA-2048",    "standard": "legacy",   "role": "interop", "status": "active" }
+  ],
+  "key_sources": [
+    { "hsm": "Thales Luna Network", "entropy": "QRNG + TRNG", "fips": "140-3 L3" }
+  ],
+  "interop_guards": ["upi", "imps", "rupay", "ncmc"]
+}`;
+---
+
+<Layout
+  title="CBOM Framework | GajaLogic Cryptographic Bill of Materials"
+  description="A clear, downloadable CBOM framework: every cryptographic asset inventoried and secured, transforming complex risk audits into automated reporting."
+>
+  <PageHeader
+    eyebrow="Compliance & Trust // Audit"
+    title="Cryptographic Bill of Materials (CBOM)"
+    subtitle="Audit mastery: a clear, downloadable CBOM framework that inventories and secures every cryptographic asset across the network — turning a complex risk audit into automated reporting."
+    badge="Audit Mastery // Automated"
+  >
+    <div slot="actions">
+      <a href="#modules" class="btn-unibase-primary !py-2.5 !px-5 !text-sm">
+        View the Framework
+      </a>
+      <a href={`${base}/compliance/rbi-qsafe`} class="btn-unibase-secondary !py-2.5 !px-5 !text-sm">
+        Next: Migration Roadmap
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Metric Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+    <div class="unibase-card p-6 sm:p-8 shadow-sm">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-[#dadcdf]">
+        {cbomMetrics.map((m) => (
+          <div class="pt-4 lg:pt-0 lg:px-4 text-center sm:text-left">
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3e61ff] block mb-1">{m.label}</span>
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-[#0f1419] tracking-tight">{m.value}</div>
+            <p class="text-xs text-gray-500 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CBOM Modules -->
+  <section id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="mono-tag font-semibold uppercase tracking-wider mb-2 inline-block">Audit Framework</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0f1419] tracking-tight mt-2">
+        Know Exactly What Cryptography You Are Running
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {cbomModules.map((m) => (
+        <div class="unibase-card p-8 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3e61ff]/0 group-hover:via-[#3e61ff]/40 to-transparent transition-all duration-500"></div>
+          <div>
+            <span class="text-xs font-mono font-semibold text-[#3e61ff] uppercase tracking-wider block mb-2">
+              {m.step}
+            </span>
+            <h3 class="text-2xl font-bold text-[#0f1419] mb-3">
+              {m.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              {m.desc}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#dadcdf]">
+            {m.tech.map((t) => (
+              <span class="mono-tag text-[11px]">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Sample CBOM Export -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#dadcdf]">
+    <div class="unibase-card p-8 sm:p-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="mono-tag font-semibold uppercase">Export Format // Machine-Readable</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0f1419] tracking-tight">
+            The Export Your Risk Team Asks For
+          </h3>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            The CBOM exports as structured JSON covering the algorithm inventory, key provenance (HSM estates and entropy sources), and the interoperability guards that keep every NPCI rail safe during migration.
+          </p>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            Diff two exports across an audit cycle and the cryptographic posture of your estate is legible at a glance — the artifact regulators, boards, and quantum-risk assessors actually want.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono text-gray-500">
+            <span class="flex items-center gap-1.5 text-[#3e61ff]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Generated from live fabric state, not surveys
+            </span>
+            <span class="flex items-center gap-1.5 text-emerald-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Available under NDA with the audit package
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-gray-50 rounded-2xl p-6 border border-[#dadcdf] font-mono text-[11px] text-gray-700 overflow-x-auto">
+          <div class="flex items-center justify-between pb-2 border-b border-[#dadcdf] text-gray-500 mb-3">
+            <span>cbom_export.json</span>
+            <span class="text-emerald-600">LIVE FABRIC STATE</span>
+          </div>
+          <pre class="leading-relaxed"><code>{cbomSample}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Turn Your Next Quantum-Risk Audit Into an Export"
+    subtitle="Request a sample CBOM from the sandbox fabric and a walk-through of the phased 12-24 month migration framework."
+    buttonText="Request a Sample CBOM"
+    buttonHref={`${base}/company/contact`}
+    secondaryText="View RBI Q-SAFE Alignment"
+    secondaryHref={`${base}/compliance/rbi-qsafe`}
+  />
+</Layout>
