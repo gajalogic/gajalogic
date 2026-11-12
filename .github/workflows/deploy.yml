@@ -41,11 +41,11 @@ jobs:
         run: npm ci
 
       - name: Build with Astro
-        # Pass site URL and base path automatically from GitHub Pages config if needed
+        # astro.config.mjs defaults are pinned to the custom domain
+        # (site: https://gajalogic.com, base: '/'). Do NOT pass Pages'
+        # site/base_path outputs here — a project-site subpath would
+        # break the custom-domain deployment.
         run: npm run build
-        env:
-          SITE_URL: ${{ steps.pages.outputs.origin }}
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
